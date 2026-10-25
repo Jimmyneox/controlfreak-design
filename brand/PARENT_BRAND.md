@@ -1,9 +1,9 @@
 # Control Freak — parent brand rules (lockup & co-brand)
 
 **Owner:** Control Freak Pool bot (public site / parent brand: controlfreakpool.com)  
-**Audience:** Control Freak Platform (per-product skins, enclosures, apps, brochures, marketing in `controlfreak-platform`)  
-**Status:** v1.1 — 2026-10-25 (adopts owner-supplied line masters)  
-**Intent:** Each product gets its own identity. All products stay tied by one hero lockup: **“brought to you by Control Freak”** — layered brand, look of corporate scale. Product skins must nest under this parent without fighting the pool brand.
+**Audience:** Control Freak Design (`controlfreak-design`), Control Freak Platform (product UX/materials), and anyone shipping product apps/sites under the parent lockup  
+**Status:** v1.2 — 2026-10-25 (product sites/apps diverge from pool site)  
+**Intent:** Each product gets its own identity — **including its own website, app, colors, look, and feel** aimed at that industry’s audience. Those surfaces are **not** reskins of controlfreakpool.com. All products stay tied only by the hero lockup: **“brought to you by Control Freak”** — layered brand, look of corporate scale. Nest under the parent company mark; do not clone the pool site’s Resort visual system onto other industries.
 
 ---
 
@@ -11,11 +11,13 @@
 
 | Layer | What it is | Who owns it |
 |---|---|---|
-| **Parent** | Control Freak (company / platform brand) | Control Freak Pool bot + controlfreakpool.com |
-| **Product** | Named line (Reef, Basement, Reptile, Plunge, …) with its own mark, accent use, enclosure skin, app theme, brochure | Platform (`design/brand/`, product folders) |
-| **Lockup** | Product mark + “brought to you by Control Freak” + parent mark | Shared rules below; Platform implements on skins/materials; parent site uses same |
+| **Parent / pool** | Control Freak company brand + the **pool** marketing site (controlfreakpool.com) — Resort look (ivory / lagoon / brass) | Control Freak Pool (launch/ops) + Control Freak Design (site/lockup production on `controlfreak-design`) |
+| **Product** | Named line (Reef, Basement, Reptile, Plunge, …) with its **own** mark, color scheme, look & feel, enclosure skin, **app**, **product website**, brochures, and marketing — tuned to that industry’s audience | Platform (product UX/materials) + Design (public design production as assigned); **not** a clone of the pool site |
+| **Lockup** | Product mark + “brought to you by Control Freak” + parent line mark | Shared rules below; required on product customer-facing surfaces |
 
-Products never pretend to be unrelated companies. Buyers should feel “this is a Control Freak product for [hobby],” not “a separate brand that happens to use our board.”
+**James (2026-10-25):** Apps and websites for these products will look and feel different from the pool website — different color schemes, different visual systems — because each targets a different industry audience. The shared piece is the parent lockup / company mark, not the pool site’s palette or layout.
+
+Products never pretend to be unrelated companies. Buyers should feel “this is a Control Freak product for [hobby],” not “the pool website with a different logo,” and not “a separate company that happens to use our board.”
 
 ---
 
@@ -49,21 +51,21 @@ Product drafts (Platform until James locks): see `design/brand/PRODUCT_MARKS.md`
 | Cream | `#efe9df` |
 | Gold | `#a8834f` (accent mark only) |
 
-### Soft-UI / product chrome (unchanged — apps, floating pages)
+### Soft-UI chrome (optional — only where a product still uses that system)
 
-Align with `design/STYLE.md` and `design/CHATGPT_HANDOFF.md`:
+Some early Platform product pages used a shared soft-UI kit (`design/STYLE.md` / `CHATGPT_HANDOFF.md` in controlfreak-platform). That kit is **not** required for every product app or website. New product sites and apps should pick colors and UI language for **their** audience.
 
 | Role | Hex | Notes |
 |---|---|---|
-| Navy | `#12355B` | App text, soft-UI outlines |
-| Aqua | `#19B3C9` | Soft-UI accent (“on,” active). Gradient `#2CCBE0 → #19B3C9 → #0E8FA6` for buttons |
-| Cool grey bg | `#E9EEF4` | Soft-UI surfaces |
-| Label slate | `#6F8BAB` | Small uppercase labels + “brought to you by” line on light UI |
+| Navy | `#12355B` | Soft-UI text/outlines when that kit is in use |
+| Aqua | `#19B3C9` | Soft-UI accent when that kit is in use |
+| Cool grey bg | `#E9EEF4` | Soft-UI surfaces when that kit is in use |
+| Label slate | `#6F8BAB` | Useful for the “brought to you by” line on light grounds |
 | Coral | `#FF6B4A` | Warnings only |
 
-**Rule:** Logo lockups use forest/cream/gold. Soft-UI screens keep navy/aqua. Do not recolor the parent line mark to aqua, coral, or a product accent. On soft-UI pages, place the forest-on-cream (or cream-on-forest) mark on a contrasting plate if needed.
+**Rule:** Logo lockups always use forest/cream/gold (or `currentColor` flats). Never recolor the parent line mark to a product accent, aqua, or coral. On whatever ground the product site uses, put the parent mark on a contrasting plate if needed.
 
-**Product accents:** OK inside a product’s own UI/theme only if system chrome and the lockup stay on the palettes above.
+**Product visual systems:** Full freedom for industry-specific palettes, typography, and layout on product apps and product websites. Do not reuse the pool site’s Resort ivory/lagoon/brass system as a default for non-pool products. The only mandatory shared brand element is the lockup (§5).
 
 ---
 
@@ -141,7 +143,7 @@ Never scale the parent mark smaller than 20 px tall when the attribution line is
 
 ## 7. Co-brand don’ts
 
-1. **Don’t fight the pool brand.** Product themes may swap illustration and accent *inside the app*, but parent mark colors and lockup stay on the mark + soft-UI palettes above.  
+1. **Don’t clone the pool site onto other industries.** Product apps and websites should look different from controlfreakpool.com (colors, layout, feel). Still don’t fight the *parent company* mark: lockup + forest/cream/gold line mark rules stay.  
 2. **Don’t invent a second company logo** that competes with Control Freak. Product marks mirror the PCB frame (see `PRODUCT_MARKS.md`) — same weight, vias, rounded outline — not competing badges.  
 3. **Don’t recolor, stretch, rotate, add drop shadows, or put effects on** the metallic hero or line masters (except `currentColor` / published forest/cream/gold flats).  
 4. **Don’t crop** the ladder, wave, or via pads off the parent mark.  
