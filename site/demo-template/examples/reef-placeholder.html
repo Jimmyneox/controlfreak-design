@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PLACEHOLDER — Reef Control Pro demo</title>
+<!-- PLACEHOLDER: not a real product brief. Only CSS vars + placeholder strings differ from demo.html. -->
+<link rel="stylesheet" href="../demo.css">
+<style>
+body{margin:0;background:#04222e}
+.cfd-device{--cfd-accent:#ff7a5c;--cfd-surface:#062f3d;--cfd-surface-2:#0b4152;--cfd-text:#e8fbff;--cfd-muted:#7fb3c0;--cfd-ok:#4ee6c4;--cfd-warn:#ffd166;--cfd-radius:24px;--cfd-font:"Avenir Next","Trebuchet MS",sans-serif;--cfd-bezel:#011219}
+</style>
+<script>
+window.CFD_CONFIG={product:"Reef Control Pro (PLACEHOLDER)",
+ readouts:[{label:"Readout A — TBD by Platform",unit:"",min:0,max:100,value:60,jitter:1},
+  {label:"Readout B — TBD",unit:"%",min:0,max:100,value:35,jitter:2},
+  {label:"Readout C — TBD",unit:"",min:0,max:10,value:4,jitter:.2},
+  {label:"Readout D — TBD",unit:"",min:0,max:1000,value:500,jitter:10}],
+ controls:[{label:"Control 1 (TBD)",on:true},{label:"Control 2 (TBD)",on:false},{label:"Control 3 (TBD)",on:true},{label:"Control 4 (TBD)",on:false}],
+ notify:{label:"Placeholder alert",channels:["Push","Text","Email","Alarm"]}};
+</script></head><body>
+<p style="color:#ffd166;text-align:center;font:600 12px sans-serif;letter-spacing:.1em">PLACEHOLDER EXAMPLE — NOT A PRODUCT BRIEF</p>
+  <div class="cfd-device" aria-label="Product demo simulation">
+    <div class="cfd-screen">
+      <header class="cfd-header">
+        <div class="cfd-product">PLACEHOLDER Product</div>
+        <div class="cfd-badges"><span class="cfd-badge"><span class="cfd-dot"></span>Connected (sim)</span><span class="cfd-badge cfd-badge--sim">Simulation</span></div>
+      </header>
+      <section class="cfd-readouts" aria-label="Readouts"></section>
+      <section class="cfd-controls" aria-label="Controls"></section>
+      <div class="cfd-notify"><span></span><button type="button">Preview</button></div>
+      <div class="cfd-toast" role="status"></div>
+      <footer class="cfd-footer">
+        <img src="../../../lockups/product/brought-to-you-by-control-freak-horizontal-light.svg" alt="brought to you by Control Freak">
+        <div class="cfd-disclaimer">Marketing simulation. Fake data. Not the real app.</div>
+      </footer>
+    </div>
+  </div>
+<script src="../demo.js"></script></body></html>

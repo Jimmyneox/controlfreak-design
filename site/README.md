@@ -62,3 +62,7 @@ site/
 - `RESORT_DIRECTION.md`: not recoverable. The tokens above are inferred from the live CSS only.
 - Cloudflare Pages config/project name: unknown. Pending a decision from James. Build output dir = `site/dist`, command `python3 site/build.py`.
 - Live `/assets/fonts/OFL.txt` (and LICENSE.txt) return 404. The OFL texts were re-added from google/fonts (`ofl/cormorantgaramond`, `ofl/jost`), and the next deploy will serve them.
+
+## Product demo template
+
+Reusable themable in-site demo chrome for all product sites (marketing simulation only): [`demo-template/`](demo-template/README.md).
