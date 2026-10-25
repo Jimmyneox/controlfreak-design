@@ -5,7 +5,7 @@ R = pathlib.Path(__file__).resolve().parents[2]
 OUT = R/"brand/app-icons"
 SETS = {
  "parent": dict(src=R/"brand/parent-company/control-freak-parent-mark-navy.svg", ink="#03204D", bg="#FFFFFF", name="Control Freak"),
- "pool":   dict(src=R/"brand/masters/control-freak-mark-forest.svg", ink="#0f2e2c", bg="#efe9df", name="Control Freak Pool"),
+ "pool":   dict(src=R/"brand/masters/control-freak-mark-icon.svg", ink="#0f2e2c", bg="#efe9df", name="Control Freak Pool"),
 }
 def render(svg, size, bg=None, pad=0.0):
     inner = round(size*(1-2*pad))

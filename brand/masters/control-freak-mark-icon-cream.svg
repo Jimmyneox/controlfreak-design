@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 994 906" role="img" aria-label="Control Freak mark">
+  <title>Control Freak mark</title>
+  <rect x="30" y="122" width="934" height="762" rx="150" fill="none" stroke="#efe9df" stroke-width="24.0"/>
+  <path d="M106,372 V268 Q106,206 168,206 H500" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+  <path d="M726,206 H826 Q888,206 888,268 V372" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+  <path d="M106,578 V730 Q106,792 168,792 H440" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+  <path d="M554,792 H826 Q888,792 888,730 V578" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+  <circle cx="106" cy="384" r="18" fill="#efe9df"/>
+  <circle cx="888" cy="384" r="18" fill="#efe9df"/>
+  <circle cx="106" cy="566" r="18" fill="#efe9df"/>
+  <circle cx="888" cy="566" r="18" fill="#efe9df"/>
+  <circle cx="497" cy="790" r="22" fill="#efe9df"/>
+  <rect x="168" y="262" width="660" height="104" rx="52" fill="none" stroke="#efe9df" stroke-width="20"/>
+  <path d="M234,314 H500" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+  <path d="M530,300 V58 A38,38 0 0 1 606,58 V78" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+  <path d="M696,300 V58 A38,38 0 0 1 772,58 V78" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+  <path d="M530,206 H696" fill="none" stroke="#efe9df" stroke-width="20"/>
+  <path d="M210.0,712.0 C236.4,733.3 256.1,733.3 282.5,712.0 C308.9,690.7 328.6,690.7 355.0,712.0 C381.4,733.3 401.1,733.3 427.5,712.0 C453.9,690.7 473.6,690.7 500.0,712.0 C526.4,733.3 546.1,733.3 572.5,712.0 C598.9,690.7 618.6,690.7 645.0,712.0 C671.4,733.3 691.1,733.3 717.5,712.0 C743.9,690.7 763.6,690.7 790.0,712.0" fill="none" stroke="#efe9df" stroke-width="20" stroke-linecap="round"/>
+</svg>

@@ -10,3 +10,7 @@ Each set: `favicon.svg`, `favicon.ico` (16/32/48), `favicon-{16,32,48}x*.png`, `
 Rebuild: `python3 brand/app-icons/build_icons.py` (needs cairosvg + Pillow).
 
 Note: the pool line mark includes the wordmark; at 16–32 px it reads as a framed shape only.
+
+## Pool favicons: mark-only
+
+The pool set is built from `brand/masters/control-freak-mark-icon.svg` (forest on cream), a mark-only master with the CONTROL FREAK wordmark removed so the icon stays legible at 16–32px. Cream and currentColor variants: `control-freak-mark-icon-cream.svg`, `control-freak-mark-icon-currentColor.svg`. Parent icons are unchanged.
