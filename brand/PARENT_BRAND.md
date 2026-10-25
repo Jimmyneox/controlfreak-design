@@ -3,7 +3,7 @@
 **Owner (change control):** Control Freak Pool bot  
 **Production:** Control Freak Design (`Jimmyneox/controlfreak-design`)  
 **Audience:** Design, Platform, and anyone shipping company / pool / product surfaces  
-**Status:** v1.3 — 2026-10-25 (**parent company ≠ pool division**)  
+**Status:** v1.3 — 2026-10-25 (**parent company ≠ pool division**; product lockups = parent teardrop, confirmed)**  
 
 **James (2026-10-25):** The navy **teardrop + horizontal CONTROL FREAK wordmark** is the **parent company** logo. The forest/cream/gold **PCB + ladder + wave** line mark (and metallic hero badge) is the **pool division** mark — not the parent company mark. Product apps/sites stay industry-specific and are not reskins of controlfreakpool.com.
 
@@ -88,14 +88,13 @@ Navy `#12355B`, aqua `#19B3C9`, grey `#E9EEF4`, slate `#6F8BAB`, coral `#FF6B4A`
 
 Horizontal footer variant allowed; keep attribution + company mark as one group.
 
-### Which mark? (open — James)
+### Which mark? (**confirmed James 2026-10-25 — A**)
 
-| Option | Mark in the lockup |
-|---|---|
-| **A (default pending confirmation)** | **Parent company** teardrop + wordmark — products attribute to the company |
-| **B** | Pool-division line mark — only if James wants products to point at the pool division |
+Product “brought to you by Control Freak” lockups use the **parent company teardrop + horizontal wordmark** — not the pool-division PCB line mark.
 
-**Holding:** do not ship the forest/cream/gold PCB lockup pack as the **parent** lockup. Pool-division lockup packs may still exist for pool-only materials. Design is digitizing the parent JPG; product lockup packs wait on James’s A/B call.
+Pool line marks stay on **controlfreakpool.com** chrome and pool-only materials. Do not ship the forest/cream/gold PCB lockup pack as the company / product attribution lockup.
+
+Design digitizes the parent JPG → SVG under `brand/parent-company/` and rebuilds product lockup packs from those masters.
 
 ### Copy
 - Exact: **brought to you by Control Freak**  
@@ -137,10 +136,10 @@ Horizontal footer variant allowed; keep attribution + company mark as one group.
 | Item | Owner |
 |---|---|
 | Digitize parent JPG → SVG / reverse | Design (in progress) |
-| James: product lockups use parent teardrop (A) or pool line mark (B)? | James via Design |
-| Pool site rebuild from `site/_mirror/` + line marks in chrome | Design (local commit held for push OK) |
-| Composed lockup packs (parent + optional pool-only) | Design after A/B |
-| Favicons | Pool site → pool line mark; corporate → parent teardrop once digitized |
+| Product lockups = parent teardrop (A) | **Confirmed** — Design rebuilding packs |
+| Pool site rebuild from `site/_mirror/` + pool line marks in chrome | Design (local commit held for push OK) |
+| Composed lockup packs (parent company for products; pool-only packs separate) | Design after parent SVG digitize |
+| Favicons | Pool site → pool line mark; corporate / product attribution → parent teardrop once digitized |
 
 ---
 
