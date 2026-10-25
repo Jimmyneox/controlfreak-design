@@ -37,3 +37,28 @@ Missing from the mirror (not on the live host): `RESORT_DIRECTION.md` and any pr
 - Lagoon `#0f2e2c` / `#163f3c`
 - Brass `#a8834f` / deep `#7d5f33` / light `#d2b789`
 - Type: Cormorant Garamond (serif) + Jost (sans), self-hosted SIL OFL
+
+## Source tree (rebuild, 2026-10-25)
+
+```
+site/
+  _mirror/            recovery reference: untouched pull of live deploy (do not edit)
+  src/
+    pages/            index, dealer, app, how-it-works (from mirror; chrome brand → partial)
+    partials/brand.html   shared logo + wordmark link used in nav + footer
+    assets/           mirror assets + controller-408.webp (was missing from mirror)
+    assets/brand/     line masters copied from brand/masters/ (forest/cream/gold/currentColor)
+    assets/fonts/     woff2 + OFL-cormorantgaramond.txt, OFL-jost.txt
+    favicon*, apple-touch-icon.png
+  build.py            python3 site/build.py → site/dist/ (deploy dir; gitignored)
+```
+
+- Chrome marks: `.logo` CSS-masks `/assets/brand/control-freak-mark-currentColor.svg`, filled with `--brass` `#a8834f` (parent gold). Same geometry as the old `logo-mark-small.svg`. Metallic hero is not used in chrome. Never recolor the line mark to aqua/coral.
+- `app.html` has no nav/footer chrome, so it has no mark slot.
+- Product demos: a reusable in-site demo pattern comes later.
+
+## Open gaps
+
+- `RESORT_DIRECTION.md`: not recoverable. The tokens above are inferred from the live CSS only.
+- Cloudflare Pages config/project name: unknown. Pending a decision from James. Build output dir = `site/dist`, command `python3 site/build.py`.
+- Live `/assets/fonts/OFL.txt` (and LICENSE.txt) return 404. The OFL texts were re-added from google/fonts (`ofl/cormorantgaramond`, `ofl/jost`), and the next deploy will serve them.

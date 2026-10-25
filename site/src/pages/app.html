@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="canonical" href="https://controlfreakpool.com/app">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#0f2e2c">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Control Freak">
+<meta property="og:url" content="https://controlfreakpool.com/app">
+<meta property="og:title" content="Try the Control Freak app | Interactive demo">
+<meta property="og:description" content="Tap through the Control Freak app: pool, lights, schedules, devices and settings. A demo in your browser; it controls nothing.">
+<meta property="og:image" content="https://controlfreakpool.com/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try the Control Freak app | Interactive demo</title>
+<meta name="description" content="Tap through the Control Freak app: pool, lights, schedules, devices and settings. A demo in your browser; it controls nothing.">
+<meta name="color-scheme" content="light">
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/cormorant-500.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/jost-400.woff2" crossorigin>
+<style>
+/* Self-hosted Latin subsets of the Google Fonts originals (SIL OFL, licences in /assets/fonts/); no third-party requests. */
+@font-face{font-family:"Cormorant Garamond";font-style:normal;font-weight:500;font-display:swap;src:url("/assets/fonts/cormorant-500.woff2") format("woff2")}
+@font-face{font-family:"Cormorant Garamond";font-style:italic;font-weight:500;font-display:swap;src:url("/assets/fonts/cormorant-500i.woff2") format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:400;font-display:swap;src:url("/assets/fonts/jost-400.woff2") format("woff2")}
+@font-face{font-family:"Jost";font-style:normal;font-weight:500;font-display:swap;src:url("/assets/fonts/jost-500.woff2") format("woff2")}
+/*
+  App demo page. Same "Resort" direction as the homepage: ivory page, lagoon bands, brass hairlines,
+  2px radius on controls, 4px on surfaces, no shadows, no blue UI. The phone mirrors the native app's
+  five tabs in its Day and Night looks. Everything is local state: nothing is sent anywhere.
+*/
+:root{
+  --ivory:#fbfaf7;--sand:#ebe5da;--ink:#1c201e;--ink-soft:#4a514d;--lagoon:#0f2e2c;--lagoon-2:#163f3c;
+  --brass:#a8834f;--brass-deep:#7d5f33;--brass-light:#d2b789;--mist:#efe9df;--mist-soft:#c9c6bb;
+  --hair:color-mix(in srgb,var(--brass) 40%,transparent);
+  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --sans:"Jost",ui-sans-serif,system-ui,sans-serif;
+  --ease:cubic-bezier(.22,.61,.36,1);--r:2px;--r-surface:4px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--ivory);color:var(--ink);font:400 1rem/1.6 var(--sans);accent-color:var(--brass)}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--lagoon);outline-offset:2px}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Page: the demo fills the screen. On a computer the phone sits centred on lagoon; on a phone it is the whole screen. */
+html,body{height:100%}
+body{background:var(--lagoon)}
+.stage{min-height:100dvh;display:grid;place-items:center;align-content:center;gap:14px;padding:24px 16px}
+.caption{font:400 .82rem/1.4 var(--sans);color:var(--mist-soft);text-align:center;max-width:400px}
+.caption a{color:var(--brass-light)}
+.fine{font-size:.74rem;line-height:1.45;color:var(--soft);margin:12px 4px 0}
+
+/* Phone */
+.phone{width:400px;height:min(860px,calc(100dvh - 92px));min-height:640px;border-radius:52px;padding:12px;background:#121615;border:1px solid #2a302e}
+.screen{--bg:var(--ivory);--surface:#fff;--text:var(--ink);--soft:var(--ink-soft);--line:var(--hair);--tile:#0f1f1d;--tile-on:#0f2e2c;
+  position:relative;height:100%;border-radius:40px;overflow:hidden;background:var(--bg);color:var(--text);display:flex;flex-direction:column;
+  transition:background-color .6s var(--ease),color .6s var(--ease)}
+.screen.night{--bg:#0d1716;--surface:#122220;--text:#fbfaf7;--soft:#c9c6bb;--line:color-mix(in srgb,var(--brass) 35%,transparent)}
+.status{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 18px 4px;flex:none}
+.exit{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 10px;border:1px solid var(--line);border-radius:22px;text-decoration:none;
+  font:500 .72rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--text);background:var(--surface)}
+.exit svg{width:14px;height:14px;flex:none}
+.exit:hover{border-color:var(--brass)}
+.status .demo{font:500 .66rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--soft)}
+.scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;padding:10px 18px 110px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.view[hidden]{display:none}
+.eyebrow{font:500 .62rem/1.2 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--brass-deep)}
+.night .eyebrow{color:var(--brass-light)}
+.view h2{font:500 2rem/1.05 var(--serif);margin-top:6px}
+.view h2 em{font-style:italic}
+.sub{font-size:.8rem;color:var(--soft);margin-top:6px;display:flex;justify-content:space-between;gap:8px}
+.online{font:500 .62rem/1 var(--sans);letter-spacing:.16em;color:var(--brass-deep);white-space:nowrap}
+.night .online{color:var(--brass-light)}
+.sec{font:500 .62rem/1.2 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--brass-deep);margin:22px 0 8px;display:flex;justify-content:space-between}
+.night .sec{color:var(--brass-light)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-surface)}
+.row{display:flex;align-items:center;gap:10px;min-height:52px;padding:8px 14px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0}
+.row .t{flex:1;min-width:0}
+.row .t b{display:block;font-weight:500;font-size:.88rem}
+.row .t small{display:block;font-size:.74rem;color:var(--soft)}
+.port.dashed{border-style:dashed}
+.row.editor{display:grid;gap:8px;align-items:stretch;background:var(--bg);padding:12px 14px}
+.ed-head{display:flex;align-items:center;gap:10px}
+.ed-head b{font-weight:500;font-size:.9rem}
+.ed-field{display:grid;grid-template-columns:52px 1fr;align-items:center;gap:8px;font-size:.74rem;color:var(--soft)}
+.ed-field select,.ed-field input{min-height:40px;padding:0 10px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--text);font:inherit;font-size:.86rem}
+.ed-act{display:flex;justify-content:space-between}
+.ed-act button{min-height:44px;padding:0 4px;border:0;background:none;cursor:pointer;font-size:.86rem;color:var(--soft)}
+.ed-act .ed-add{font-weight:500;color:var(--lagoon)}
+.night .ed-act .ed-add{color:var(--brass-light)}
+.row.open small{color:var(--soft)}
+.plus{flex:none;font-size:1.2rem;color:var(--brass-deep)}
+.night .plus{color:var(--brass-light)}
+.port{flex:none;font:500 .6rem/1 var(--sans);letter-spacing:.08em;border:1px solid var(--line);border-radius:var(--r);padding:6px 6px;min-width:62px;text-align:center;color:var(--soft)}
+.val{font-size:.82rem;color:var(--soft)}
+button.row{width:100%;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;cursor:pointer}
+.chev{color:var(--soft)}
+
+/* Switch (the app's toggle) */
+.sw{flex:none;width:52px;height:32px;border-radius:16px;border:1px solid #b7b2a5;background:#c9c6bb;position:relative;cursor:pointer;transition:background-color .4s var(--ease)}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:26px;height:26px;border-radius:50%;background:#fff;transition:translate .4s var(--ease)}
+.sw[aria-pressed="true"]{background:var(--lagoon);border-color:var(--lagoon)}
+.night .sw[aria-pressed="true"]{background:var(--brass);border-color:var(--brass)}
+.sw[aria-pressed="true"]::after{translate:20px 0}
+
+/* Photo hero */
+.hero{position:relative;margin-top:14px;border-radius:var(--r-surface);overflow:hidden;aspect-ratio:4/3;background:var(--lagoon-2)}
+.hero img{width:100%;height:100%;object-fit:cover;display:block}
+.hero .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgb(10 26 24/.35) 0%,rgb(10 26 24/0) 30%,rgb(10 26 24/.75) 100%)}
+.hero .tl,.hero .tr{position:absolute;top:12px;font:500 .58rem/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#fbfaf7}
+.hero .tl{left:14px}.hero .tr{right:14px}
+.hero .temp{position:absolute;left:14px;bottom:44px;color:#fbfaf7;font:500 3.6rem/1 var(--serif)}
+.hero .temp sup{font-size:1rem;vertical-align:top;margin-left:2px}
+.hero .meta{position:absolute;left:14px;right:14px;bottom:12px;color:#efe9df;font-size:.72rem;display:grid;gap:2px}
+
+/* Scenes */
+.scenes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.scene{text-align:left;padding:12px;border:1px solid var(--line);border-radius:var(--r-surface);background:var(--surface);cursor:pointer;min-height:96px;display:flex;flex-direction:column;justify-content:space-between}
+.scene b{font:500 1.15rem/1.1 var(--serif)}
+.scene small{font-size:.68rem;color:var(--soft)}
+.scene .act{font:500 .56rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--brass-deep);min-height:1em}
+.night .scene .act{color:var(--brass-light)}
+.scene[aria-pressed="true"]{border-color:var(--brass)}
+
+/* Site backyard tiles */
+.yard{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
+.col{display:grid;gap:8px}
+.yb{display:flex;align-items:center;gap:9px;width:100%;min-height:44px;padding:8px 12px;border:1px solid rgb(201 164 106/.45);border-radius:var(--r);background:var(--tile);color:#fbfaf7;font:500 .64rem/1.15 var(--sans);letter-spacing:.1em;text-transform:uppercase;text-align:left;cursor:pointer;transition:background-color .4s var(--ease),border-color .4s var(--ease)}
+.yb.on{background:var(--tile-on);border-color:#c9a46a}
+.yb-dot{flex:none;width:9px;height:9px;border-radius:50%;background:#59605d;transition:background-color .6s var(--ease)}
+.yb.on .yb-dot{background:var(--c,#e9c27a)}
+.yb-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.yb-state{margin-left:auto;color:#c9a46a;font-size:.58rem;letter-spacing:.12em;white-space:nowrap}
+.yb:focus-visible{outline:2px solid #fbfaf7;outline-offset:-3px}
+.yb-card{border:1px solid rgb(201 164 106/.45);border-radius:var(--r);background:var(--tile);overflow:hidden}
+.yb-card:has(>.yb.on){border-color:#e0c08a;background:var(--tile-on)}
+.yb-card>.yb{border:0;border-radius:0;background:transparent}
+.yb-dots{display:flex;justify-content:space-evenly;border-top:1px solid rgb(201 164 106/.3);padding:0 2px}
+.cdot{display:grid;place-items:center;flex:1 1 0;height:40px;padding:0;border:0;border-radius:50%;background:none;cursor:pointer}
+.cdot i{width:16px;height:16px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgb(255 255 255/.2);transition:box-shadow .4s var(--ease)}
+.cdot[aria-pressed="true"] i{box-shadow:0 0 0 2.5px #0f2422,0 0 0 4px #c9a46a}
+.cdot:focus-visible{outline:2px solid #fbfaf7;outline-offset:-2px}
+.eq{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.eqcard{background:var(--tile-on);color:#fbfaf7;border:1px solid #c9a46a;border-radius:var(--r-surface);padding:12px}
+.eqcard .yb{padding:0;min-height:32px;border:0;background:none}
+.eqcard .big{font:500 2rem/1 var(--serif);margin-top:8px}
+.eqcard small{display:block;font-size:.66rem;color:#c9c6bb;margin-top:4px}
+.eqcard input[type=range]{width:100%;margin-top:8px;accent-color:#c9a46a}
+.step{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.step button{width:44px;height:36px;border:1px solid rgb(201 164 106/.45);border-radius:var(--r);background:none;color:#fbfaf7;cursor:pointer;font-size:1.1rem}
+
+/* Night resort, as on the homepage's Lights section */
+.night-pic{position:relative;margin-top:14px;aspect-ratio:3/2;border-radius:var(--r-surface);overflow:hidden;background:#05080c}
+.night-pic>*{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1.2s var(--ease),background-color 1.2s var(--ease)}
+.m-pool{-webkit-mask:url(/assets/photos/resort-pool-mask.png) 0 0/100% 100% no-repeat;mask:url(/assets/photos/resort-pool-mask.png) 0 0/100% 100% no-repeat}
+.m-spa{-webkit-mask:url(/assets/photos/resort-spa-mask.png) 0 0/100% 100% no-repeat;mask:url(/assets/photos/resort-spa-mask.png) 0 0/100% 100% no-repeat}
+.m-fall{-webkit-mask:url(/assets/photos/resort-fall-mask.png) 0 0/100% 100% no-repeat;mask:url(/assets/photos/resort-fall-mask.png) 0 0/100% 100% no-repeat}
+.m-land{-webkit-mask:url(/assets/photos/resort-land-mask.png) 0 0/100% 100% no-repeat;mask:url(/assets/photos/resort-land-mask.png) 0 0/100% 100% no-repeat}
+.tint{mix-blend-mode:color}
+.spa-lit{filter:brightness(1.5) saturate(1.15)}
+.bright{display:flex;align-items:center;gap:10px;padding:0 14px;min-height:46px;margin-top:8px}
+.bright span{font:500 .6rem/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--soft)}
+.bright input{flex:1}
+.shows .row{cursor:pointer}
+.strip{flex:none;width:40px;height:6px;border-radius:3px}
+.check{flex:none;color:var(--brass-deep);opacity:0}
+.night .check{color:var(--brass-light)}
+.shows [aria-pressed="true"] .check{opacity:1}
+
+/* Schedule */
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:14px}
+.day{display:grid;justify-items:center;gap:2px;padding:8px 0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);cursor:pointer;font:500 .56rem/1 var(--sans);letter-spacing:.12em}
+.day b{font:500 1.1rem/1 var(--serif);letter-spacing:0}
+.day[aria-pressed="true"]{background:var(--lagoon);color:#fbfaf7;border-color:var(--lagoon)}
+.night .day[aria-pressed="true"]{background:var(--brass);border-color:var(--brass);color:#0d1716}
+.tl-row{padding:8px 14px}
+.tl-row small{font-size:.7rem;color:var(--soft)}
+.bar{position:relative;height:6px;border-radius:3px;background:var(--sand);margin-top:5px}
+.night .bar{background:#24322f}
+.bar i{position:absolute;top:0;bottom:0;border-radius:3px;background:var(--brass)}
+.bar u{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);text-decoration:none}
+.night .bar u{background:#fbfaf7}
+.hours{display:flex;justify-content:space-between;font-size:.6rem;color:var(--soft);padding:2px 14px 10px}
+.timer .t b{font:500 1.05rem/1.2 var(--serif)}
+.add{margin-left:auto;width:40px;height:40px;border-radius:var(--r);border:0;background:var(--lagoon);color:#fbfaf7;font-size:1.4rem;cursor:pointer}
+.night .add{background:var(--brass);color:#0d1716}
+
+/* Settings */
+.looks{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);border-radius:var(--r);margin:10px 14px 14px}
+.looks button{min-height:40px;background:none;border:0;cursor:pointer;font-size:.8rem}
+.looks button[aria-pressed="true"]{background:var(--sand);border-radius:var(--r)}
+.night .looks button[aria-pressed="true"]{background:#24322f}
+
+/* Tab bar */
+.tabs{position:absolute;left:12px;right:12px;bottom:14px;display:grid;grid-template-columns:repeat(5,1fr);padding:6px;border-radius:30px;background:color-mix(in srgb,var(--bg) 88%,transparent);border:1px solid var(--line);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+.tab{display:grid;justify-items:center;gap:2px;min-height:52px;padding:6px 0;border:0;border-radius:24px;background:none;cursor:pointer;font-size:.62rem;color:var(--text)}
+.tab svg{width:22px;height:22px}
+.tab[aria-selected="true"]{background:color-mix(in srgb,var(--text) 9%,transparent);font-weight:500}
+.say{position:absolute;left:18px;right:18px;bottom:92px;padding:9px 12px;border-radius:var(--r);background:var(--lagoon);color:#fbfaf7;font-size:.72rem;opacity:0;translate:0 6px;transition:opacity .4s var(--ease),translate .4s var(--ease);pointer-events:none}
+.say.show{opacity:1;translate:0 0}
+.night .say{background:var(--brass);color:#0d1716}
+
+@media (max-width:600px){
+  .stage{display:block;padding:0}
+  .phone{width:100%;height:100dvh;min-height:0;border-radius:0;padding:0;border:0;background:none}
+  .screen{border-radius:0}
+  .status{padding-top:max(10px,env(safe-area-inset-top))}
+  .caption{display:none}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="phone">
+    <div class="screen" id="screen" aria-label="Control Freak app demo">
+      <div class="status">
+        <a class="exit" href="/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Back to website</a>
+        <span class="demo">Demo</span>
+      </div>
+      <div class="scroll" id="scroll">
+
+        <!-- POOL -->
+        <section class="view" id="v-pool" role="tabpanel" aria-labelledby="t-pool" tabindex="-1">
+          <p class="eyebrow">Backyard</p>
+          <h2>Good <em>evening</em></h2>
+          <p class="sub"><span id="pool-sum">Filtering at 50% · heating to 86° · blue lights</span><span class="online">● Online</span></p>
+          <div class="hero">
+            <img id="hero-img" src="/assets/photos/hero-960.webp" alt="The pool" width="960" height="640">
+            <div class="scrim"></div>
+            <span class="tl">Water</span><span class="tr" id="hero-mode">Pool mode</span>
+            <span class="temp">84<sup>°F</sup></span>
+            <span class="meta"><span id="hero-heat">● Heating to 86° · ready in ~40 min</span><span id="hero-pump">Pump 50% · 1725 rpm</span></span>
+          </div>
+          <p class="sec"><span>Scenes</span></p>
+          <div class="scenes" role="group" aria-label="Scenes">
+            <button class="scene" type="button" data-scene="calm" aria-pressed="true"><span class="act">Active</span><b>Daily Calm</b><small>50% · 84° · Eco</small></button>
+            <button class="scene" type="button" data-scene="spa" aria-pressed="false"><span class="act"></span><b>Spa Lounge</b><small>102° · Jets · Sunset</small></button>
+            <button class="scene" type="button" data-scene="evening" aria-pressed="false"><span class="act"></span><b>Evening Swim</b><small>75% · Romance lights</small></button>
+            <button class="scene" type="button" data-scene="off" aria-pressed="false"><span class="act"></span><b>All Off</b><small>Everything rests</small></button>
+          </div>
+          <p class="sec"><span>Equipment</span></p>
+          <div class="eq">
+            <div class="eqcard">
+              <button class="yb on" type="button" id="pump-b" aria-pressed="true" style="--c:#7fd1a8"><span class="yb-dot"></span><span class="yb-name">Pump</span><span class="yb-state">On</span></button>
+              <div class="big" id="pump-pct">50%</div>
+              <label class="visually-hidden" for="pump-r">Pump speed</label>
+              <input type="range" id="pump-r" min="15" max="100" step="5" value="50">
+              <small id="pump-rpm">1725 RPM · Eco</small>
+            </div>
+            <div class="eqcard">
+              <button class="yb on" type="button" id="heat-b" aria-pressed="true" style="--c:#e9a25f"><span class="yb-dot"></span><span class="yb-name">Heater</span><span class="yb-state">Heating</span></button>
+              <div class="big"><span id="heat-set">86</span>°F</div>
+              <div class="step"><button type="button" id="heat-dn" aria-label="Lower set point">−</button><button type="button" id="heat-up" aria-label="Raise set point">+</button></div>
+              <small>Set point · water 84°</small>
+            </div>
+          </div>
+        </section>
+
+        <!-- LIGHTS -->
+        <section class="view" id="v-lights" role="tabpanel" aria-labelledby="t-lights" tabindex="-1" hidden>
+          <p class="eyebrow">After dark</p>
+          <h2>Set the <em>mood</em></h2>
+          <p class="sub">Each light in its own colour, the landscape on its own switch.</p>
+          <div class="night-pic" aria-hidden="true">
+            <img src="/assets/photos/resort-off.webp" alt="" width="1536" height="1024">
+            <img class="m-land" id="l-land" src="/assets/photos/resort-lit.webp" alt="" width="1536" height="1024">
+            <img class="m-pool" id="l-pool" src="/assets/photos/resort-lit.webp" alt="" width="1536" height="1024">
+            <img class="m-fall" id="l-fall" src="/assets/photos/resort.webp" alt="" width="1536" height="1024">
+            <div class="m-pool tint" id="l-pool-c"></div>
+            <img class="m-spa spa-lit" id="l-spa" src="/assets/photos/resort-lit.webp" alt="" width="1536" height="1024">
+            <div class="m-spa tint" id="l-spa-c"></div>
+          </div>
+          <div class="yard" id="yard" style="margin-top:8px"></div>
+          <div class="card bright"><span>Brightness</span><label class="visually-hidden" for="bright">Brightness</label><input type="range" id="bright" min="10" max="100" step="5" value="80"></div>
+          <p class="sec"><span>Pool light shows</span></p>
+          <div class="card shows" id="shows" role="group" aria-label="Pool light shows"></div>
+        </section>
+
+        <!-- SCHEDULE -->
+        <section class="view" id="v-schedule" role="tabpanel" aria-labelledby="t-schedule" tabindex="-1" hidden>
+          <p class="eyebrow">Schedule</p>
+          <div style="display:flex;align-items:end"><h2>What runs <em>when</em></h2><button class="add" type="button" id="add-timer" aria-label="New timer">+</button></div>
+          <p class="sub">5 active timers · 5 devices</p>
+          <div class="week" id="week" role="group" aria-label="Day"></div>
+          <p class="sec"><span id="day-label">Today</span></p>
+          <div class="card" id="timeline"></div>
+          <p class="sec"><span>Timers</span></p>
+          <div class="card" id="timers"></div>
+        </section>
+
+        <!-- DEVICES -->
+        <section class="view" id="v-devices" role="tabpanel" aria-labelledby="t-devices" tabindex="-1" hidden>
+          <p class="eyebrow">Equipment</p>
+          <h2>Every <em>terminal</em></h2>
+          <p class="sub">15 wired · tap an open terminal to add a device</p>
+          <div id="devices"></div>
+        </section>
+
+        <!-- SETTINGS -->
+        <section class="view" id="v-settings" role="tabpanel" aria-labelledby="t-settings" tabindex="-1" hidden>
+          <p class="eyebrow">Settings</p>
+          <h2>Your <em>controller</em></h2>
+          <p class="sub">Wiring, safety and automation, in the manual's terms.</p>
+          <p class="sec"><span>Appearance</span></p>
+          <div class="card">
+            <div class="looks" role="group" aria-label="App look">
+              <button type="button" data-look="day" aria-pressed="true">Day</button>
+              <button type="button" data-look="night" aria-pressed="false">Night</button>
+              <button type="button" data-look="system" aria-pressed="false">System</button>
+            </div>
+          </div>
+          <p class="sec"><span>Controller</span></p>
+          <div class="card" id="set-ctl"></div>
+          <p class="sec"><span>Installer setup</span></p>
+          <div class="card" id="set-io"></div>
+          <p class="fine">* Freeze protection is an aid, not a guarantee, and carries no warranty. In freezing weather, check that your equipment is running.</p>
+          <p class="fine">A demo: nothing here is connected to any equipment. Your app lists your own pool's equipment; these are example names and readings.</p>
+        </section>
+      </div>
+
+      <p class="say" id="say" role="status" aria-live="polite"></p>
+
+      <div class="tabs" role="tablist" aria-label="App tabs">
+        <button class="tab" role="tab" id="t-pool" aria-controls="v-pool" aria-selected="true" tabindex="0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 8c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 13c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0M3 18c2-1.5 4-1.5 6 0s4 1.5 6 0 4-1.5 6 0"/></svg>Pool</button>
+        <button class="tab" role="tab" id="t-lights" aria-controls="v-lights" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-4 10.5c.8.8 1 1.6 1 2.5h6c0-.9.2-1.7 1-2.5A6 6 0 0 0 12 3z"/></svg>Lights</button>
+        <button class="tab" role="tab" id="t-schedule" aria-controls="v-schedule" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Schedule</button>
+        <button class="tab" role="tab" id="t-devices" aria-controls="v-devices" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="1.5"/><rect x="3" y="13.5" width="7.5" height="7.5" rx="1.5"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1.5"/></svg>Devices</button>
+        <button class="tab" role="tab" id="t-settings" aria-controls="v-settings" aria-selected="false" tabindex="-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/></svg>Settings</button>
+      </div>
+    </div>
+  </div>
+  <p class="caption">A demo in your browser. Nothing here is connected to any equipment, and nothing you tap leaves this page.</p>
+</main>
+
+<script>
+(function(){
+  'use strict';
+  var $ = function(s, r){ return (r || document).querySelector(s); };
+  var $$ = function(s, r){ return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var screen = $('#screen'), say = $('#say'), sayTimer = 0;
+
+  // Every tap ends here: the screen changes, a note confirms nothing was sent.
+  function tell(msg){
+    say.textContent = msg + ' Demo: nothing was sent.';
+    say.classList.add('show');
+    clearTimeout(sayTimer);
+    sayTimer = setTimeout(function(){ say.classList.remove('show'); }, 2600);
+  }
+
+  var COLORS = [['Blue','#1f5bff'],['Green','#16c25e'],['Red','#ff2a2a'],['White','#ffffff'],['Magenta','#ff2bd6']];
+  var SHOWS = [
+    ['SAM','Uncle Sam: slow fades through red, white and blue.',['#ff2a2a','#ffffff','#1f5bff']],
+    ['Party','Quick, lively color changes.',['#ff2a2a','#1f5bff','#16c25e','#ff2bd6','#ffffff','#ff8a00']],
+    ['Romance','Slow, calming color transitions.',['#ff2bd6','#9b3dff','#1f5bff','#c02a8a']],
+    ['Caribbean','Drifts through blues and greens.',['#00b3ff','#0057ff','#00d1a0','#0aa86b','#1fd1c4']],
+    ['American','Red, white and blue, in crisp steps.',['#ff2a2a','#ffffff','#1f5bff']],
+    ['California Sunset','Warm oranges, reds and pinks.',['#ff7a1a','#ff3b30','#ff2d8a','#ff9a3d']],
+    ['Royal','Rich, deep color tones.',['#b0002a','#2a1bd6','#7a1fd6','#00266b']]
+  ];
+
+  var S = {
+    pump: true, pct: 50, heat: true, set: 86, scene: 'calm',
+    lights: { pool: {on: true, name: 'Blue', hex: '#1f5bff'}, spa: {on: true, name: 'Magenta', hex: '#ff2bd6'} },
+    land: true, fall: true, bright: 80, show: null
+  };
+
+  /* ---------- Tabs (keyboard: arrows, Home, End) ---------- */
+  var tabs = $$('.tab');
+  function select(tab, focus){
+    tabs.forEach(function(t){
+      var on = t === tab;
+      t.setAttribute('aria-selected', on);
+      t.tabIndex = on ? 0 : -1;
+      $('#' + t.getAttribute('aria-controls')).hidden = !on;
+    });
+    $('#scroll').scrollTop = 0;
+    if (focus) tab.focus();
+  }
+  tabs.forEach(function(t, i){
+    t.addEventListener('click', function(){ select(t); });
+    t.addEventListener('keydown', function(e){
+      var n = {ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1}[e.key];
+      if (n === undefined) return;
+      e.preventDefault();
+      select(tabs[(n + tabs.length) % tabs.length], true);
+    });
+  });
+
+  /* ---------- Look ---------- */
+  function setLook(look){
+    var night = look === 'night' || (look === 'system' && matchMedia('(prefers-color-scheme: dark)').matches);
+    screen.classList.toggle('night', night);
+    $('#hero-img').src = night ? '/assets/photos/evening-768.webp' : '/assets/photos/hero-960.webp';
+    $$('[data-look]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.look === look || (look === 'system' ? false : b.dataset.look === look)); });
+    $$('.looks [data-look="system"]').forEach(function(b){ b.setAttribute('aria-pressed', look === 'system'); });
+  }
+  $$('[data-look]').forEach(function(b){ b.addEventListener('click', function(){ setLook(b.dataset.look); }); });
+
+  /* ---------- Pool ---------- */
+  function rpm(p){ return Math.round(3450 * p / 100 / 5) * 5; }
+  function paintPool(){
+    var pb = $('#pump-b'), hb = $('#heat-b');
+    pb.classList.toggle('on', S.pump); pb.setAttribute('aria-pressed', S.pump); $('.yb-state', pb).textContent = S.pump ? 'On' : 'Off';
+    hb.classList.toggle('on', S.heat); hb.setAttribute('aria-pressed', S.heat); $('.yb-state', hb).textContent = S.heat ? 'Heating' : 'Off';
+    $('#pump-pct').textContent = S.pump ? S.pct + '%' : 'Off';
+    $('#pump-r').value = S.pct;
+    $('#pump-rpm').textContent = S.pump ? rpm(S.pct) + ' RPM' + (S.pct <= 50 ? ' · Eco' : '') : 'Resting';
+    $('#heat-set').textContent = S.set;
+    $('#hero-heat').textContent = S.heat ? '● Heating to ' + S.set + '° · ready in ~' + Math.max(10, (S.set - 84) * 20) + ' min' : 'Heater off';
+    $('#hero-pump').textContent = S.pump ? 'Pump ' + S.pct + '% · ' + rpm(S.pct) + ' rpm' : 'Pump resting';
+    $('#hero-mode').textContent = S.scene === 'spa' ? 'Spa mode' : 'Pool mode';
+    var lt = S.lights.pool.on ? (S.show || S.lights.pool.name).toLowerCase() + ' lights' : 'lights off';
+    $('#pool-sum').textContent = (S.pump ? 'Filtering at ' + S.pct + '%' : 'Pump resting') + ' · ' + (S.heat ? 'heating to ' + S.set + '°' : 'heater off') + ' · ' + lt;
+    $$('.scene').forEach(function(b){
+      var on = b.dataset.scene === S.scene;
+      b.setAttribute('aria-pressed', on); $('.act', b).textContent = on ? 'Active' : '';
+    });
+  }
+  $('#pump-b').addEventListener('click', function(){ S.pump = !S.pump; S.scene = null; paintPool(); tell(S.pump ? 'Pump on at ' + S.pct + '%.' : 'Pump off.'); });
+  $('#pump-r').addEventListener('input', function(e){ S.pct = +e.target.value; S.pump = true; S.scene = null; paintPool(); });
+  $('#pump-r').addEventListener('change', function(){ tell('Pump speed ' + S.pct + '%.'); });
+  $('#heat-b').addEventListener('click', function(){ S.heat = !S.heat; S.scene = null; paintPool(); tell(S.heat ? 'Heater on, to ' + S.set + '°.' : 'Heater off.'); });
+  $('#heat-up').addEventListener('click', function(){ S.set = Math.min(104, S.set + 1); S.heat = true; paintPool(); tell('Heat to ' + S.set + '°.'); });
+  $('#heat-dn').addEventListener('click', function(){ S.set = Math.max(60, S.set - 1); paintPool(); tell('Heat to ' + S.set + '°.'); });
+  var SCENES = {
+    calm: {pump: true, pct: 50, heat: true, set: 84, pool: ['Blue', '#1f5bff'], show: null, spa: false, msg: 'Daily Calm started.'},
+    spa: {pump: true, pct: 100, heat: true, set: 102, pool: ['Blue', '#1f5bff'], show: 'California Sunset', spa: true, msg: 'Spa Lounge started: valves to spa, heat to 102°.'},
+    evening: {pump: true, pct: 75, heat: true, set: 86, pool: ['Magenta', '#ff2bd6'], show: 'Romance', spa: false, msg: 'Evening Swim started.'},
+    off: {pump: false, pct: 50, heat: false, set: 84, pool: null, show: null, spa: false, msg: 'Everything off.'}
+  };
+  $$('.scene').forEach(function(b){ b.addEventListener('click', function(){
+    var sc = SCENES[b.dataset.scene];
+    S.scene = b.dataset.scene; S.pump = sc.pump; S.pct = sc.pct; S.heat = sc.heat; S.set = sc.set;
+    S.lights.pool.on = !!sc.pool; if (sc.pool){ S.lights.pool.name = sc.pool[0]; S.lights.pool.hex = sc.pool[1]; }
+    S.show = sc.show; S.lights.spa.on = sc.spa;
+    paintPool(); paintLights(); tell(sc.msg);
+  }); });
+
+  /* ---------- Lights (the homepage's backyard tiles) ---------- */
+  function colourTile(key, label){
+    var L = S.lights[key];
+    var card = document.createElement('div'); card.className = 'yb-card';
+    card.innerHTML = '<button class="yb" type="button"><span class="yb-dot"></span><span class="yb-name"></span><span class="yb-state"></span></button><div class="yb-dots" role="group"></div>';
+    var b = $('.yb', card), dots = $('.yb-dots', card);
+    $('.yb-name', b).textContent = label;
+    dots.setAttribute('aria-label', label + ' colour');
+    COLORS.forEach(function(c){
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'cdot'; d.setAttribute('aria-label', c[0]); d.innerHTML = '<i style="--c:' + c[1] + '"></i>';
+      d.addEventListener('click', function(){ L.on = true; L.name = c[0]; L.hex = c[1]; if (key === 'pool') S.show = null; paintLights(); paintPool(); tell(label + ': ' + c[0] + '.'); });
+      dots.appendChild(d);
+    });
+    b.addEventListener('click', function(){ L.on = !L.on; paintLights(); paintPool(); tell(label + (L.on ? ' on.' : ' off.')); });
+    card.paint = function(){
+      var name = key === 'pool' && S.show ? S.show : L.name;
+      b.classList.toggle('on', L.on); b.setAttribute('aria-pressed', L.on); b.style.setProperty('--c', L.hex);
+      $('.yb-state', b).textContent = L.on ? name : 'Off';
+      $$('.cdot', dots).forEach(function(d){ d.setAttribute('aria-pressed', !(key === 'pool' && S.show) && d.getAttribute('aria-label') === L.name); });
+    };
+    return card;
+  }
+  function switchTile(label, get, set){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'yb'; b.style.setProperty('--c', '#e9c27a');
+    b.innerHTML = '<span class="yb-dot"></span><span class="yb-name"></span><span class="yb-state"></span>';
+    $('.yb-name', b).textContent = label;
+    b.addEventListener('click', function(){ set(!get()); paintLights(); paintPool(); tell(label + (get() ? ' on.' : ' off.')); });
+    b.paint = function(){ var on = get(); b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); $('.yb-state', b).textContent = on ? 'On' : 'Off'; };
+    return b;
+  }
+  // Two columns of half-width tiles, like the app: the pool and spa lights (HV 1 and HV 3), then the
+  // switches side by side: waterfall and pool pump, then the landscape lighting on LV 3.
+  var tiles = [
+    colourTile('pool', 'Pool'), colourTile('spa', 'Spa'),
+    switchTile('Waterfall', function(){ return S.fall; }, function(v){ S.fall = v; }),
+    switchTile('Pool pump', function(){ return S.pump; }, function(v){ S.pump = v; S.scene = null; }),
+    switchTile('Landscape', function(){ return S.land; }, function(v){ S.land = v; })
+  ];
+  tiles.forEach(function(t){ $('#yard').appendChild(t); });
+
+  var showsBox = $('#shows');
+  SHOWS.forEach(function(s){
+    var r = document.createElement('button');
+    r.type = 'button'; r.className = 'row'; r.dataset.show = s[0];
+    r.innerHTML = '<span class="strip" style="background:linear-gradient(90deg,' + s[2].join(',') + ')"></span><span class="t"><b></b><small></small></span><span class="check" aria-hidden="true">✓</span>';
+    $('b', r).textContent = s[0]; $('small', r).textContent = s[1];
+    r.addEventListener('click', function(){ S.show = s[0]; S.lights.pool.on = true; S.lights.pool.hex = s[2][0]; paintLights(); paintPool(); tell('Pool lights: ' + s[0] + ' show.'); });
+    showsBox.appendChild(r);
+  });
+  $('#bright').addEventListener('input', function(e){ S.bright = +e.target.value; paintLights(); });
+  $('#bright').addEventListener('change', function(){ tell('Brightness ' + S.bright + '%.'); });
+
+  function paintLights(){
+    tiles.forEach(function(t){ t.paint(); });
+    var lv = S.bright / 100, P = S.lights.pool, SP = S.lights.spa;
+    $('#l-land').style.opacity = S.land ? 1 : 0;
+    $('#l-pool').style.opacity = P.on ? .55 + .45 * lv : 0;
+    $('#l-fall').style.opacity = S.fall ? 1 : 0;
+    $('#l-pool-c').style.backgroundColor = P.hex;
+    $('#l-pool-c').style.opacity = P.on && !(P.name === 'White' && !S.show) ? .62 * (.5 + .5 * lv) : 0;
+    $('#l-spa').style.opacity = SP.on ? .55 + .45 * lv : 0;
+    $('#l-spa-c').style.backgroundColor = SP.hex;
+    $('#l-spa-c').style.opacity = SP.on && SP.name !== 'White' ? .7 : 0;
+    $$('#shows .row').forEach(function(r){ r.setAttribute('aria-pressed', r.dataset.show === S.show); });
+  }
+
+  /* ---------- Schedule ---------- */
+  var DAYS = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  var TIMERS = [
+    {name: 'Daily Filtration', dev: 'Circulation Pump', from: 8, to: 16, detail: '50% · Every day', days: [0,1,2,3,4,5,6], on: true},
+    {name: 'Salt with filtration', dev: 'Salt Cell', from: 8.25, to: 15.25, detail: '60% output · Every day', days: [0,1,2,3,4,5,6], on: true},
+    {name: 'Weekend Warm-up', dev: 'Gas Heater', from: 7, to: 17, detail: '86°F · Weekends', days: [0,6], on: true},
+    {name: 'Evening lights', dev: 'Pool Lights', from: 19.5, to: 24, detail: 'Blue · 80% · Every day', days: [0,1,2,3,4,5,6], on: true},
+    {name: 'Waterfall', dev: 'Waterfall', from: 18, to: 22, detail: 'Fri and Sat', days: [5,6], on: false}
+  ];
+  var today = new Date().getDay(), sel = today;
+  function fmt(h){ var hh = Math.floor(h) % 24, m = Math.round((h % 1) * 60); var ap = hh < 12 ? 'AM' : 'PM'; var h12 = hh % 12 || 12; return h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + ap; }
+  function paintSchedule(){
+    var week = $('#week'); week.textContent = '';
+    for (var i = 0; i < 7; i++){
+      var d = new Date(); d.setDate(d.getDate() - today + i);
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'day'; b.setAttribute('aria-pressed', i === sel);
+      b.setAttribute('aria-label', d.toLocaleDateString(undefined, {weekday: 'long', month: 'long', day: 'numeric'}));
+      b.innerHTML = '<span>' + DAYS[i] + '</span><b>' + d.getDate() + '</b>';
+      (function(n){ b.addEventListener('click', function(){ sel = n; paintSchedule(); }); })(i);
+      week.appendChild(b);
+    }
+    $('#day-label').textContent = sel === today ? 'Today' : DAYS[sel];
+    var now = new Date(), nowH = now.getHours() + now.getMinutes() / 60;
+    var tl = $('#timeline'); tl.textContent = '';
+    TIMERS.filter(function(t){ return t.on && t.days.indexOf(sel) >= 0; }).forEach(function(t){
+      var r = document.createElement('div'); r.className = 'tl-row';
+      r.innerHTML = '<small></small><div class="bar"><i style="left:' + (t.from / 24 * 100) + '%;width:' + ((t.to - t.from) / 24 * 100) + '%"></i>' + (sel === today ? '<u style="left:' + (nowH / 24 * 100) + '%"></u>' : '') + '</div>';
+      $('small', r).textContent = t.dev + ' · ' + fmt(t.from) + ' – ' + fmt(t.to);
+      tl.appendChild(r);
+    });
+    if (!tl.children.length){ var e = document.createElement('div'); e.className = 'tl-row'; e.innerHTML = '<small>Nothing scheduled.</small>'; tl.appendChild(e); }
+    var hrs = document.createElement('div'); hrs.className = 'hours'; hrs.setAttribute('aria-hidden', 'true');
+    hrs.innerHTML = '<span>12 AM</span><span>6 AM</span><span>12 PM</span><span>6 PM</span><span>12 AM</span>'; tl.appendChild(hrs);
+    var list = $('#timers'); list.textContent = '';
+    TIMERS.forEach(function(t){
+      var r = document.createElement('div'); r.className = 'row timer';
+      r.innerHTML = '<span class="t"><b></b><small></small></span><button class="sw" type="button"></button>';
+      $('b', r).textContent = fmt(t.from) + ' – ' + fmt(t.to);
+      $('small', r).textContent = t.name + ' · ' + t.detail;
+      var sw = $('.sw', r); sw.setAttribute('aria-pressed', t.on); sw.setAttribute('aria-label', t.name);
+      sw.addEventListener('click', function(){ t.on = !t.on; paintSchedule(); tell(t.name + (t.on ? ' timer on.' : ' timer off.')); });
+      list.appendChild(r);
+    });
+    $('#v-schedule .sub').textContent = TIMERS.filter(function(t){ return t.on; }).length + ' active timers · 5 devices';
+  }
+  $('#add-timer').addEventListener('click', function(){ tell('In the app, this opens a new timer: device, days, start, stop and level.'); });
+
+  /* ---------- Devices ---------- */
+  // Every terminal on the board, bank by bank (as the app lists them). Open terminals are tappable.
+  var BANKS = [
+    ['RS-485', [['RS-485', 5, {1: ['Circulation Pump', function(){ return S.pump ? rpm(S.pct) + ' RPM' : 'Resting'; }, 'pump']}]]],
+    ['Valve actuators', [['Valve', 8, {1: ['Suction', function(){ return S.scene === 'spa' ? 'Spa' : 'Pool'; }], 2: ['Return', function(){ return S.scene === 'spa' ? 'Spa' : 'Pool'; }], 3: ['Spa Jets', function(){ return S.scene === 'spa' ? 'On' : 'Off'; }], 4: ['Waterfall', function(){ return S.fall ? 'Running' : 'Off'; }, 'fall']}]]],
+    ['High-voltage relays', [['HV Relay', 8, {1: ['Pool Lights', function(){ return S.lights.pool.on ? (S.show || S.lights.pool.name) : 'Off'; }, 'pool'], 2: ['Pool Cleaner', function(){ return 'Off'; }], 3: ['Spa Light', function(){ return S.lights.spa.on ? S.lights.spa.name : 'Off'; }, 'spa']}]]],
+    ['Low-voltage relays', [['LV Relay', 4, {1: ['Gas Heater', function(){ return S.heat ? 'Heating to ' + S.set + '°' : 'Off'; }, 'heat'], 2: ['Salt Cell', function(){ return S.pump ? 'Running with the pump' : 'Stopped: no flow'; }], 3: ['Landscape Lighting', function(){ return S.land ? 'On' : 'Off'; }, 'land']}]]],
+    ['Sensors', [['Temp', 4, {1: ['Water', function(){ return '84°F'; }], 2: ['Air', function(){ return '72°F'; }]}], ['Flow', 2, {1: ['Main Flow Switch', function(){ return S.pump ? 'Water moving' : 'No flow'; }]}], ['Pressure', 1, {}]]]
+  ];
+  var TOGGLES = {
+    pump: [function(){ return S.pump; }, function(v){ S.pump = v; S.scene = null; }],
+    fall: [function(){ return S.fall; }, function(v){ S.fall = v; }],
+    pool: [function(){ return S.lights.pool.on; }, function(v){ S.lights.pool.on = v; }],
+    spa: [function(){ return S.lights.spa.on; }, function(v){ S.lights.spa.on = v; }],
+    land: [function(){ return S.land; }, function(v){ S.land = v; }],
+    heat: [function(){ return S.heat; }, function(v){ S.heat = v; S.scene = null; }]
+  };
+  // Open terminals open in place (as in the app): what it runs, a name, Add or Cancel.
+  var ROLES = {'RS-485': ['Pump', 'Heater'], 'Valve': ['Feature Valve', 'Waterfall', 'Spa Jets', 'Suction Valve', 'Return Valve'],
+    'HV Relay': ['Auxiliary Relay', 'Lights', 'Cleaner', 'Heater', 'Spa Jets', 'Waterfall'], 'LV Relay': ['Auxiliary Relay', 'Lights', 'Heater', 'Salt Cell'],
+    'Temp': ['Water Temperature', 'Air Temperature', 'Solar Temperature'], 'Flow': ['Flow Switch'], 'Pressure': ['Filter Pressure']};
+  var adding = null;
+  function openRow(port){
+    var o = document.createElement('button');
+    o.type = 'button'; o.className = 'row open';
+    o.innerHTML = '<span class="port dashed"></span><span class="t"><small>Open · tap to add a device</small></span><span class="plus" aria-hidden="true">+</span>';
+    $('.port', o).textContent = port; o.setAttribute('aria-label', port + ', open. Adds a device to this terminal.');
+    o.addEventListener('click', function(){ adding = port; paintDevices(); var f = $('#devices .editor select'); if (f) f.focus(); });
+    return o;
+  }
+  function editor(bank, n, port){
+    var f = document.createElement('form'); f.className = 'row editor';
+    f.innerHTML = '<span class="ed-head"><span class="port dashed"></span><b>New device</b></span>'
+      + '<label class="ed-field"><span>It is</span><select></select></label>'
+      + '<label class="ed-field"><span>Name</span><input type="text" autocomplete="off"></label>'
+      + '<span class="ed-act"><button type="button" class="ed-cancel">Cancel</button><button type="submit" class="ed-add"></button></span>';
+    $('.port', f).textContent = port;
+    var sel = $('select', f), name = $('input', f);
+    (ROLES[bank[0]] || ['Auxiliary Relay']).forEach(function(r){ var o = document.createElement('option'); o.textContent = r; sel.appendChild(o); });
+    name.placeholder = sel.value;
+    sel.addEventListener('change', function(){ name.placeholder = sel.value; });
+    $('.ed-add', f).textContent = 'Add to ' + port;
+    $('.ed-cancel', f).addEventListener('click', function(){ adding = null; paintDevices(); });
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      var label = name.value.trim() || sel.value;
+      bank[2][n] = [label, function(){ return sel.value + ' · not running'; }];
+      adding = null; paintDevices(); tell(label + ' added to ' + port + '.');
+    });
+    return f;
+  }
+
+  function paintDevices(){
+    var box = $('#devices'); box.textContent = '';
+    var wired = 0;
+    BANKS.forEach(function(group){
+      var used = 0, cap = 0;
+      group[1].forEach(function(bank){ cap += bank[1]; used += Object.keys(bank[2]).length; });
+      wired += used;
+      var h = document.createElement('p'); h.className = 'sec'; h.innerHTML = '<span></span><span></span>';
+      h.children[0].textContent = group[0]; h.children[1].textContent = used + ' of ' + cap; box.appendChild(h);
+      var card = document.createElement('div'); card.className = 'card'; box.appendChild(card);
+      group[1].forEach(function(bank){
+        for (var n = 1; n <= bank[1]; n++){
+          var d = bank[2][n], port = bank[0] + ' ' + n;
+          if (!d){
+            card.appendChild(port === adding ? editor(bank, n, port) : openRow(port));
+            continue;
+          }
+          var r = document.createElement('div'); r.className = 'row';
+          r.innerHTML = '<span class="port"></span><span class="t"><b></b><small></small></span>';
+          $('.port', r).textContent = port; $('b', r).textContent = d[0]; $('small', r).textContent = d[1]();
+          if (d[2]){
+            (function(d){
+              var tg = TOGGLES[d[2]], sw = document.createElement('button');
+              sw.type = 'button'; sw.className = 'sw'; sw.setAttribute('aria-pressed', tg[0]()); sw.setAttribute('aria-label', d[0]);
+              sw.addEventListener('click', function(){ tg[1](!tg[0]()); paintAll(); tell(d[0] + (tg[0]() ? ' on.' : ' off.')); });
+              r.appendChild(sw);
+            })(d);
+          }
+          card.appendChild(r);
+        }
+      });
+    });
+    $('#v-devices .sub').textContent = wired + ' wired · tap an open terminal to add a device';
+  }
+
+  /* ---------- Settings ---------- */
+  function links(box, items){
+    items.forEach(function(it){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'row';
+      b.innerHTML = '<span class="t"><b></b><small></small></span><span class="chev" aria-hidden="true">›</span>';
+      $('b', b).textContent = it[0]; $('small', b).textContent = it[1];
+      b.addEventListener('click', function(){ tell('In the app, this opens ' + it[0] + '.'); });
+      box.appendChild(b);
+    });
+  }
+  links($('#set-ctl'), [['Run setup again', 'Direct connect · Wi-Fi · pump test · temperature'], ['Network', 'Its own Wi-Fi, plus your home Wi-Fi or Ethernet'], ['PIN lock', 'Keep settings for the installer']]);
+  links($('#set-io'), [['Connected ports and relays', '15 terminals wired: pumps, valves, relays, sensors'], ['Pump setup', '15–100% · prime 100% for 90 s'], ['Valves, suction and flow', 'Pool and spa positions, flow guards'], ['Heater', 'Set points and cool-down'], ['Freeze protection*', 'Runs the equipment you choose when the air turns cold'], ['Controller buttons', 'Five buttons, each assigned to a device'], ['Follow rules', 'The salt cell runs only with the pump']]);
+
+  function paintAll(){ paintPool(); paintLights(); paintSchedule(); paintDevices(); }
+  // Re-render the Devices tab whenever it is shown, so it reflects taps made on other tabs.
+  $('#t-devices').addEventListener('click', paintDevices);
+  paintAll();
+})();
+</script>
+</body>
+</html>
