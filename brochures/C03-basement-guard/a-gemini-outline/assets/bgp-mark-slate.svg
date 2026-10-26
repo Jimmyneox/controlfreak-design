@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 72" role="img" aria-label="Basement Guard Pro concept mark"><title>Basement Guard Pro — Concept mark</title>
+<path d="M32 3 L58 12 V34 C58 52 46 63 32 69 C18 63 6 52 6 34 V12 Z" fill="none" stroke="#22303c" stroke-width="4.5" stroke-linejoin="round"/>
+<path d="M15 30 H49 V48 C49 54 44 58 38 58 H26 C20 58 15 54 15 48 Z" fill="#1f6fd1" opacity=".18"/>
+<path d="M15 30 V48 C15 54 20 58 26 58 H38 C44 58 49 54 49 48 V30" fill="none" stroke="#22303c" stroke-width="3" stroke-linecap="round"/>
+<path d="M17 41 Q21.5 38.5 26 41 T35 41 T44 41 T49 40.5" fill="none" stroke="#1f6fd1" stroke-width="3" stroke-linecap="round"/>
+<rect x="21" y="45" width="8" height="9" rx="2" fill="#22303c"/><rect x="35" y="45" width="8" height="9" rx="2" fill="#22303c" opacity=".55"/>
+<path d="M25 45 V21 M39 45 V24" stroke="#22303c" stroke-width="3" stroke-linecap="round"/><path d="M39 24 V21" stroke="#22303c" stroke-width="3" stroke-linecap="round" opacity=".55"/>
+</svg>
