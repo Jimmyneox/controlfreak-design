@@ -90,13 +90,13 @@ def ha_angles(thing: str, own: str) -> list[tuple[str, str, str]]:
         ("plug", "Your brands finally work together",
          "Home Assistant works with over 1,000 brands through 1,500+ integrations. Lights, plugs, thermostats, locks, speakers and cameras you already own can finally talk to each other."),
         ("lock", "Works when the internet doesn’t",
-         "It runs on the controller on your home network, not in someone else’s cloud, so it answers right away and keeps working when the internet doesn’t. Your data stays home."),
+         "It runs on the controller on your home network, not in someone else’s cloud, so it responds fast and keeps working when the internet doesn’t. Your data stays home."),
         ("voice", "Ask, don’t open",
          "Ask Alexa what the status is, tell Google to adjust the temperature, or use Siri through HomeKit, and get automated voice alerts when something is out of balance."),
         ("bolt", "Peace of mind, all over the house",
          f"Anything {own} knows can set off something else: lights, speakers, thermostats and alerts on every phone. A few ideas are below."),
-        ("shield", "Nobody can switch it off",
-         "Your setup lives in your home, not on a company’s server. Home Assistant is open source, and run by a non-profit that can’t be sold. Control Freak adds no subscription."),
+        ("shield", "Yours to keep",
+         "Your setup lives in your home, not on a company’s server. Home Assistant is free and open source, and Control Freak adds no subscription."),
     ]
 
 
