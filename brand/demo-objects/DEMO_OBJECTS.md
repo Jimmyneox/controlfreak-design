@@ -35,3 +35,5 @@ Idle composites: O04/O15/C03 no classes; C01 = `power-on temp-neutral`. Active: 
 - Bases are AI-generated plates (brochure-grade, not product photos of our hardware). C03 is a top-down documentary view, not a true cutaway; water-level scaleY is a tint, not a real level change.
 - Inline files are ~0.9–1.2 MB each (base64 JPEG); prefer `object.svg` + `base.jpg` or `overlays.svg` over `<img>` for production.
 - `mix-blend-mode` overlays need a modern browser; degrade to plain opacity elsewhere.
+
+> **Provenance:** Bases are original generated marketing art; not photographs of customer or third-party installations. James’s reef ref is quality reference only and must not be used as a likeness. (Prior f5aa8d7 bases archived in `_superseded-likeness-f5aa8d7/`.)
