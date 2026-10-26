@@ -58,7 +58,7 @@ def hub(x: int, y: int, labels: list[str], w: int = 470) -> str:
         cells.append(f'<rect x="{cx - 17:.0f}" y="12" width="34" height="40" rx="8" fill="#e9eef4" stroke="#c5cdd8" stroke-width="1.5"/>'
                      f'<path d="M{cx - 6:.0f} 22 v9 M{cx + 6:.0f} 22 v9" stroke="#12355b" stroke-width="2.6" stroke-linecap="round"/>'
                      f'<circle cx="{cx:.0f}" cy="40" r="2.6" fill="#12355b"/>'
-                     f'<text y="70" class="olab">{txt}</text>')
+                     f'<text y="80" class="olab">{txt}</text>')
     return (f'<g transform="translate({x} {y})"><rect x="0" y="0" width="{w}" height="64" rx="16" fill="#f4f7fa"/>'
             + "".join(cells) + "</g>")
 
@@ -191,7 +191,7 @@ def terrarium_svg() -> str:
     s.append('<g class="coral"><path d="M290 300 c -4 -40 -20 -50 -12 -80 M300 300 c 6 -30 24 -40 18 -66 M270 300 c -8 -24 -22 -30 -16 -52"/></g>')
     s.append('<path d="M74 100 a 30 26 0 0 1 60 0 Z" fill="#e9eef4"/><path d="M90 108 l -8 18 M104 110 v 20 M118 108 l 8 18" stroke="#ffb340" stroke-width="2.4" stroke-linecap="round"/>')
     s.append('<rect x="170" y="92" width="150" height="9" rx="4.5" fill="#e9eef4"/><rect x="170" y="104" width="150" height="7" rx="3.5" fill="#b38bff99"/>')
-    s.append(scene_label(140, 84, "Basking lamp", "middle") + scene_label(200, 84, "UVB · day light"))
+    s.append(scene_label(104, 64, "Basking lamp", "middle") + scene_label(200, 84, "UVB · day light"))
     s.append('<rect x="50" y="342" width="140" height="8" rx="4" fill="#ff944088"/>' + scene_label(50, 382, "Heat mat"))
     s.append('<rect x="250" y="114" width="14" height="8" rx="3" fill="#e9eef4"/><g stroke="var(--acc)" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round"><line x1="254" y1="126" x2="244" y2="150"/><line x1="258" y1="126" x2="258" y2="154"/><line x1="262" y1="126" x2="272" y2="150"/></g>' + scene_label(282, 136, "Mister"))
     # enclosure 2
@@ -441,6 +441,77 @@ def build(code: str) -> None:
     print("built", folder.relative_to(BRO))
 
 
+SITE = {"O04": "O04-reef", "C03": "C03-basement-guard", "O15": "O15-reptile", "C01": "C01-cold-plunge"}
+
+SVG_CSS = """.cfw{font:700 11px 'Space Grotesk',sans-serif;letter-spacing:.18em;fill:#e9eef4}
+.olab{font:600 10px Inter,sans-serif;fill:#e9eef4;text-anchor:middle}
+.slab{font:600 10px 'IBM Plex Mono',monospace;letter-spacing:.08em;fill:#dbe7efcc;text-transform:uppercase}
+.sm{font:600 9px 'IBM Plex Mono',monospace;letter-spacing:.14em;fill:#dbe7ef}
+.ch{font:600 10px Inter,sans-serif;fill:#fff}.ch2{font:500 9px Inter,sans-serif;fill:#dbe7efcc}
+.chip{fill:#ffffff1a;stroke:#ffffff44}.glass{fill:#ffffff1a;stroke:#ffffff44;stroke-width:1.5}
+.water{fill:ACC33;stroke:#ffffffaa;stroke-width:2}.wline{fill:none;stroke:ACC;stroke-width:2}
+.stand{fill:#ffffff14;stroke:#ffffff66;stroke-width:2}.pit{fill:#ffffff10;stroke:#ffffff99;stroke-width:3}
+.glassbox{fill:#ffffff12;stroke:#ffffffaa;stroke-width:2.5}
+.yours{fill:#ffffff14;stroke:#ffffff88;stroke-width:2;stroke-dasharray:6 4}
+.pipe{fill:none;stroke:#ffffff77;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.tube{fill:none;stroke:#3fd68a99;stroke-width:1.6}.power{opacity:0}
+.coral path{fill:none;stroke:#ff8a65;stroke-width:6;stroke-linecap:round;opacity:.8}
+.probe{fill:#e9eef4;stroke:#0b1a26;stroke-width:1}.probe2{fill:#ffc93c;stroke:#0b1a26;stroke-width:1}.probe3{fill:#ff9440;stroke:#0b1a26;stroke-width:1}
+.num text{font:700 13px 'Space Grotesk',sans-serif;fill:#0b141e}"""
+
+SITE_CSS = """
+/* How it all connects (Design build_infographic.py, 2026-10-26) */
+.connects figure{position:relative;margin:24px 0 0;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:#0b141e}
+.connects figure img{display:block;width:100%;height:auto}
+.connects figure .tag{z-index:1;left:auto;right:14px}
+.connects figcaption{padding:10px 18px 14px}
+.connects ol{list-style:none;padding:0;margin:24px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px 28px;counter-reset:c}
+.connects li{display:flex;gap:12px;align-items:flex-start;counter-increment:c}
+.connects li::before{content:counter(c);flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent,var(--teal));color:var(--onaccent,#0b141e);font-weight:800;text-align:center;line-height:26px;font-size:.85rem}
+.connects li b{display:block}.connects li span{color:var(--muted);font-size:.93rem}
+.connects .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:24px}
+.connects .stats div{display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:18px;border:1px solid var(--line)}
+.connects .stats b{font-family:var(--display);font-size:2.2rem;line-height:1;color:var(--accent,var(--teal));white-space:nowrap}
+.connects .stats span{color:var(--muted);font-size:.85rem;text-transform:uppercase;letter-spacing:.1em}
+"""
+
+
+def site(code: str, root: Path) -> None:
+    """Write the product site's diagram SVG and its "How it all connects" section."""
+    c = P[code]
+    d = root / "products" / SITE[code] / "site"
+    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1010 615" role="img" aria-label="Concept diagram: how {html.escape(c["name"])} connects">'
+           f'<style>{SVG_CSS.replace("ACC", c["acc"])}</style><rect width="1010" height="615" fill="#0b141e"/>'
+           f'<g style="--acc:{c["acc"]}">{c["svg"]().replace("var(--acc)", c["acc"])}</g></svg>')
+    (d / "assets" / "how-it-connects.svg").write_text(svg, encoding="utf-8")
+    legend = "".join(f"<li><div><b>{html.escape(t)}</b><span>{html.escape(x)}</span></div></li>" for t, x in c["legend"])
+    stats = "".join(f"<div><b>{n}</b><span>{html.escape(t)}</span></div>" for n, t in c["stats"])
+    sec = (f'<section id="connects"><div class="wrap connects">\n'
+           f'  <div class="eyebrow">How it all connects</div><h2>{html.escape(c["h1"])}</h2>\n'
+           f'  <p class="lead">{html.escape(c["sub"])}</p>\n'
+           f'  <figure><span class="tag">Concept</span><a href="assets/how-it-connects.svg" target="_blank" rel="noopener"><img src="assets/how-it-connects.svg" alt="Concept diagram of how {html.escape(c["name"])} connects: sensors on colour-coded leads to the controller, the Power Hub with labelled outlets, and Home Assistant, phone, voice and alerts" loading="lazy"></a>'
+           f'<figcaption class="small">Concept illustration, not to scale. Your own equipment is drawn dashed. Tap to open full size.</figcaption></figure>\n'
+           f'  <ol>{legend}</ol>\n  <div class="stats">{stats}</div>\n</div></section>\n\n')
+    idx = d / "index.html"
+    t = idx.read_text(encoding="utf-8")
+    if '<section id="connects">' in t:
+        a = t.index('<section id="connects">'); b = t.index("</section>", a) + len("</section>\n\n")
+        t = t[:a] + t[b:]
+    t = t.replace('<section id="demo">', sec + '<section id="demo">', 1)
+    idx.write_text(t, encoding="utf-8")
+    css = d / "styles.css"
+    st = css.read_text(encoding="utf-8")
+    if "How it all connects (Design" not in st:
+        css.write_text(st.rstrip("\n") + "\n" + SITE_CSS, encoding="utf-8")
+    print("site", d.relative_to(root))
+
+
 if __name__ == "__main__":
-    for code in (sys.argv[1:] or list(P)):
-        build(code)
+    args = sys.argv[1:]
+    if args and args[0] == "--site":       # --site /path/to/controlfreak-platform-public [codes]
+        root = Path(args[1])
+        for code in (args[2:] or list(P)):
+            site(code, root)
+    else:
+        for code in (args or list(P)):
+            build(code)
