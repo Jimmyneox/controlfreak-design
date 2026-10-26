@@ -383,6 +383,117 @@ svg.dg{{width:100%;height:100%}}
 </div></body></html>"""
 
 
+# ---------------------------------------------------------------- "Why Home Assistant" page
+# Facts about Home Assistant itself: home-assistant.io and analytics.home-assistant.io, read
+# 2026-10-26 ("Over 2.7 million households", "1500+ integrations", "Works with over 1000
+# brands", "local control and privacy first", "a non-profit and can't be sold or acquired").
+# Control Freak specifics stay inside DECISIONS / PUBLIC_BRIEF: HA pre-installed with the CF
+# integration, local on the home network (never cloud HA), Alexa and Google through the voice
+# bridge and Siri through HomeKit on HA, away alerts through the apps, no subscription.
+HA_SOURCE = "Home Assistant figures: home-assistant.io, October 2026."
+HA_STATS = [("2.7M+", "households run Home Assistant"), ("1,500+", "integrations"),
+            ("1,000+", "brands it works with"), ("0", "subscriptions with Control Freak")]
+
+
+def ha_angles(thing: str, own: str) -> list[tuple[str, str, str]]:
+    return [
+        ("apps", f"One app for the {thing} and the home",
+         f"How many apps do you open today? Home Assistant puts {own} and the rest of your smart home on one screen — set up and ready, not a weekend project."),
+        ("plug", "Works with what you already own",
+         "Home Assistant works with over 1,000 brands through 1,500+ integrations: lights, plugs, thermostats, locks, speakers and cameras you already have."),
+        ("lock", "Your home, your data",
+         "Home Assistant puts local control and privacy first. It runs on the controller on your home network — never cloud Home Assistant — and keeps working when the internet doesn’t."),
+        ("voice", "Ask, don’t open",
+         "Ask Alexa what the status is, tell Google to adjust the temperature, or use Siri through HomeKit — and get automated voice alerts when something is out of balance."),
+        ("bolt", "Automate the whole house",
+         f"Anything {own} knows can start something else in your home: lights, speakers, thermostats, notifications. A few ideas are below."),
+        ("shield", "Built to last",
+         "Home Assistant is open source and run by a non-profit that can’t be sold or acquired. Over 2.7 million households use it, and Control Freak adds no subscription."),
+    ]
+
+
+HA = {
+    "O04": dict(h1="Your reef, and every smart thing in your home, in one app.",
+                angles=ha_angles("reef", "your tank"),
+                ideas=[("Water under the stand", "Hallway lights flash and every speaker says where."),
+                       ("Feeding time", "A button by the tank starts Feed mode; pumps pause, then resume."),
+                       ("Reef sunset", "As the reef lights ramp down, the living-room lamps dim with them.")]),
+    "C03": dict(h1="Your basement, and every smart thing in your home, in one app.",
+                angles=ha_angles("basement", "your sump"),
+                ideas=[("Pump B steps in", "The kitchen light turns amber so you notice, even with your phone down."),
+                       ("Leak by the water heater", "Every speaker in the house says where the water is."),
+                       ("Crawlspace near freezing", "You get a text, and your thermostat gets a nudge.")]),
+    "O15": dict(h1="Your enclosures, and every smart thing in your home, in one app.",
+                angles=ha_angles("enclosures", "your shelf"),
+                ideas=[("Lights to night", "When the enclosures switch to night, the room lamp dims too."),
+                       ("Humidity, your way", "Add your own wireless humidity sensor; it shows beside the temperatures."),
+                       ("Over-temperature cutoff", "Speakers announce which enclosure, and your phone gets a push.")]),
+    "C01": dict(h1="Your plunge, and every smart thing in your home, in one app.",
+                angles=ha_angles("plunge", "your plunge"),
+                ideas=[("Alarm set for 6:00", "Ready-by follows your morning: the water is at target by 6:30."),
+                       ("“Alexa, is the plunge ready?”", "Hear the water temperature before you head outside."),
+                       ("Out of the plunge", "The bathroom floor heat comes on, so you warm up after.")]),
+}
+
+ICON = {
+    "apps": '<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><path d="M17.5 14v7M14 17.5h7"/>',
+    "plug": '<path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/>',
+    "lock": '<rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4"/>',
+    "voice": '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/>',
+    "bolt": '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+    "shield": '<path d="M12 2 4 5v6c0 5 3.5 9 8 11 4.5-2 8-6 8-11V5z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
+}
+
+
+def ha_page(c: dict, h: dict) -> str:
+    head_font = "'Fraunces'" if c["serif"] else "'Space Grotesk'"
+    cards = "".join(f'<div class="hc"><span class="ic"><svg viewBox="0 0 24 24">{ICON[i]}</svg></span><b>{html.escape(t)}</b><p>{html.escape(d)}</p></div>'
+                    for i, t, d in h["angles"])
+    stats = "".join(f'<div class="st"><b>{n}</b><span>{html.escape(t)}</span></div>' for n, t in HA_STATS)
+    ideas = "".join(f'<div class="id"><small>IDEA · EXAMPLE</small><b>{html.escape(t)}</b><p>{html.escape(d)}</p></div>' for t, d in h["ideas"])
+    cf = (f'<span class="cfw2">BROUGHT TO YOU BY <img src="{c["cf"]}" alt="Control Freak"></span>' if c["cf"] else "")
+    return f"""<!doctype html><html><head><meta charset="utf-8"><title>{html.escape(c['name'])} · why Home Assistant</title>
+<link href="{FONTS}" rel="stylesheet"><style>
+@page{{size:8.5in 11in;margin:0}}*{{box-sizing:border-box;margin:0;padding:0}}
+body{{-webkit-print-color-adjust:exact;print-color-adjust:exact;--acc:{c['acc']};--acc2:{c['acc2']}}}
+.pg{{width:8.5in;height:11in;position:relative;overflow:hidden;font-family:Inter;color:#fff;background:#0b141e}}
+.bg{{position:absolute;inset:-10px;{c['bg']}}}
+.shade{{position:absolute;inset:0;background:linear-gradient(180deg,#0b141ecc 0,#0b141e80 35%,#0b141eb0 70%,#0b141ef0 100%)}}
+.head{{position:absolute;top:.45in;left:.5in;right:.5in;display:flex;justify-content:space-between;align-items:flex-start;gap:24px;z-index:2}}
+.live{{font:600 9px 'IBM Plex Mono';letter-spacing:.2em;color:var(--acc2);margin-bottom:8px}}
+h1{{font:700 28px/1.08 {head_font};letter-spacing:-.02em;max-width:5.4in}}
+.sub{{font:400 12px/1.5 Inter;color:#dbe7ef;max-width:5.2in;margin-top:10px}}
+.lock{{display:flex;align-items:center;gap:9px;color:#fff;flex:none}}.lock img{{width:.62in}}
+.lock b{{font:700 17px/1 {head_font};letter-spacing:-.01em;display:block}}.lock b span{{color:var(--acc)}}
+.lock small{{display:block;font:600 6.5px 'IBM Plex Mono';letter-spacing:.2em;color:var(--acc2);margin-top:4px}}
+.cc{{font:600 8px Montserrat;letter-spacing:.2em;text-transform:uppercase;padding:4px 8px;border:1px solid currentColor;border-radius:2px;color:var(--acc2)}}
+.grid{{position:absolute;left:.5in;right:.5in;top:2.2in;display:grid;grid-template-columns:1fr 1fr;gap:16px;z-index:2}}
+.hc{{padding:14px 16px;border-radius:16px;background:#ffffff12;border:1px solid #ffffff26;min-height:1.28in}}
+.hc .ic{{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--acc);align-items:center;justify-content:center;margin-bottom:8px}}
+.hc svg{{width:18px;height:18px;fill:none;stroke:#0b141e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}}
+.hc b{{font:600 14px/1.2 {head_font};display:block;margin-bottom:5px}}.hc p{{font:400 10.5px/1.45 Inter;color:#cfdce6}}
+.stats{{position:absolute;left:.5in;right:.5in;top:7.0in;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;z-index:2}}
+.st{{padding:10px 14px;border-radius:14px;background:#ffffff14;border:1px solid #ffffff2a}}
+.st b{{font:700 26px/1 {head_font};color:var(--acc);white-space:nowrap;display:block}}.st span{{font:600 8px/1.35 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase;color:#dbe7ef;display:block;margin-top:6px}}
+.ideas{{position:absolute;left:.5in;right:.5in;top:8.12in;z-index:2}}
+.ideas h2{{font:600 9px 'IBM Plex Mono';letter-spacing:.2em;color:var(--acc2);margin-bottom:8px}}
+.ideas .row{{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}
+.id{{padding:12px 14px;border-radius:14px;background:#ffffff0f;border:1px dashed #ffffff40}}
+.id small{{font:600 7px 'IBM Plex Mono';letter-spacing:.18em;color:var(--acc2)}}.id b{{display:block;font:600 12.5px/1.25 {head_font};margin:5px 0 3px}}.id p{{font:400 10px/1.4 Inter;color:#cfdce6}}
+.src{{position:absolute;left:.5in;right:.5in;bottom:.72in;font:400 8.5px Inter;color:#9fb1bf;z-index:2}}
+.bot{{position:absolute;bottom:.35in;left:.5in;right:.5in;display:flex;justify-content:space-between;align-items:center;font:600 8px 'IBM Plex Mono';letter-spacing:.2em;color:#c4ccd3;z-index:2;gap:12px}}
+.bot .l{{display:flex;align-items:center;gap:14px}}.cfw2{{display:flex;align-items:center;gap:8px}}.cfw2 img{{height:22px}}
+</style></head><body><div class="pg"><div class="bg"></div><div class="shade"></div>
+<div class="head"><div><div class="live">WHY HOME ASSISTANT · PRE-INSTALLED · ON YOUR HOME NETWORK</div><h1>{html.escape(h['h1'])}</h1>
+<p class="sub">{html.escape(c['name'])} ships with Home Assistant and the Control Freak integration already set up. Here’s what that gives you, from every angle.</p></div>{c['lock']}</div>
+<div class="grid">{cards}</div>
+<div class="stats">{stats}</div>
+<div class="ideas"><h2>IDEAS YOU CAN BUILD IN HOME ASSISTANT · EXAMPLES WITH YOUR OWN DEVICES</h2><div class="row">{ideas}</div></div>
+<p class="src">{HA_SOURCE} Home Assistant is a trademark of the Open Home Foundation. Your lights, speakers and thermostat aren’t in the box.</p>
+<div class="bot"><div class="l"><span>{html.escape(c['foot'])}</span>{cf}</div><span class="cc">Concept · example automations</span></div>
+</div></body></html>"""
+
+
 RENDER = r"""
 const { chromium } = require('playwright');
 const [url, pdf, png] = process.argv.slice(2);
@@ -397,21 +508,20 @@ const [url, pdf, png] = process.argv.slice(2);
 })();
 """
 
-ORDER = ["front", "light-mode", "duo", "ha-home", "infographic", "back"]
+ORDER = ["front", "light-mode", "duo", "ha-home", "why-ha", "infographic", "back"]
 
 
 def splice(folder: Path) -> None:
-    """Rebuild brochure.pdf as front, light-mode, duo, ha-home, infographic, back from the page
-    PNGs' source PDF (the brochure's own 5 pages) plus infographic.pdf."""
+    """Rebuild brochure.pdf as front, light-mode, duo, ha-home, why-ha, infographic, back: the
+    brochure's own five pages plus why-ha.pdf and infographic.pdf."""
     pdf = folder / "brochure.pdf"
     with tempfile.TemporaryDirectory() as t:
         subprocess.run(["pdfseparate", str(pdf), f"{t}/p%d.pdf"], check=True)
         pages = sorted(Path(t).glob("p*.pdf"), key=lambda p: int(p.stem[1:]))
-        base = [p for p in pages]
-        if len(base) == 6:          # already spliced: drop the old infographic (page 5)
-            base = base[:4] + base[5:]
-        assert len(base) == 5, f"{folder}: expected 5 brochure pages, found {len(base)}"
-        parts = [str(p) for p in base[:4]] + [str(folder / "infographic.pdf"), str(base[4])]
+        assert len(pages) in (5, 6, 7), f"{folder}: unexpected {len(pages)} pages"
+        base = pages[:4] + [pages[-1]]   # the brochure's own five pages (earlier inserts dropped)
+        parts = ([str(p) for p in base[:4]] + [str(folder / "why-ha.pdf"), str(folder / "infographic.pdf")]
+                 + [str(base[4])])
         subprocess.run(["pdfunite", *parts, f"{t}/out.pdf"], check=True)
         os.replace(f"{t}/out.pdf", pdf)
     # the brochure's own page PNGs stay; the infographic PNG comes from this build
@@ -431,11 +541,13 @@ def build(code: str) -> None:
     c = P[code]
     folder = BRO / c["folder"]
     (folder / "infographic.html").write_text(page(c), encoding="utf-8")
+    (folder / "why-ha.html").write_text(ha_page(c, HA[code]), encoding="utf-8")
     with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
         f.write(RENDER); js = f.name
     env = dict(os.environ, NODE_PATH=subprocess.run(["npm", "root", "-g"], capture_output=True, text=True).stdout.strip())
-    subprocess.run(["node", js, "file://" + str(folder / "infographic.html"), str(folder / "infographic.pdf"),
-                    str(folder / "infographic.png")], check=True, env=env)
+    for n in ("infographic", "why-ha"):
+        subprocess.run(["node", js, "file://" + str(folder / f"{n}.html"), str(folder / f"{n}.pdf"),
+                        str(folder / f"{n}.png")], check=True, env=env)
     os.unlink(js)
     splice(folder)
     print("built", folder.relative_to(BRO))
@@ -505,6 +617,51 @@ def site(code: str, root: Path) -> None:
         css.write_text(st.rstrip("\n") + "\n" + SITE_CSS, encoding="utf-8")
     print("site", d.relative_to(root))
 
+HA_SITE_CSS = """
+/* Why Home Assistant (Design build_infographic.py, 2026-10-26) */
+.whyha .grid.angles{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.whyha .card .ic{display:inline-flex;width:34px;height:34px;border-radius:10px;align-items:center;justify-content:center;background:var(--accent,var(--teal));margin-bottom:10px}
+.whyha .card .ic svg{width:20px;height:20px;fill:none;stroke:var(--onaccent,#0b141e);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.whyha .hastats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:24px}
+.whyha .hastats div{padding:14px 18px;border-radius:18px;border:1px solid var(--line)}
+.whyha .hastats b{display:block;font-family:var(--display);font-size:2rem;line-height:1.1;color:var(--accent,var(--teal))}
+.whyha .hastats span{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.1em}
+.whyha h3.ideas{margin:32px 0 0;font-size:.75rem;text-transform:uppercase;letter-spacing:.16em;color:var(--accent,var(--teal))}
+.whyha .idea{border-style:dashed}
+.whyha .idea small{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+"""
+
+
+def site_ha(code: str, root: Path) -> None:
+    """Add the "Why Home Assistant" section to the product site, styled with the site's own cards."""
+    c, h = P[code], HA[code]
+    d = root / "products" / SITE[code] / "site"
+    cards = "".join(f'<div class="card"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON[i]}</svg></span>'
+                    f'<h3>{html.escape(t)}</h3><p>{html.escape(x)}</p></div>' for i, t, x in h["angles"])
+    stats = "".join(f"<div><b>{n}</b><span>{html.escape(t)}</span></div>" for n, t in HA_STATS)
+    ideas = "".join(f'<div class="card idea"><small>Idea · example</small><h3>{html.escape(t)}</h3><p>{html.escape(x)}</p></div>'
+                    for t, x in h["ideas"])
+    sec = (f'<section id="home-assistant"><div class="wrap whyha">\n'
+           f'  <div class="eyebrow">Why Home Assistant · pre-installed · on your home network</div><h2>{html.escape(h["h1"])}</h2>\n'
+           f'  <p class="lead">{html.escape(c["name"])} ships with Home Assistant and the Control Freak integration already set up. Here’s what that gives you, from every angle.</p>\n'
+           f'  <div class="grid angles">{cards}</div>\n  <div class="hastats">{stats}</div>\n'
+           f'  <h3 class="ideas">Ideas you can build in Home Assistant · examples with your own devices</h3>\n'
+           f'  <div class="grid angles">{ideas}</div>\n'
+           f'  <p class="small" style="margin-top:18px">{HA_SOURCE} Home Assistant is a trademark of the Open Home Foundation. Your lights, speakers and thermostat aren’t in the box. Concept · example automations.</p>\n'
+           f'</div></section>\n\n')
+    idx = d / "index.html"
+    t = idx.read_text(encoding="utf-8")
+    if '<section id="home-assistant">' in t:
+        a = t.index('<section id="home-assistant">'); b = t.index("</section>", a) + len("</section>\n\n")
+        t = t[:a] + t[b:]
+    t = t.replace('<section id="connects">', sec + '<section id="connects">', 1)
+    idx.write_text(t, encoding="utf-8")
+    css = d / "styles.css"
+    st = css.read_text(encoding="utf-8")
+    if "Why Home Assistant (Design" not in st:
+        css.write_text(st.rstrip("\n") + "\n" + HA_SITE_CSS, encoding="utf-8")
+    print("site ha", d.relative_to(root))
+
 
 if __name__ == "__main__":
     args = sys.argv[1:]
@@ -512,6 +669,7 @@ if __name__ == "__main__":
         root = Path(args[1])
         for code in (args[2:] or list(P)):
             site(code, root)
+            site_ha(code, root)
     else:
         for code in (args or list(P)):
             build(code)
