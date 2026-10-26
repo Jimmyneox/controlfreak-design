@@ -6,8 +6,10 @@
 @keyframes cfShimmer{0%{transform:translateX(-12px)}50%{transform:translateX(12px)}100%{transform:translateX(-12px)}}
 @keyframes cfPulse{0%,100%{opacity:.25}50%{opacity:1}}
 @keyframes cfRise{0%{transform:translateY(0)}100%{transform:translateY(-20px)}}
+@keyframes cfRipple{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.4);opacity:0}}
+@keyframes cfSway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
 .cf-demo-object .shimmer{animation:cfShimmer 4s ease-in-out infinite}
-
+.cf-demo-object.swim-off *{animation-play-state:paused!important}
 .cf-demo-object.lamp-on #lamp-glow,.cf-demo-object.lamp-on #lamp-beam{opacity:1}
 .cf-demo-object.heat-on #heat-haze{opacity:1}
 .cf-demo-object.mist-on #mist{opacity:1}
@@ -19,17 +21,24 @@
 <radialGradient id="gGreen"><stop offset="0" stop-color="#5dff8a"/><stop offset=".4" stop-color="#22ff66" stop-opacity=".6"/><stop offset="1" stop-color="#22ff66" stop-opacity="0"/></radialGradient>
 <radialGradient id="gRed"><stop offset="0" stop-color="#ff3b30"/><stop offset=".4" stop-color="#ff3b30" stop-opacity=".6"/><stop offset="1" stop-color="#ff3b30" stop-opacity="0"/></radialGradient>
 <radialGradient id="gWhite"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<radialGradient id="gViolet"><stop offset="0" stop-color="#d9b3ff" stop-opacity=".9"/><stop offset="1" stop-color="#8a3dff" stop-opacity="0"/></radialGradient>
 <linearGradient id="gBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bff4ff" stop-opacity=".35"/><stop offset="1" stop-color="#4fd8ff" stop-opacity="0"/></linearGradient>
-<linearGradient id="gHeatBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffcf70" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></linearGradient>
+<linearGradient id="gHeatBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffcf70" stop-opacity=".7"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></linearGradient>
+<linearGradient id="gF1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb04a"/><stop offset=".5" stop-color="#ff6a1a"/><stop offset="1" stop-color="#d94a10"/></linearGradient>
+<linearGradient id="gF2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a7bff"/><stop offset=".6" stop-color="#1240c8"/><stop offset="1" stop-color="#0b1f6e"/></linearGradient>
+<linearGradient id="gF3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b56cff"/><stop offset=".5" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ffd23f"/></linearGradient>
+<linearGradient id="gF4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f4ff"/><stop offset="1" stop-color="#9fb8c8"/></linearGradient>
 <pattern id="pCaustic" width="60" height="40" patternUnits="userSpaceOnUse"><path d="M0 20 Q15 5 30 20 T60 20" fill="none" stroke="#e8ffff" stroke-width="2" opacity=".55"/><path d="M0 38 Q15 25 30 38 T60 38" fill="none" stroke="#e8ffff" stroke-width="1.5" opacity=".35"/></pattern>
 <filter id="fBlur"><feGaussianBlur stdDeviation="6"/></filter>
-<filter id="fBlurBig"><feGaussianBlur stdDeviation="18"/></filter></defs>
+<filter id="fBlurBig"><feGaussianBlur stdDeviation="18"/></filter>
+<filter id="fSoft"><feGaussianBlur stdDeviation=".6"/></filter>
+<filter id="fDepth"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
 <image id="base" href="base.jpg" xlink:href="base.jpg" x="0" y="0" width="1024" height="768" preserveAspectRatio="xMidYMid slice"/>
 <g id="overlays">
-<g id="lamp-beam" class="ov" style="mix-blend-mode:screen"><path d="M668 222 L766 222 L815 520 L560 520 Z" fill="url(#gHeatBeam)" filter="url(#fBlur)"/></g>
-<g id="lamp-glow" class="ov" style="mix-blend-mode:screen"><ellipse cx="716" cy="220" rx="60" ry="14" fill="url(#gWarm)"/><ellipse cx="690" cy="325" rx="130" ry="45" fill="url(#gWarm)" opacity=".7" filter="url(#fBlur)"/></g>
-<g id="heat-haze" class="ov" style="mix-blend-mode:soft-light"><rect x="212" y="258" width="604" height="270" fill="#ff8c3a" opacity=".35"/></g>
-<g id="uvb" class="ov" style="mix-blend-mode:screen"><rect x="292" y="230" width="460" height="8" rx="4" fill="#d7c4ff"/><rect x="214" y="240" width="600" height="110" fill="#b49bff" opacity=".12" filter="url(#fBlur)"/></g>
-<g id="mist" class="ov"><clipPath id="cGlass15"><rect x="212" y="258" width="604" height="270"/></clipPath><g clip-path="url(#cGlass15)" filter="url(#fBlurBig)"><g class="puff"><ellipse cx="720" cy="300" rx="130" ry="40" fill="#fff" opacity=".35"/><ellipse cx="500" cy="360" rx="200" ry="50" fill="#fff" opacity=".2"/><ellipse cx="320" cy="460" rx="180" ry="50" fill="#fff" opacity=".18"/></g></g></g>
+<g id="lamp-beam" class="ov" style="mix-blend-mode:screen"><path d="M330 120 L550 120 L700 640 L200 640 Z" fill="url(#gHeatBeam)" opacity=".55"/></g>
+<g id="lamp-glow" class="ov" style="mix-blend-mode:screen"><ellipse cx="442" cy="118" rx="120" ry="50" fill="url(#gWarm)" filter="url(#fBlur)"/><ellipse cx="560" cy="500" rx="240" ry="90" fill="url(#gWarm)" opacity=".4" filter="url(#fBlurBig)"/></g>
+<g id="heat-haze" class="ov" style="mix-blend-mode:soft-light"><ellipse cx="460" cy="300" rx="200" ry="170" fill="#ff9a3c" opacity=".55" filter="url(#fBlurBig)"/></g>
+<g id="uvb" class="ov" style="mix-blend-mode:screen"><path d="M615 98 L835 22 L842 36 L622 112 Z" fill="#e6d6ff"/><path d="M600 110 L850 30 L950 500 L560 500 Z" fill="url(#gViolet)" opacity=".35" filter="url(#fBlurBig)"/></g>
+<g id="mist" class="ov"><ellipse class="puff" style="animation-delay:0.0s" cx="120" cy="560" rx="110" ry="40" fill="#fff" opacity=".28" filter="url(#fBlurBig)"/><ellipse class="puff" style="animation-delay:0.5s" cx="270" cy="500" rx="110" ry="40" fill="#fff" opacity=".28" filter="url(#fBlurBig)"/><ellipse class="puff" style="animation-delay:1.0s" cx="420" cy="560" rx="110" ry="40" fill="#fff" opacity=".28" filter="url(#fBlurBig)"/><ellipse class="puff" style="animation-delay:1.5s" cx="570" cy="500" rx="110" ry="40" fill="#fff" opacity=".28" filter="url(#fBlurBig)"/><ellipse class="puff" style="animation-delay:2.0s" cx="720" cy="560" rx="110" ry="40" fill="#fff" opacity=".28" filter="url(#fBlurBig)"/><ellipse class="puff" style="animation-delay:2.5s" cx="870" cy="500" rx="110" ry="40" fill="#fff" opacity=".28" filter="url(#fBlurBig)"/></g>
 </g>
 </svg>

@@ -6,36 +6,44 @@
 @keyframes cfShimmer{0%{transform:translateX(-12px)}50%{transform:translateX(12px)}100%{transform:translateX(-12px)}}
 @keyframes cfPulse{0%,100%{opacity:.25}50%{opacity:1}}
 @keyframes cfRise{0%{transform:translateY(0)}100%{transform:translateY(-20px)}}
+@keyframes cfRipple{0%{transform:scale(.6);opacity:.9}100%{transform:scale(1.4);opacity:0}}
+@keyframes cfSway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
 .cf-demo-object .shimmer{animation:cfShimmer 4s ease-in-out infinite}
-
+.cf-demo-object.swim-off *{animation-play-state:paused!important}
 .cf-demo-object.pump1-on #pump1-glow,.cf-demo-object.pump1-on #led-pump1,.cf-demo-object.pump1-on #ripple1{opacity:1}
 .cf-demo-object.pump2-on #pump2-glow,.cf-demo-object.pump2-on #led-pump2,.cf-demo-object.pump2-on #ripple2{opacity:1}
-.cf-demo-object.alarm #alarm-wash{animation:cfPulse 1s infinite}
+.cf-demo-object .ring{transform-box:fill-box;transform-origin:50% 50%;animation:cfRipple 2.2s ease-out infinite}
+.cf-demo-object.alarm #alarm-wash{opacity:.2;animation:cfPulse 1s infinite}
 .cf-demo-object.alarm #led-alarm{opacity:1;animation:cfPulse .6s infinite}
 .cf-demo-object #float{transition:transform .8s ease}
-
-.cf-demo-object.alarm #alarm-wash{opacity:.2}</style>
+</style>
 <defs><radialGradient id="gWarm"><stop offset="0" stop-color="#ffb347" stop-opacity=".9"/><stop offset="1" stop-color="#ff7a00" stop-opacity="0"/></radialGradient>
 <radialGradient id="gCyan"><stop offset="0" stop-color="#7ff6ff" stop-opacity=".85"/><stop offset="1" stop-color="#00c8ff" stop-opacity="0"/></radialGradient>
 <radialGradient id="gGreen"><stop offset="0" stop-color="#5dff8a"/><stop offset=".4" stop-color="#22ff66" stop-opacity=".6"/><stop offset="1" stop-color="#22ff66" stop-opacity="0"/></radialGradient>
 <radialGradient id="gRed"><stop offset="0" stop-color="#ff3b30"/><stop offset=".4" stop-color="#ff3b30" stop-opacity=".6"/><stop offset="1" stop-color="#ff3b30" stop-opacity="0"/></radialGradient>
 <radialGradient id="gWhite"><stop offset="0" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>
+<radialGradient id="gViolet"><stop offset="0" stop-color="#d9b3ff" stop-opacity=".9"/><stop offset="1" stop-color="#8a3dff" stop-opacity="0"/></radialGradient>
 <linearGradient id="gBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bff4ff" stop-opacity=".35"/><stop offset="1" stop-color="#4fd8ff" stop-opacity="0"/></linearGradient>
-<linearGradient id="gHeatBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffcf70" stop-opacity=".8"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></linearGradient>
+<linearGradient id="gHeatBeam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffcf70" stop-opacity=".7"/><stop offset="1" stop-color="#ff8a00" stop-opacity="0"/></linearGradient>
+<linearGradient id="gF1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffb04a"/><stop offset=".5" stop-color="#ff6a1a"/><stop offset="1" stop-color="#d94a10"/></linearGradient>
+<linearGradient id="gF2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a7bff"/><stop offset=".6" stop-color="#1240c8"/><stop offset="1" stop-color="#0b1f6e"/></linearGradient>
+<linearGradient id="gF3" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b56cff"/><stop offset=".5" stop-color="#ff9a3c"/><stop offset="1" stop-color="#ffd23f"/></linearGradient>
+<linearGradient id="gF4" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e8f4ff"/><stop offset="1" stop-color="#9fb8c8"/></linearGradient>
 <pattern id="pCaustic" width="60" height="40" patternUnits="userSpaceOnUse"><path d="M0 20 Q15 5 30 20 T60 20" fill="none" stroke="#e8ffff" stroke-width="2" opacity=".55"/><path d="M0 38 Q15 25 30 38 T60 38" fill="none" stroke="#e8ffff" stroke-width="1.5" opacity=".35"/></pattern>
 <filter id="fBlur"><feGaussianBlur stdDeviation="6"/></filter>
-<filter id="fBlurBig"><feGaussianBlur stdDeviation="18"/></filter></defs>
+<filter id="fBlurBig"><feGaussianBlur stdDeviation="18"/></filter>
+<filter id="fSoft"><feGaussianBlur stdDeviation=".6"/></filter>
+<filter id="fDepth"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
 <image id="base" href="base.jpg" xlink:href="base.jpg" x="0" y="0" width="1024" height="768" preserveAspectRatio="xMidYMid slice"/>
 <g id="overlays">
-<g id="water"><polygon points="350,470 690,465 682,602 345,560" fill="#3d5a4f" opacity=".35" style="mix-blend-mode:multiply"/></g>
-<g id="float"><rect x="398" y="470" width="16" height="10" rx="2" fill="#ffd400" opacity=".85"/></g>
-<g id="ripple1" class="ov" style="mix-blend-mode:screen"><ellipse class="shimmer" cx="468" cy="525" rx="60" ry="14" fill="none" stroke="#dff" stroke-width="3" opacity=".6"/></g>
-<g id="ripple2" class="ov" style="mix-blend-mode:screen"><ellipse class="shimmer" cx="588" cy="540" rx="58" ry="14" fill="none" stroke="#dff" stroke-width="3" opacity=".6"/></g>
-<circle id="pump1-glow" class="ov" cx="462" cy="405" r="20" fill="url(#gGreen)"/>
-<circle id="pump2-glow" class="ov" cx="586" cy="425" r="20" fill="url(#gGreen)"/>
-<circle id="led-pump1" class="ov" cx="112" cy="60" r="8" fill="url(#gGreen)"/>
-<circle id="led-pump2" class="ov" cx="130" cy="60" r="8" fill="url(#gGreen)"/>
-<circle id="led-alarm" class="ov" cx="148" cy="60" r="10" fill="url(#gRed)"/>
+<clipPath id="cPit"><ellipse cx="478" cy="520" rx="440" ry="215"/></clipPath>
+<g id="water" clip-path="url(#cPit)"><rect x="30" y="300" width="900" height="440" fill="#2a4a5a" opacity=".22" style="mix-blend-mode:screen"/></g>
+<g id="ripple1" class="ov" style="mix-blend-mode:screen" clip-path="url(#cPit)"><ellipse class="ring" style="animation-delay:0.0s" cx="365" cy="540" rx="150" ry="45" fill="none" stroke="#cfefff" stroke-width="2.5"/><ellipse class="ring" style="animation-delay:0.7s" cx="365" cy="540" rx="150" ry="45" fill="none" stroke="#cfefff" stroke-width="2.5"/><ellipse class="ring" style="animation-delay:1.4s" cx="365" cy="540" rx="150" ry="45" fill="none" stroke="#cfefff" stroke-width="2.5"/></g>
+<g id="ripple2" class="ov" style="mix-blend-mode:screen" clip-path="url(#cPit)"><ellipse class="ring" style="animation-delay:0.0s" cx="555" cy="495" rx="110" ry="35" fill="none" stroke="#cfefff" stroke-width="2.5"/><ellipse class="ring" style="animation-delay:0.7s" cx="555" cy="495" rx="110" ry="35" fill="none" stroke="#cfefff" stroke-width="2.5"/><ellipse class="ring" style="animation-delay:1.4s" cx="555" cy="495" rx="110" ry="35" fill="none" stroke="#cfefff" stroke-width="2.5"/></g>
+<g id="pump1-glow" class="ov" style="mix-blend-mode:screen"><ellipse cx="362" cy="400" rx="110" ry="160" fill="url(#gCyan)" opacity=".4" filter="url(#fBlurBig)"/></g>
+<g id="pump2-glow" class="ov" style="mix-blend-mode:screen"><ellipse cx="560" cy="400" rx="90" ry="130" fill="url(#gCyan)" opacity=".4" filter="url(#fBlurBig)"/></g>
+<g id="float"><ellipse cx="272" cy="225" rx="42" ry="48" fill="url(#gWhite)" opacity=".25"/></g>
 <rect id="alarm-wash" x="0" y="0" width="1024" height="768" fill="#ff2a1a" opacity="0" style="mix-blend-mode:multiply"/>
+<g id="leds"><circle id="led-pump1" class="ov" cx="40" cy="730" r="9" fill="url(#gGreen)"/><circle id="led-pump2" class="ov" cx="66" cy="730" r="9" fill="url(#gGreen)"/><circle id="led-alarm" class="ov" cx="92" cy="730" r="9" fill="url(#gRed)"/></g>
 </g>
 </svg>

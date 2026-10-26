@@ -1,6 +1,6 @@
 # Wave 1 demo objects — photoreal v2 (photo base + overlays)
 
-James bar: "the demo should look real." Each object = photoreal base plate (`base.jpg`, 1024×768, generated; O04 matched to `_refs/james-reef-demo-look-real.png`) + an SVG overlay stack toggled by root classes. Flat SVG v1 archived in `_flat-svg-v1/`.
+James bar: "the demo should look real." Each object = photoreal base plate (`base.jpg`, 1024×768, generated text-only, **close-up v3**: tank/tub/pit fills the stage, no room plates) + an SVG overlay stack toggled by root classes. Flat SVG v1 archived in `_flat-svg-v1/`.
 
 ## Files per object (`{slug}/`)
 | file | use |
@@ -29,9 +29,25 @@ o.querySelector('#water').style.transform = `scaleY(${level})`; // 0..1, bottom-
 | O15 `o15-terrarium` | `lamp-on` (#lamp-beam, #lamp-glow), `heat-on` (#heat-haze), `mist-on` (#mist rising) | **new** `uvb-on` (#uvb bar) |
 | C01 `c01-cold-plunge` | `chiller-on` (#chill-glow, #frost, #flow, #led-chiller), `power-on` (#display, #led-power), `temp-neutral` (water tint cold-blue → neutral teal) | `#water-tint` inside `#water`; set `style.fill` for custom temp tint |
 
-Idle composites: O04/O15/C03 no classes; C01 = `power-on temp-neutral`. Active: all listed classes (C01 = `chiller-on power-on`).
+Idle composites: O04 `swim-on`; O15/C03 no classes; C01 = `power-on temp-neutral`. Active: all listed classes (O04 also `swim-on`; C01 = `chiller-on power-on`).
 
 ## Caveats
 - Bases are AI-generated plates (brochure-grade, not product photos of our hardware). C03 is a top-down documentary view, not a true cutaway; water-level scaleY is a tint, not a real level change.
 - Inline files are ~0.9–1.2 MB each (base64 JPEG); prefer `object.svg` + `base.jpg` or `overlays.svg` over `<img>` for production.
 - `mix-blend-mode` overlays need a modern browser; degrade to plain opacity elsewhere.
+
+> **Provenance:** Bases are original generated marketing art; not photographs of customer or third-party installations. James’s reef ref is quality reference only and must not be used as a likeness. (Prior f5aa8d7 bases archived in `_superseded-likeness-f5aa8d7/`.)
+
+## Close-up v3 + swimming fish (James/Chief cue)
+- Bases remade as **close-ups**: O04 = inside a rimless reef tank (corals/sand/surface, glass edges at frame), O15 = terrarium interior + frame/lamp clip, C01 = plunge water + rim + partial chiller, C03 = sump pit water + pumps/PVC + concrete rim. No living room / skyline / basement plates. Prior room-plate bases archived in `_superseded-roomplate-8c34483/`.
+- All four bases are original text-only generations; `_refs/james-reef-demo-look-real.png` was **not** used as a reference.
+
+### How the fish loops work (O04)
+- The O04 base photo has **no fish**. Five original vector fish live in `<g id="fish-school">` as `<g id="fish-1">` … `<g id="fish-5">` (class `fish`).
+- CSS `@keyframes` in the SVG `<style>`: `cfSwimR` / `cfSwimL` translate each fish across the full 1024px width (16–30 s linear loops, staggered negative delays so fish are already mid-tank on load), `cfBob` adds vertical drift/pitch, `cfTail` wiggles the tail. `fish-4` is a blurred, smaller background fish for depth.
+- **Default: autoplay ON** — root ships with class `swim-on`. To pause: `o.classList.add('swim-off')` (pauses every animation in the object, incl. caustics/ripples). To stop and hide fish off-stage: remove `swim-on`.
+- Respect reduced motion if desired: `if (matchMedia('(prefers-reduced-motion: reduce)').matches) o.classList.add('swim-off')`.
+- Other subtle life: C01 surface shimmer (always), C03 expanding ripple rings when `pump1-on`/`pump2-on`, O15 rising mist with `mist-on`.
+
+### Inline required
+Class toggles **and** reliable animation require the SVG to be **inlined in the DOM** (`object.html` or `object-inline.svg` contents injected). As `<img src="object.svg">` the page CSS/JS cannot reach it (some browsers also freeze animation). No video assets.
