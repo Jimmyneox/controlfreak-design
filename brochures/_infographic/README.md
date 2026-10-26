@@ -1,22 +1,26 @@
-# Wave 1 brochure pages 5–6 ("Why Home Assistant" and "How it all connects")
+# Wave 1 brochures: "Why Home Assistant" page and splice
 
-`build_infographic.py` writes two pages into each locked Wave 1 brochure, which becomes seven pages
-(front, light-mode, duo, ha-home, why-ha, infographic, back).
+`build_infographic.py` writes page 5, **Why Home Assistant** (`why-ha.html` → `why-ha.pdf`/`why-ha.png`),
+into each locked Wave 1 brochure and rebuilds `brochure.pdf`:
 
-**Page 5, Why Home Assistant** (`why-ha.html`): six benefit angles, four Home Assistant figures
-cited to home-assistant.io (October 2026), and three "Idea · Example" automations per product.
+front, light-mode, duo, ha-home, **why-ha**, infographic, back
 
-**Page 6, How it all connects** (`infographic.html`): a concept diagram of how the
-product connects (the buyer's own equipment drawn dashed; the probes and sensors on keyed,
-colour-coded leads to the controller; the Power Hub with its labelled outlets; Home Assistant,
-phone, voice and alert channels), a numbered legend and three key numbers. Each page reuses
-its brochure's palette, type and lockup. Copy comes only from the product's PUBLIC_BRIEF.
+The page has six benefit angles, four Home Assistant figures cited to home-assistant.io (October 2026),
+the owner's "Works with the Control Freak gear you already own" line, and three "Idea · Example"
+automations per product, in each brochure's own palette, type and lockup.
+
+**The "How it all connects" infographic is not made here any more** (owner, 2026-10-26): Gemini is
+remaking it (controlfreak-platform `design/INFOGRAPHIC_REMAKE.md`). This script never writes
+`infographic.*`. If a brochure folder has an `infographic.pdf`/`.png`, the splice places it as page 6;
+if not, the brochure is six pages.
 
     python3 brochures/_infographic/build_infographic.py          # all four
     python3 brochures/_infographic/build_infographic.py O04      # one
 
-Needs Node with Playwright (Chromium) and poppler-utils (`pdfseparate`, `pdfunite`). Each
-brochure's own build script calls this at the end, so a rebuild keeps the page.
+Site export (public repo) writes only the `#home-assistant` section on each product site; it doesn't touch
+`#connects` or `how-it-connects.svg`:
 
-Site export (public repo): `python3 build_infographic.py --site /path/to/controlfreak-platform-public [codes]`
-adds the `#connects` and `#home-assistant` sections to each product site.
+    python3 brochures/_infographic/build_infographic.py --site /path/to/controlfreak-platform-public [codes]
+
+Needs Node with Playwright (Chromium) and Python with Pillow and pypdf. Each brochure's own build
+script calls this at the end, so a rebuild keeps the pages.
