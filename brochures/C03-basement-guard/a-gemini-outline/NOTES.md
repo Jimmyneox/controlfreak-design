@@ -27,3 +27,9 @@ Built Oct 25 2026 ~11:30 PM ET. Same pattern as O04 `c-v8-gemini-outline`.
 No Gemini PNGs or hero crops; no prices (the $15,400 III stat was already in Concept A); no competitor names; no pool/reef; floats are always kept; °F only.
 
 Rebuild: `python3 build.py`. The prior Concept A notes are in NOTES.conceptA.md.
+
+## Eng fact patch (Oct 25, 2026 ~11:32 PM ET)
+Light-mode equalized-wear body only (James rule: Gemini assumed good unless Eng flags unfactual):
+- Removed "monitors amp draw" (Wave 1 has no pump energy meters; P2 later).
+- Removed circuit-never-trips / dual-startup-surge guarantee; kept stagger benefit.
+- Eng wording: "It alternates duty weekly and staggers starts so both pumps never kick on at the same instant."
