@@ -1,1 +1,1 @@
-See ../DEMO_OBJECTS.md for layer/id map (o04-reef).
+Slug `o04-reef` — see WIRING.md.

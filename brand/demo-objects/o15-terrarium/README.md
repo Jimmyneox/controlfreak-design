@@ -1,1 +1,1 @@
-See ../DEMO_OBJECTS.md for layer/id map (o15-terrarium).
+Slug `o15-terrarium` — photo base + overlays. See ../DEMO_OBJECTS.md.

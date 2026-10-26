@@ -35,5 +35,5 @@ Browser/app icons (favicon.svg/.ico/16/32/48, apple-touch, PWA) use the **teardr
 ## A — Hub product-card marks
 `hub/product-cards/` (README table + `preview-dark-32-48.png`). Cream icons for dark hub cards. Favicons stay drops.
 
-## B — Demo physical objects
-`products/{O04-reef,C03-basement-guard,O15-reptile,C01-cold-plunge}/demo/` — `object.svg` (inline it), idle/active PNGs, `DEMO_OBJECTS.md` layer/id map (root-class toggles + `#water` scaleY). Place beside/above `site/demo-template/` readouts.
+## B — Demo physical objects (photoreal v2)
+`products/{O04-reef,C03-basement-guard,O15-reptile,C01-cold-plunge}/demo/` — photoreal `base.jpg` + overlay SVG. Inline `object-inline.svg` (or inject `object.html`; or `object.svg`+`base.jpg`; or `overlays/overlays.svg` over an `<img>`). Root `.cf-demo-object` class toggles unchanged from 1559d14 (+ O15 `uvb-on`); `#water` scaleY / C03 `#float`. Full map in `WIRING.md`. Flat v1 archived at `brand/demo-objects/_flat-svg-v1/`.
