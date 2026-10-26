@@ -396,19 +396,21 @@ HA_STATS = [("2.7M+", "households run Home Assistant"), ("1,500+", "integrations
 
 
 def ha_angles(thing: str, own: str) -> list[tuple[str, str, str]]:
+    # Headlines and wording follow what Home Assistant users say they love (private repo:
+    # design/research/HA_VOICE_OF_CUSTOMER.md). Language only; no quotes are published.
     return [
-        ("apps", f"One app for the {thing} and the home",
-         f"How many apps do you open today? Home Assistant puts {own} and the rest of your smart home on one screen — set up and ready, not a weekend project."),
-        ("plug", "Works with what you already own",
-         "Home Assistant works with over 1,000 brands through 1,500+ integrations: lights, plugs, thermostats, locks, speakers and cameras you already have."),
-        ("lock", "Your home, your data",
-         "Home Assistant puts local control and privacy first. It runs on the controller on your home network — never cloud Home Assistant — and keeps working when the internet doesn’t."),
+        ("apps", "One app. No more app juggling.",
+         f"How many apps do you open today? Home Assistant puts {own} and the rest of your smart home in one place, so you have one app to check and one to control."),
+        ("plug", "Your brands finally work together",
+         "Home Assistant works with over 1,000 brands through 1,500+ integrations. Lights, plugs, thermostats, locks, speakers and cameras you already own can finally talk to each other."),
+        ("lock", "Works when the internet doesn’t",
+         "It runs on the controller on your home network, never cloud Home Assistant, so it answers right away and keeps working when the internet is down. Your data stays home."),
         ("voice", "Ask, don’t open",
-         "Ask Alexa what the status is, tell Google to adjust the temperature, or use Siri through HomeKit — and get automated voice alerts when something is out of balance."),
-        ("bolt", "Automate the whole house",
-         f"Anything {own} knows can start something else in your home: lights, speakers, thermostats, notifications. A few ideas are below."),
-        ("shield", "Built to last",
-         "Home Assistant is open source and run by a non-profit that can’t be sold or acquired. Over 2.7 million households use it, and Control Freak adds no subscription."),
+         "Ask Alexa what the status is, tell Google to adjust the temperature, or use Siri through HomeKit, and get automated voice alerts when something is out of balance."),
+        ("bolt", "Peace of mind, all over the house",
+         f"Anything {own} knows can set off something else: lights, speakers, thermostats and alerts on every phone. A few ideas are below."),
+        ("shield", "Nobody can switch it off",
+         "Your setup lives in your home, not on a company’s server. Home Assistant is open source, and run by a non-profit that can’t be sold. Control Freak adds no subscription."),
     ]
 
 
@@ -485,7 +487,7 @@ h1{{font:700 28px/1.08 {head_font};letter-spacing:-.02em;max-width:5.4in}}
 .bot .l{{display:flex;align-items:center;gap:14px}}.cfw2{{display:flex;align-items:center;gap:8px}}.cfw2 img{{height:22px}}
 </style></head><body><div class="pg"><div class="bg"></div><div class="shade"></div>
 <div class="head"><div><div class="live">WHY HOME ASSISTANT · PRE-INSTALLED · ON YOUR HOME NETWORK</div><h1>{html.escape(h['h1'])}</h1>
-<p class="sub">{html.escape(c['name'])} ships with Home Assistant and the Control Freak integration already set up. Here’s what that gives you, from every angle.</p></div>{c['lock']}</div>
+<p class="sub">{html.escape(c['name'])} comes with Home Assistant already installed and the Control Freak integration already connected. You get everything people love about it, without the setup. Just plug it in.</p></div>{c['lock']}</div>
 <div class="grid">{cards}</div>
 <div class="stats">{stats}</div>
 <div class="ideas"><h2>IDEAS YOU CAN BUILD IN HOME ASSISTANT · EXAMPLES WITH YOUR OWN DEVICES</h2><div class="row">{ideas}</div></div>
@@ -643,7 +645,7 @@ def site_ha(code: str, root: Path) -> None:
                     for t, x in h["ideas"])
     sec = (f'<section id="home-assistant"><div class="wrap whyha">\n'
            f'  <div class="eyebrow">Why Home Assistant · pre-installed · on your home network</div><h2>{html.escape(h["h1"])}</h2>\n'
-           f'  <p class="lead">{html.escape(c["name"])} ships with Home Assistant and the Control Freak integration already set up. Here’s what that gives you, from every angle.</p>\n'
+           f'  <p class="lead">{html.escape(c["name"])} comes with Home Assistant already installed and the Control Freak integration already connected. You get everything people love about it, without the setup. Just plug it in.</p>\n'
            f'  <div class="grid angles">{cards}</div>\n  <div class="hastats">{stats}</div>\n'
            f'  <h3 class="ideas">Ideas you can build in Home Assistant · examples with your own devices</h3>\n'
            f'  <div class="grid angles">{ideas}</div>\n'
