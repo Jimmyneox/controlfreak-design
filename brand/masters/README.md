@@ -1,8 +1,9 @@
 # Control Freak mark masters (owner-supplied, 2026-10-25)
 
 Source of truth for the **parent** Control Freak logo: pool ladder + water wave inside a
-rounded PCB-trace frame. Product-line marks mirror this system (same frame and traces;
-product motif replaces the ladder/wave).
+rounded PCB-trace frame. Product-line marks usually mirror this system (same frame and traces;
+product motif replaces the ladder/wave). **Exception:** O04 Reef Control Pro uses the locked
+coral-in-teardrop at `brochures/O04-reef/approved-mark/` — not a PCB-family fish silhouette.
 
 ## Line marks (SVG + PNG)
 
