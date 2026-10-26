@@ -27,9 +27,9 @@ o.querySelector('#water').style.transform = `scaleY(${level})`; // 0..1, bottom-
 | O04 `o04-reef` | `light-on` (#light-beam, #light-glow, #status-light), `heater-on` (#heater-glow, #status-heater), `pump-on` (#flow caustics, #status-pump) | `#water` = cyan tint layer, scaleY |
 | C03 `c03-basement` | `pump1-on` (#pump1-glow, #ripple1, #led-pump1), `pump2-on` (…2), `alarm` (#alarm-wash red pulse, #led-alarm) | `#water` (pit tint) scaleY; `#float` translateY (px, negative = up) |
 | O15 `o15-terrarium` | `lamp-on` (#lamp-beam, #lamp-glow), `heat-on` (#heat-haze), `mist-on` (#mist rising) | **new** `uvb-on` (#uvb bar) |
-| C01 `c01-cold-plunge` | **`chromo-on`** = Chromotherapy master (cycles colors 12 s) + optional fixed color `chromo-blue` / `chromo-teal` / `chromo-violet` / `chromo-magenta` / `chromo-warm` / `chromo-white`; `chiller-on` (#mist, #flow, #led-chiller), `power-on` (#display 39°F, #led-power), `temp-neutral` (water tint cold-blue → neutral) | all water layers clipped to `#cWater` ellipse (= `water-mask.png`); `#water-tint` fill for custom temp tint |
+| C01 `c01-cold-plunge` | **`power-on` or `chromo-on`** = Chromotherapy lights on (`chromo-off` opts out while powered) (cycles colors 12 s) + optional fixed color `chromo-blue` / `chromo-teal` / `chromo-violet` / `chromo-magenta` / `chromo-warm` / `chromo-white`; `chiller-on` (#mist, #flow, #led-chiller), `power-on` (#display 39°F, #led-power), `temp-neutral` (water tint cold-blue → neutral) | all water layers clipped to `#cWater` ellipse (= `water-mask.png`); `#water-tint` fill for custom temp tint |
 
-Idle composites: O04 `swim-on`; O15/C03 no classes; C01 = `power-on temp-neutral`. Active: all listed classes (O04 also `swim-on`; C01 = `power-on chiller-on chromo-on chromo-violet`).
+Idle composites: O04 `swim-on`; O15/C03 no classes; C01 = `temp-neutral` (unpowered, lights off). Active: all listed classes (O04 also `swim-on`; C01 = `power-on chiller-on chromo-on chromo-violet`).
 
 ## Caveats
 - Bases are AI-generated plates (brochure-grade, not product photos of our hardware). C03 is a top-down documentary view, not a true cutaway; water-level scaleY is a tint, not a real level change.
@@ -58,8 +58,10 @@ Class toggles **and** reliable animation require the SVG to be **inlined in the 
 - **New base** `c01-cold-plunge/base.jpg`: round elevated travertine plunge tub, 3/4 close-up, water **contained inside the vessel** below the rim, two underwater LED fixtures on the inner wall, light mist. Generated with our own pool-site spa photo (`_refs/pool-spa-1248.webp`, from `site/src/assets/photos/spa-1248.webp`) as **style/quality reference only**. James’s reef ref not used. Previous broken rectangle base replaced.
 - **Water stays inside the vessel:** every water/LED layer is clipped to `<clipPath id="cWater">` = ellipse `cx 538 cy 422 rx 417 ry 95` (hand-fitted to the water surface) and feathered by `<mask id="mWater">`. Same shape shipped as `c01-cold-plunge/water-mask.png` (1024×768, white = water) for anyone compositing outside the SVG. Only `#chromo-rim` (soft spill onto the *inner* stone wall, masked to the inner bowl) and the rim LCD sit outside the water.
 - **Chromotherapy** (feature name for the site/demo button): colored underwater LEDs, like pool app `.m-spa` + `.spa-lit` + tint `#l-spa-c`.
-  - `chromo-on` = master. Alone it **cycles** blue → teal → violet → magenta → warm (12 s loop).
-  - Add one of `chromo-blue | chromo-teal | chromo-violet | chromo-magenta | chromo-warm | chromo-white` to lock a color (remove to resume cycling).
+  - **v5 visibility rule (James, Oct 26):** chromotherapy lights show whenever **`power-on` OR `chromo-on`** is set, so a site that only toggles `power-on` (plus chiller/pump/heater) already shows cycling colored LEDs. Add `chromo-off` to keep the tub powered with lights dark.
+  - Lit = **cycles** blue → teal → violet → magenta → warm (12 s loop).
+  - v5 strength: `#chromo` color blend .72 + screen glows .95 with beams from each lens; `#chromo-fixtures` = large glowing orbs (70 px halo, 30 px core, white hot spot); `#chromo-rim` full opacity wash on the inner stone.
+  - Add one of `chromo-blue | chromo-teal | chromo-violet | chromo-magenta | chromo-warm | chromo-white` to lock a color (remove to resume cycling). Pins work with either `power-on` or `chromo-on`.
   - Layers: `#chromo` (multiply + color + screen glows, clipped to water), `#chromo-fixtures` (the two LED lenses glow), `#chromo-rim` (inner-wall spill), `#led-chromo` (dot on the rim LCD). All colored elements share class `.cc`; custom color: `o.querySelectorAll('.cc').forEach(e=>e.style.fill='#ff0')` with `chromo-on` + any `chromo-*` lock (to stop the cycle).
   - `chromotherapy-sheet.png` shows all six locked colors.
 ```js
