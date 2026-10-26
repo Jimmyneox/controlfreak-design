@@ -14,5 +14,5 @@ def svg(ink):
 <g fill="none" stroke="{ink}" stroke-width="{SW}" stroke-linejoin="round"><path d="M120 329H290M120 491H290"/></g>
 <circle cx="285" cy="329" r="{NR}"/><circle cx="285" cy="491" r="{NR}"/><path d="M174 410.5H250" fill="none" stroke="{ink}" stroke-width="{SW}"/><circle cx="252" cy="410.5" r="{NR}"/></g></svg>
 '''
-for k,v in COL.items():(R/f"brand/app-icons/_masters/control-freak-pcb-icon-{k}.svg").write_text(svg(v))
+for k,v in COL.items():(R/f"brand/app-icons/_unused/_masters/control-freak-pcb-icon-{k}.svg").write_text(svg(v))
 print("masters ok")

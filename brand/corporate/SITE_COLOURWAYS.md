@@ -12,3 +12,6 @@ Colours: white `#ffffff`, navy `#0b1f3a`, forest `#0f2e2c`, cream `#efe9df`, gol
 | O04 Reef | per Reef brochure | Coral-teardrop leads (`brochures/O04-reef/approved-mark/`); attribution = `wordmark-navy` (light) / `wordmark-white` (dark) | `o04-reef/` |
 
 Text-led product names for C03/O15/C01 (see `brand/PRODUCT_MARKS.md`). No new product marks.
+
+## Favicon exception — favicons = drops (2026-10-26)
+Browser/app icons (favicon.svg/.ico/16/32/48, apple-touch, PWA) use the **teardrop/drop silhouette**: hub = navy parent drop; C03 = white drop, O15 = forest drop, C01 = cool-blue (#2f6f9f) drop (same parent geometry, recolored); O04 = coral-teardrop drop (solid silhouette at 16/32). Flat, transparent, no plates. The corporate **attribution wordmark stays PCB**. Favicon ≠ marketing lockup. Built by `brand/app-icons/build_icons.py`; PCB icon masters moved to `brand/app-icons/_unused/`.

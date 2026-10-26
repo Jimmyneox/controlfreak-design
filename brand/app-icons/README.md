@@ -32,3 +32,6 @@ Preview: `_preview-favicon-sets.png` (32/48 at 1:1 and 2×, light + dark chrome)
     python3 brand/app-icons/make_masters.py      # PCB icon masters
     python3 brand/app-icons/build_icons.py       # all sets except pool (+ preview)
     python3 brand/app-icons/build_icons.py pool  # also rebuild pool
+
+## Favicons = drops
+All favicon sets are built from teardrop/drop masters (parent drop in `brand/_superseded/parent-teardrop-2026-10/`, O04 `brochures/O04-reef/approved-mark/reef-mark-drop.svg`). No plates; transparent. O04 uses a solid silhouette at 16/32. `_unused/` holds the retired PCB C+traces icon masters — do not use for favicons.

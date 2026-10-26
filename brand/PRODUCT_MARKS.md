@@ -50,3 +50,6 @@ O04 does **not** use this PCB-family deliverable set — use `approved-mark/` co
 - Don’t use a PCB-family fish silhouette (or any PCB capsule draft) as the O04 Reef product mark — coral-teardrop is locked.
 - Don’t use the PCB corporate mark as a product logo.
 - Don’t drop PCB vias or the rounded board outline on **PCB-family** drafts.
+
+## Favicon exception — favicons = drops (2026-10-26)
+Browser/app icons (favicon.svg/.ico/16/32/48, apple-touch, PWA) use the **teardrop/drop silhouette**: hub = navy parent drop; C03 = white drop, O15 = forest drop, C01 = cool-blue (#2f6f9f) drop (same parent geometry, recolored); O04 = coral-teardrop drop (solid silhouette at 16/32). Flat, transparent, no plates. The corporate **attribution wordmark stays PCB**. Favicon ≠ marketing lockup. Built by `brand/app-icons/build_icons.py`; PCB icon masters moved to `brand/app-icons/_unused/`.
