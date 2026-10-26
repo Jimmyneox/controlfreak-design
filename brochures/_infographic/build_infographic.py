@@ -392,6 +392,10 @@ svg.dg{{width:100%;height:100%}}
 # integration, local on the home network (never cloud HA), Alexa and Google through the voice
 # bridge and Siri through HomeKit on HA, away alerts through the apps, no subscription.
 HA_SOURCE = "Home Assistant figures: home-assistant.io, October 2026."
+# Owner decision 2026-10-26 (DECISIONS db07edb): verbatim on every Wave 1 product.
+CF_GEAR = ("Works with the Control Freak gear you already own: every Control Freak product is a complete kit on "
+           "its own. If a Control Freak controller you already have has a free port or relay, Home Assistant can "
+           "put it to work for this product too.")
 HA_STATS = [("2.7M+", "households run Home Assistant"), ("1,500+", "integrations"),
             ("1,000+", "brands it works with"), ("0", "subscriptions with Control Freak")]
 
@@ -472,8 +476,8 @@ h1{{font:700 28px/1.08 {head_font};letter-spacing:-.02em;max-width:5.4in}}
 .cc{{font:600 8px Montserrat;letter-spacing:.2em;text-transform:uppercase;padding:4px 8px;border:1px solid currentColor;border-radius:2px;color:var(--acc2)}}
 .grid{{position:absolute;left:.5in;right:.5in;top:2.2in;display:grid;grid-template-columns:1fr 1fr;gap:16px;z-index:2}}
 .hc{{padding:14px 16px;border-radius:16px;background:#ffffff12;border:1px solid #ffffff26;min-height:1.28in}}
-.hc .ic{{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--acc);align-items:center;justify-content:center;margin-bottom:8px}}
-.hc svg{{width:18px;height:18px;fill:none;stroke:#0b141e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}}
+.hc .ic,.gear .ic{{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--acc);align-items:center;justify-content:center;margin-bottom:8px}}
+.hc svg,.gear svg{{width:18px;height:18px;fill:none;stroke:#0b141e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}}
 .hc b{{font:600 14px/1.2 {head_font};display:block;margin-bottom:5px}}.hc p{{font:400 10.5px/1.45 Inter;color:#cfdce6}}
 .stats{{position:absolute;left:.5in;right:.5in;top:7.0in;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;z-index:2}}
 .st{{padding:10px 14px;border-radius:14px;background:#ffffff14;border:1px solid #ffffff2a}}
@@ -483,6 +487,8 @@ h1{{font:700 28px/1.08 {head_font};letter-spacing:-.02em;max-width:5.4in}}
 .ideas .row{{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}
 .id{{padding:12px 14px;border-radius:14px;background:#ffffff0f;border:1px dashed #ffffff40}}
 .id small{{font:600 7px 'IBM Plex Mono';letter-spacing:.18em;color:var(--acc2)}}.id b{{display:block;font:600 12.5px/1.25 {head_font};margin:5px 0 3px}}.id p{{font:400 10px/1.4 Inter;color:#cfdce6}}
+.gear{{position:absolute;left:.5in;right:.5in;bottom:1.0in;z-index:2;display:flex;gap:12px;align-items:center;padding:10px 14px;border-radius:14px;background:#ffffff12;border:1px solid #ffffff2e;border-left:3px solid var(--acc)}}
+.gear .ic{{flex:none;margin:0}}.gear p{{font:400 10.5px/1.45 Inter;color:#e3edf4}}.gear b{{font-weight:600;color:#fff}}
 .src{{position:absolute;left:.5in;right:.5in;bottom:.72in;font:400 8.5px Inter;color:#9fb1bf;z-index:2}}
 .bot{{position:absolute;bottom:.35in;left:.5in;right:.5in;display:flex;justify-content:space-between;align-items:center;font:600 8px 'IBM Plex Mono';letter-spacing:.2em;color:#c4ccd3;z-index:2;gap:12px}}
 .bot .l{{display:flex;align-items:center;gap:14px}}.cfw2{{display:flex;align-items:center;gap:8px}}.cfw2 img{{height:22px}}
@@ -492,6 +498,7 @@ h1{{font:700 28px/1.08 {head_font};letter-spacing:-.02em;max-width:5.4in}}
 <div class="grid">{cards}</div>
 <div class="stats">{stats}</div>
 <div class="ideas"><h2>IDEAS YOU CAN BUILD IN HOME ASSISTANT · EXAMPLES WITH YOUR OWN DEVICES</h2><div class="row">{ideas}</div></div>
+<div class="gear"><span class="ic"><svg viewBox="0 0 24 24">{ICON["plug"]}</svg></span><p><b>{html.escape(CF_GEAR.split(": ",1)[0])}:</b> {html.escape(CF_GEAR.split(": ",1)[1])}</p></div>
 <p class="src">{HA_SOURCE} Home Assistant is a trademark of the Open Home Foundation. Your lights, speakers and thermostat aren’t in the box.</p>
 <div class="bot"><div class="l"><span>{html.escape(c['foot'])}</span>{cf}</div><span class="cc">Concept · example automations</span></div>
 </div></body></html>"""
@@ -526,7 +533,7 @@ def splice(folder: Path) -> None:
     w = PdfWriter()
     for pg in base[:4] + list(PdfReader(folder / "why-ha.pdf").pages) + list(PdfReader(folder / "infographic.pdf").pages) + [base[4]]:
         w.add_page(pg)
-    w.compress_identical_objects(remove_identicals=True, remove_orphans=True)
+    w.compress_identical_objects(remove_duplicates=True, remove_unreferenced=True)
     with open(f"{pdf}.tmp", "wb") as f:
         w.write(f)
     os.replace(f"{pdf}.tmp", pdf)
@@ -634,6 +641,8 @@ HA_SITE_CSS = """
 .whyha .hastats span{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.1em}
 .whyha h3.ideas{margin:32px 0 0;font-size:.75rem;text-transform:uppercase;letter-spacing:.16em;color:var(--accent,var(--teal))}
 .whyha .idea{border-style:dashed}
+.whyha .gear{display:flex;gap:14px;align-items:flex-start;margin-top:16px;border-left:3px solid var(--accent,var(--teal))}
+.whyha .gear .ic{flex:none;margin:0}.whyha .gear p{margin:0}
 .whyha .idea small{display:block;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
 """
 
@@ -651,6 +660,7 @@ def site_ha(code: str, root: Path) -> None:
            f'  <div class="eyebrow">Why Home Assistant · pre-installed · on your home network</div><h2>{html.escape(h["h1"])}</h2>\n'
            f'  <p class="lead">{html.escape(c["name"])} comes with Home Assistant already installed and the Control Freak integration already connected. You get everything people love about it, without the setup. Just plug it in.</p>\n'
            f'  <div class="grid angles">{cards}</div>\n  <div class="hastats">{stats}</div>\n'
+           f'  <div class="card gear"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON["plug"]}</svg></span><p><b>{html.escape(CF_GEAR.split(": ",1)[0])}:</b> {html.escape(CF_GEAR.split(": ",1)[1])}</p></div>\n'
            f'  <h3 class="ideas">Ideas you can build in Home Assistant · examples with your own devices</h3>\n'
            f'  <div class="grid angles">{ideas}</div>\n'
            f'  <p class="small" style="margin-top:18px">{HA_SOURCE} Home Assistant is a trademark of the Open Home Foundation. Your lights, speakers and thermostat aren’t in the box. Concept · example automations.</p>\n'
@@ -664,8 +674,9 @@ def site_ha(code: str, root: Path) -> None:
     idx.write_text(t, encoding="utf-8")
     css = d / "styles.css"
     st = css.read_text(encoding="utf-8")
-    if "Why Home Assistant (Design" not in st:
-        css.write_text(st.rstrip("\n") + "\n" + HA_SITE_CSS, encoding="utf-8")
+    if "/* Why Home Assistant (Design" in st:   # the HA block is appended last; replace it
+        st = st[:st.index("/* Why Home Assistant (Design")].rstrip("\n") + "\n"
+    css.write_text(st.rstrip("\n") + "\n" + HA_SITE_CSS, encoding="utf-8")
     print("site ha", d.relative_to(root))
 
 
