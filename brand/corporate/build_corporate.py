@@ -80,9 +80,10 @@ def doc(ink,tagline,label,plate=None):
             f'{bg}{art(ink,tagline)}</svg>')
 WHITE,NAVY='#ffffff','#0b1f3a'
 FOREST,CREAM,GOLD='#0f2e2c','#efe9df','#a8834f'
+ICE,COOLBLUE='#eaf3f8','#2f6f9f'  # C01 Cold Plunge site chrome
 out={}
 for kind,tg in (('lockup',True),('wordmark',False)):
-    for name,ink in (('white',WHITE),('navy',NAVY),('forest',FOREST),('cream',CREAM),('gold',GOLD),('currentColor','currentColor')):
+    for name,ink in (('white',WHITE),('navy',NAVY),('forest',FOREST),('cream',CREAM),('gold',GOLD),('ice',ICE),('cool-blue',COOLBLUE),('currentColor','currentColor')):
         fn=f'control-freak-corporate-{kind}-{name}.svg'; open(fn,'w').write(doc(ink,tg,f'{kind} {name}')); out[(kind,name)]=fn
 if __name__=='__main__':
     os.makedirs('png',exist_ok=True)

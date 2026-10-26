@@ -137,7 +137,7 @@ Packs: `lockups/product/brought-to-you-by-control-freak-{stacked,horizontal}-{li
 | Corporate PCB SVG masters | **Locked by James 2026-10-25** ("They look great"); colorways white/navy/forest/cream/gold/currentColor |
 | Product attribution packs → corporate PCB | **Done 2026-10-25** (`lockups/product/`) |
 | controlfreakpool.com chrome → corporate PCB mark | Design — site source not in this local work tree; swap nav/footer/favicon when the site build is touched (no deploy without OK) |
-| Favicon / small-size mark (nodes + C, or simplified) | Design — proposal needed; the full wordmark doesn't read at 16–32 px |
+| Favicon / small-size mark | **Done 2026-10-26.** Parent favicons = **PCB simplified icon** (corporate C + bus bars + nodes; `brand/app-icons/_masters/control-freak-pcb-icon-*.svg`), navy on white. **Teardrop favicon retired.** Sets in `brand/app-icons/` (see README) |
 | O04 brochure attribution | Text-only "BROUGHT TO YOU BY CONTROL FREAK" in c-v8; no teardrop present. Optional: add corporate wordmark to the back-page footer on the next rebuild |
 
 ---

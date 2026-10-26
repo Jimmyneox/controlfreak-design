@@ -11,6 +11,17 @@ Co-brand with [PARENT_BRAND.md](PARENT_BRAND.md) (“brought to you by Control F
 
 O04 brochure literature: [`brochures/O04-reef/c-v8-gemini-outline/`](../brochures/O04-reef/c-v8-gemini-outline/) tip **0725816**. Soft-UI brochure looks are rejected — do not revive.
 
+## Site marks — confirmed 2026-10-26 (matches locked brochures)
+
+| Product | Id | Site / chrome mark | Favicon set |
+|---|---|---|---|
+| Reef Control Pro | O04 | Coral-teardrop product mark + PCB corporate wordmark attribution | `brand/app-icons/o04-reef/` (coral drop) |
+| Basement Guard Pro | C03 | **Text-led product name + PCB corporate wordmark only** | `brand/app-icons/c03-basement/` (PCB simplified icon) |
+| Terrarium Control Pro | O15 | **Text-led product name + PCB corporate wordmark only** | `brand/app-icons/o15-terrarium/` (PCB simplified icon) |
+| Cold Plunge Control Pro | C01 | **Text-led product name + PCB corporate wordmark only** | `brand/app-icons/c01-cold-plunge/` (PCB simplified icon) |
+
+No new product marks for C03/O15/C01 unless James cues. The PCB-family drafts below stay unused. Coral-teardrop = O04 only. Colourways: `brand/corporate/SITE_COLOURWAYS.md`.
+
 ## Wave 1 drafts (unlocked — PCB-family grammar until James locks)
 
 Other Wave 1 products may still draft as PCB-family mirrors of the parent mark (same rounded PCB frame, vias, corner traces; only top motif / bottom cue / wordmark change). These are **not** locked marks.

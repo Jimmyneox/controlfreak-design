@@ -1,0 +1,30 @@
+# Wave 1 site handoff (Design → ECC)
+
+Mirrors `Jimmyneox/controlfreak-platform-public` layout. ECC copies folders as-is; Design does not push to the public repo.
+Fixes hub root `favicon.ico` 404 (`root/` → public repo root).
+
+## Favicon drops (copy contents of each folder into the target)
+
+| Handoff folder | Public target | Source set |
+|---|---|---|
+| `root/` | repo/hub root `/` | `brand/app-icons/parent/` (PCB simplified icon, navy on white) |
+| `products/O04-reef/site/` | `products/O04-reef/site/` | `brand/app-icons/o04-reef/` (coral-teardrop) |
+| `products/C03-basement-guard/site/` | `products/C03-basement-guard/site/` | `brand/app-icons/c03-basement/` |
+| `products/O15-reptile/site/` | `products/O15-reptile/site/` | `brand/app-icons/o15-terrarium/` |
+| `products/C01-cold-plunge/site/` | `products/C01-cold-plunge/site/` | `brand/app-icons/c01-cold-plunge/` |
+
+Paste each `head-snippet.html` into that site's `<head>`. Snippets use root-relative `/favicon.ico` etc.; if a product site is served under a sub-path (e.g. `/products/C03-basement-guard/site/`), change the href prefix to relative (`favicon.ico`) or to that path.
+
+## Hero art — **CONCEPT / interim** (locked Living Demo Theater brochure fronts; not final site art)
+
+| Public target | Handoff file | Design source | Tip |
+|---|---|---|---|
+| `products/O04-reef/site/assets/hero-concept-front.png` (+ `hero-concept-ha-home.png`) | same path here | `brochures/O04-reef/c-v8-gemini-outline/front.png`, `ha-home.png` | 0725816 |
+| `products/C03-basement-guard/site/assets/hero-concept-front.png` | same | `brochures/C03-basement-guard/a-gemini-outline/front.png` | 4cf87f3–3e80cac |
+| `products/O15-reptile/site/assets/hero-concept-front.png` | same | `brochures/O15-terrarium/concepts/A-living-demo-theater/front.png` | f64b579 |
+| `products/C01-cold-plunge/site/assets/hero-concept-front.png` | same | `brochures/C01-cold-plunge/concepts/A-living-demo-theater/front.png` | 95500b3 |
+
+Label as CONCEPT on any review build. No new art was created.
+
+## Chrome wordmarks
+See `brand/corporate/SITE_COLOURWAYS.md` (navy/white hub & C03, cream/forest/gold O15, ice/cool-blue/navy C01, coral drop + PCB attribution O04). Product marks: `brand/PRODUCT_MARKS.md`. Beta URL: unchanged (Platform placeholder).
