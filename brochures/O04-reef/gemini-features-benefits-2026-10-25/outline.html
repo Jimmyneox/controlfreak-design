@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Freak — Reef Control Pro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #060b14;
+      color: #f8fafc;
+    }
+    .glass-card {
+      background: rgba(15, 25, 42, 0.75);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(56, 189, 248, 0.18);
+      box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.6);
+    }
+    .glow-badge {
+      background: rgba(14, 165, 233, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #38bdf8;
+    }
+    .reef-gradient {
+      background: radial-gradient(circle at 50% 20%, rgba(14, 165, 233, 0.22) 0%, rgba(6, 11, 20, 0) 70%);
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- PAGE 1: HERO & CENTERED PUNCHY CARDS -->
+  <section class="relative overflow-hidden py-16 px-6 lg:px-16 reef-gradient border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Top Bar -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-10">
+        <div class="flex items-center gap-3">
+          <div class="h-9 w-9 rounded-lg bg-sky-500 flex items-center justify-center font-black text-slate-950 tracking-tighter">CF</div>
+          <span class="font-bold tracking-widest text-sm uppercase text-sky-400">Control Freak • Reef Control Pro</span>
+        </div>
+        <div class="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider">
+          <span class="glow-badge px-3 py-1 rounded-full">Voice & Tap Control</span>
+          <span class="glow-badge px-3 py-1 rounded-full">Away Alerts</span>
+          <span class="glow-badge px-3 py-1 rounded-full">No Subscription</span>
+        </div>
+      </div>
+
+      <!-- Headline -->
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 bg-gradient-to-r from-white via-sky-100 to-sky-400 bg-clip-text text-transparent">
+          Put the Control Freak on it.
+        </h1>
+        <p class="text-lg md:text-xl text-slate-300 font-normal">
+          Sit back and enjoy the reef—the system handles the rest.
+        </p>
+      </div>
+
+      <!-- Centerpiece Grid: Left Cards (01-03) + Phone UI + Right Cards (04-06) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Column: Cards 01, 02, 03 (All Centered!) -->
+        <div class="lg:col-span-4 flex flex-col gap-6">
+          
+          <!-- Card 01 -->
+          <div class="glass-card rounded-2xl p-6 text-center flex flex-col items-center justify-center min-h-[170px] hover:border-sky-400/50 transition">
+            <span class="text-xs font-bold tracking-widest text-sky-400 uppercase mb-1">01</span>
+            <h3 class="text-xl font-bold text-white mb-2">8 Smart Outlets</h3>
+            <p class="text-sm text-slate-300 leading-relaxed max-w-xs">
+              Control by your voice, a tap, or an automation.
+            </p>
+          </div>
+
+          <!-- Card 02 -->
+          <div class="glass-card rounded-2xl p-6 text-center flex flex-col items-center justify-center min-h-[170px] hover:border-sky-400/50 transition">
+            <span class="text-xs font-bold tracking-widest text-sky-400 uppercase mb-1">02</span>
+            <h3 class="text-xl font-bold text-white mb-2">Smart Flow Control</h3>
+            <p class="text-sm text-slate-300 leading-relaxed max-w-xs">
+              Automatically pauses during feeding time and maintenance, then resumes on its own.
+            </p>
+          </div>
+
+          <!-- Card 03 -->
+          <div class="glass-card rounded-2xl p-6 text-center flex flex-col items-center justify-center min-h-[170px] hover:border-sky-400/50 transition">
+            <span class="text-xs font-bold tracking-widest text-sky-400 uppercase mb-1">03</span>
+            <h3 class="text-xl font-bold text-white mb-2">In Perfect Balance</h3>
+            <p class="text-sm text-slate-300 leading-relaxed max-w-xs">
+              Automatic dosing and pH control keep your tank at optimal levels continuously.
+            </p>
+          </div>
+
+        </div>
+
+        <!-- Center Column: Phone Mockup -->
+        <div class="lg:col-span-4 flex justify-center">
+          <div class="w-full max-w-[330px] rounded-[40px] border-4 border-slate-700 bg-slate-950 p-4 shadow-2xl relative">
+            <div class="flex justify-between items-center text-xs text-slate-400 mb-3 px-2">
+              <span class="font-semibold text-white">9:41</span>
+              <span class="text-emerald-400 font-medium">● All Calm in the Reef</span>
+            </div>
+
+            <!-- Tank Header -->
+            <div class="rounded-2xl bg-gradient-to-br from-sky-900/80 via-indigo-950 to-slate-900 p-4 mb-3 border border-sky-500/30">
+              <div class="text-xs text-sky-300 uppercase font-semibold">Living Room Reef • 220 L</div>
+              <div class="flex justify-between items-end mt-2">
+                <div>
+                  <span class="text-4xl font-extrabold text-white">78.0°F</span>
+                  <span class="block text-xs text-slate-300 mt-0.5">Target 78°F • Stable</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-2xl font-bold text-emerald-400">8.14</span>
+                  <span class="block text-xs text-slate-300">pH Optimal</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mode Pills -->
+            <div class="grid grid-cols-3 gap-1.5 bg-slate-900 p-1 rounded-xl mb-3 text-center text-xs font-semibold">
+              <div class="bg-sky-500 text-slate-950 py-1.5 rounded-lg">Normal</div>
+              <div class="text-slate-400 py-1.5">Feed</div>
+              <div class="text-slate-400 py-1.5">Maint</div>
+            </div>
+
+            <!-- Dosing Mini Card -->
+            <div class="bg-slate-900/90 rounded-xl p-3 mb-3 border border-slate-800">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">Continuous Dosing</div>
+              <div class="grid grid-cols-3 gap-2 text-center">
+                <div class="bg-slate-950 p-2 rounded-lg">
+                  <div class="text-xs font-bold text-sky-400">Ca</div>
+                  <div class="text-[11px] text-slate-300">4.0 mL</div>
+                </div>
+                <div class="bg-slate-950 p-2 rounded-lg">
+                  <div class="text-xs font-bold text-emerald-400">Alk</div>
+                  <div class="text-[11px] text-slate-300">4.0 mL</div>
+                </div>
+                <div class="bg-slate-950 p-2 rounded-lg">
+                  <div class="text-xs font-bold text-purple-400">Mg</div>
+                  <div class="text-[11px] text-slate-300">1.5 mL</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Water Level & Power Hub -->
+            <div class="grid grid-cols-2 gap-2 mb-3">
+              <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase font-bold">Water Level</div>
+                <div class="text-sm font-bold text-emerald-400 mt-0.5">Optimal</div>
+                <div class="text-[11px] text-slate-400">Reservoir 78%</div>
+              </div>
+              <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+                <div class="text-[10px] text-slate-400 uppercase font-bold">Voice Alerts</div>
+                <div class="text-sm font-bold text-sky-400 mt-0.5">Armed</div>
+                <div class="text-[11px] text-slate-400">Alexa & Google</div>
+              </div>
+            </div>
+
+            <div class="bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+              <div class="text-[10px] text-slate-400 uppercase font-bold mb-1.5">8 Smart Outlets Active</div>
+              <div class="grid grid-cols-4 gap-1.5 text-[10px] text-center font-medium text-slate-300">
+                <span class="bg-sky-500/20 border border-sky-500/40 rounded py-1 text-sky-300">Return</span>
+                <span class="bg-sky-500/20 border border-sky-500/40 rounded py-1 text-sky-300">Wave L</span>
+                <span class="bg-sky-500/20 border border-sky-500/40 rounded py-1 text-sky-300">Wave R</span>
+                <span class="bg-sky-500/20 border border-sky-500/40 rounded py-1 text-sky-300">Heater</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Cards 04, 05, 06 (All Centered!) -->
+        <div class="lg:col-span-4 flex flex-col gap-6">
+          
+          <!-- Card 04 -->
+          <div class="glass-card rounded-2xl p-6 text-center flex flex-col items-center justify-center min-h-[170px] hover:border-sky-400/50 transition">
+            <span class="text-xs font-bold tracking-widest text-sky-400 uppercase mb-1">04</span>
+            <h3 class="text-xl font-bold text-white mb-2">Auto Water Leveling</h3>
+            <p class="text-sm text-slate-300 leading-relaxed max-w-xs">
+              Holds water height steady and alerts you via push, Alexa, or Google Home when the reservoir is low.
+            </p>
+          </div>
+
+          <!-- Card 05 -->
+          <div class="glass-card rounded-2xl p-6 text-center flex flex-col items-center justify-center min-h-[170px] hover:border-sky-400/50 transition">
+            <span class="text-xs font-bold tracking-widest text-sky-400 uppercase mb-1">05</span>
+            <h3 class="text-xl font-bold text-white mb-2">Heater Fail-Safe</h3>
+            <p class="text-sm text-slate-300 leading-relaxed max-w-xs">
+              Pumps stay on while the heater automatically stands down above 82°F.
+            </p>
+          </div>
+
+          <!-- Card 06 -->
+          <div class="glass-card rounded-2xl p-6 text-center flex flex-col items-center justify-center min-h-[170px] hover:border-sky-400/50 transition">
+            <span class="text-xs font-bold tracking-widest text-sky-400 uppercase mb-1">06</span>
+            <h3 class="text-xl font-bold text-white mb-2">Automate Your Tank & Life</h3>
+            <p class="text-sm text-slate-300 leading-relaxed max-w-xs">
+              Pre-configured Home Assistant hub built in—unifying your reef and your entire smart home in one app.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: THE VALUE-ADD DEEP DIVES (Your detailed explanations below the cards) -->
+  <section class="py-16 px-6 lg:px-16 bg-slate-950 border-b border-slate-800/80">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="text-xs font-bold uppercase tracking-widest text-sky-400">Why It Matters</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Built for a Healthier Reef—and an Easier Routine</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Deep Dive 1: In Perfect Balance -->
+        <div class="glass-card rounded-2xl p-8">
+          <div class="inline-block px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">
+            Continuous Biological Stability
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-3">In Perfect Balance</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Automatic dosing and pH control work together to keep your tank's environment at its optimal levels continuously. Instead of sudden swings, this constant feedback loop and real-time micro-adjustments provide a much healthier, stress-free environment for your coral and fish to live in.
+          </p>
+        </div>
+
+        <!-- Deep Dive 2: Auto Water Leveling -->
+        <div class="glass-card rounded-2xl p-8">
+          <div class="inline-block px-3 py-1 rounded-md bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-bold uppercase tracking-wider mb-4">
+            Proactive Reservoir Monitoring
+          </div>
+          <h3 class="text-2xl font-bold text-white mb-3">Auto Water Leveling That Talks to You</h3>
+          <p class="text-slate-300 leading-relaxed">
+            Our control system continuously monitors the height of the water and ensures that it stays at an optimal height automatically. When the top-off reservoir finally gets low, we notify you immediately via phone push notifications—or out loud by voice through Alexa or Google Home—so you know exactly when to add water.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGE 4 OVERHAUL: HOME ASSISTANT WHOLE-LIFE AUTOMATION -->
+  <section class="py-20 px-6 lg:px-16 reef-gradient">
+    <div class="max-w-6xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-14">
+        <span class="glow-badge px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest">
+          Pre-Configured Home Assistant Hub Built In
+        </span>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-5 mb-6 leading-tight">
+          Automate More Than Just Your Tank.<br/>
+          <span class="text-sky-400">Automate the Rest of Your Life.</span>
+        </h2>
+        <p class="text-lg text-slate-300 leading-relaxed">
+          Almost every internet-connected device you buy requires you to pull out your phone and juggle multiple apps just to get through the day. Control Freak eliminates app fatigue by bringing all of your smart and internet-connected devices into a single, unified platform—giving you complete observability, one-app control, and cross-brand automation.
+        </p>
+      </div>
+
+      <!-- The Bedtime Routine Showcase -->
+      <div class="glass-card rounded-3xl p-8 md:p-12 border border-sky-400/30">
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 pb-8 mb-8 border-b border-slate-800">
+          <div>
+            <div class="text-xs font-bold uppercase tracking-widest text-sky-400 mb-1">Real-World Cross-Device Trigger</div>
+            <h3 class="text-2xl font-bold text-white">When You Turn Off Your Bedroom Light for the Night...</h3>
+          </div>
+          <span class="px-4 py-2 rounded-xl bg-sky-500 text-slate-950 font-bold text-sm">
+            1 Action → 4 Instant Automations
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+          
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center">
+            <div class="text-3xl mb-3">🚗</div>
+            <h4 class="font-bold text-white text-lg mb-1">EV Starts Charging</h4>
+            <p class="text-xs text-slate-400">Triggers your electric car charger automatically for morning readiness.</p>
+          </div>
+
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center">
+            <div class="text-3xl mb-3">📺</div>
+            <h4 class="font-bold text-white text-lg mb-1">Downstairs TV Turns Off</h4>
+            <p class="text-xs text-slate-400">Powers down entertainment systems left running downstairs.</p>
+          </div>
+
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center">
+            <div class="text-3xl mb-3">🏊</div>
+            <h4 class="font-bold text-white text-lg mb-1">Pool Lights Turn On</h4>
+            <p class="text-xs text-slate-400">Sets your backyard ambiance and evening outdoor lighting.</p>
+          </div>
+
+          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center">
+            <div class="text-3xl mb-3">🛡️</div>
+            <h4 class="font-bold text-white text-lg mb-1">Security System Arms</h4>
+            <p class="text-xs text-slate-400">Locks the house and arms your alarm without opening another app.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
