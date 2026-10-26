@@ -70,7 +70,7 @@ P = {
 # 2026-10-26 ("Over 2.7 million households", "1500+ integrations", "Works with over 1000
 # brands", "local control and privacy first", "a non-profit and can't be sold or acquired").
 # Control Freak specifics stay inside DECISIONS / PUBLIC_BRIEF: HA pre-installed with the CF
-# integration, local on the home network (never cloud HA), Alexa and Google through the voice
+# integration, local on the controller on the home network (not a cloud service), Alexa and Google through the voice
 # bridge and Siri through HomeKit on HA, away alerts through the apps, no subscription.
 HA_SOURCE = "Home Assistant figures: home-assistant.io, October 2026."
 # Owner decision 2026-10-26 (DECISIONS db07edb): verbatim on every Wave 1 product.
