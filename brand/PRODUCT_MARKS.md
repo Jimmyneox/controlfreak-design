@@ -53,3 +53,10 @@ O04 does **not** use this PCB-family deliverable set — use `approved-mark/` co
 
 ## Favicon exception — favicons = drops (2026-10-26)
 Browser/app icons (favicon.svg/.ico/16/32/48, apple-touch, PWA) use the **teardrop/drop silhouette**: hub = navy parent drop; C03 = white drop, O15 = forest drop, C01 = cool-blue (#2f6f9f) drop (same parent geometry, recolored); O04 = coral-teardrop drop (solid silhouette at 16/32). Flat, transparent, no plates. The corporate **attribution wordmark stays PCB**. Favicon ≠ marketing lockup. Built by `brand/app-icons/build_icons.py`; PCB icon masters moved to `brand/app-icons/_unused/`.
+
+## Hub product-card marks vs favicons (2026-10-26)
+- **Favicons = drops** (unchanged since 0202420).
+- **Hub product cards = product-identifying marks** in `brand/product-card-marks/` (tank / basement-sump / terrarium / plunge tub) — not drops.
+- O04 literature/site product mark remains the coral teardrop; only the hub card uses the new tank/reef icon.
+- PCB wordmark stays attribution-only.
+- C03/O15/C01 remain text-led for product naming; these are hub-card icons only, not locked product logos competing with Control Freak.
