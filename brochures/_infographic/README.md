@@ -10,15 +10,18 @@ the owner's "Works with the Control Freak gear you already own" line, and three 
 automations per product, in each brochure's own palette, type and lockup.
 
 **The "How it all connects" infographic is not made here any more** (owner, 2026-10-26): Gemini is
-remaking it (controlfreak-platform `design/INFOGRAPHIC_REMAKE.md`). This script never writes
-`infographic.*`. If a brochure folder has an `infographic.pdf`/`.png`, the splice places it as page 6;
-if not, the brochure is six pages.
+remaking it (controlfreak-platform `design/INFOGRAPHIC_REMAKE.md`). When a brochure folder has
+Gemini's `infographic.gemini.html`, the build exports it as-is to `infographic.pdf`/`.png` and the splice
+places it as page 6 (brief: controlfreak-platform `design/INFOGRAPHIC_REMAKE.md`). Without that file the
+script never writes `infographic.*`; an existing `infographic.pdf` is still placed, and with none the
+brochure is six pages.
 
     python3 brochures/_infographic/build_infographic.py          # all four
     python3 brochures/_infographic/build_infographic.py O04      # one
 
-Site export (public repo) writes only the `#home-assistant` section on each product site; it doesn't touch
-`#connects` or `how-it-connects.svg`:
+Site export (public repo) writes the `#home-assistant` section on each product site. When Gemini's art
+exists it also copies `infographic.png` to `assets/how-it-connects.png` and points the `#connects` figure at
+it; otherwise `#connects` is left alone:
 
     python3 brochures/_infographic/build_infographic.py --site /path/to/controlfreak-platform-public [codes]
 

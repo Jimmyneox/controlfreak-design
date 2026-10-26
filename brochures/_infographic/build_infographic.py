@@ -10,13 +10,16 @@ why-ha, infographic (when the folder has an infographic.pdf), back, plus spread.
 brochure-review.pdf. --site writes the matching #home-assistant section on each product site.
 
 The "How it all connects" infographic is no longer made here (owner, 2026-10-26): Gemini remakes
-it (controlfreak-platform design/INFOGRAPHIC_REMAKE.md). This script never writes infographic.*
-or the sites' #connects section; it only places an existing infographic.pdf in the brochure.
+it (controlfreak-platform design/INFOGRAPHIC_REMAKE.md). If a brochure folder has Gemini's
+infographic.gemini.html, the build exports it to infographic.pdf/.png and places it as page 6,
+and --site copies that PNG to the site and points the #connects figure at it. Without that file
+nothing here writes infographic.* or the sites' #connects section.
 """
 from __future__ import annotations
 
 import html
 import os
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -243,6 +246,10 @@ def build(code: str) -> None:
     env = dict(os.environ, NODE_PATH=subprocess.run(["npm", "root", "-g"], capture_output=True, text=True).stdout.strip())
     subprocess.run(["node", js, "file://" + str(folder / "why-ha.html"), str(folder / "why-ha.pdf"),
                     str(folder / "why-ha.png")], check=True, env=env)
+    gemini = folder / "infographic.gemini.html"
+    if gemini.exists():   # Gemini's remake (INFOGRAPHIC_REMAKE.md): export it as-is, never edit it
+        subprocess.run(["node", js, "file://" + str(gemini), str(folder / "infographic.pdf"),
+                        str(folder / "infographic.png")], check=True, env=env)
     os.unlink(js)
     splice(folder)
     print("built", folder.relative_to(BRO))
@@ -301,12 +308,31 @@ def site_ha(code: str, root: Path) -> None:
     print("site ha", d.relative_to(root))
 
 
+def site_gemini(code: str, root: Path) -> None:
+    """Use Gemini's infographic art on the product site, when the brochure folder has it: copy the
+    exported infographic.png to the site and point the #connects figure at it. Without
+    infographic.gemini.html the site's #connects section is left exactly as it is."""
+    folder = BRO / P[code]["folder"]
+    if not (folder / "infographic.gemini.html").exists() or not (folder / "infographic.png").exists():
+        return
+    d = root / "products" / SITE[code] / "site"
+    shutil.copyfile(folder / "infographic.png", d / "assets" / "how-it-connects.png")
+    idx = d / "index.html"
+    t = idx.read_text(encoding="utf-8")
+    if '<section id="connects">' in t:
+        a = t.index('<section id="connects">'); b = t.index("</section>", a)
+        t = t[:a] + t[a:b].replace("assets/how-it-connects.svg", "assets/how-it-connects.png") + t[b:]
+        idx.write_text(t, encoding="utf-8")
+    print("site gemini art", d.relative_to(root))
+
+
 if __name__ == "__main__":
     args = sys.argv[1:]
     if args and args[0] == "--site":       # --site /path/to/controlfreak-platform-public [codes]
         root = Path(args[1])
         for code in (args[2:] or list(P)):
             site_ha(code, root)
+            site_gemini(code, root)
     else:
         for code in (args or list(P)):
             build(code)
