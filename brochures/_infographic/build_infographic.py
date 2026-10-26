@@ -126,7 +126,7 @@ def reef_svg() -> str:
     s.append('<ellipse cx="240" cy="404" rx="22" ry="7" class="probe"/>')  # leak puck on floor
     s.append('<rect x="452" y="250" width="70" height="44" rx="10" class="probe"/><g fill="#0b1a26"><circle cx="469" cy="272" r="7"/><circle cx="487" cy="272" r="7"/><circle cx="505" cy="272" r="7"/></g>')  # doser
     s.append('<path d="M469 250 C 469 230 330 240 300 296 M487 250 C 487 236 320 248 290 296 M505 250 C 505 240 316 252 280 296" class="tube"/>')
-    s.append(scene_label(487, 310, "3-head doser", "middle"))
+    s.append(scene_label(487, 310, "Doser (Pro)", "middle"))
     # controller + leads
     s.append(controller(600, 214))
     s.append(lead("M600 232 H 560 V 190 H 160 V 318", BLUE) + plug(592, 232, BLUE))
@@ -262,13 +262,13 @@ P = {
         sub="The probes, top-off, leak sensor and doser plug into the controller; the pumps, heater and lights plug into the Power Hub. Keyed, colour-coded plugs only fit their own port — scan the QR code and you’re set up.",
         svg=reef_svg,
         legend=[("Temperature probes", "Two in the kit, room for more. The heater stands down above your limit."),
-                ("pH probe", "pH right on the home screen, with trends."),
+                ("pH probe (Pro)", "pH right on the home screen, with trends."),
                 ("Top-off sensors and pump", "Tops up evaporation with an overfill lockout. Just add a reservoir."),
                 ("Leak sensor", "Water on the floor under the stand is caught early."),
-                ("3-head doser", "Ca, Alk and Mg in small, steady doses."),
+                ("3-head doser (Pro)", "Ca, Alk and Mg in small, steady doses."),
                 ("Power Hub", "8 smart outlets. Return and powerheads stay on if the controller loses power."),
                 ("Home Assistant, pre-installed", "One app for the reef and the home. Voice through Alexa and Google; alerts when you’re away.")],
-        stats=[("8", "smart outlets in one Power Hub"), ("3", "dosing heads: Ca · Alk · Mg"), ("0", "subscriptions")]),
+        stats=[("8", "smart outlets in one Power Hub"), ("3", "dosing heads (Pro): Ca · Alk · Mg"), ("0", "subscriptions")]),
     "C03": dict(
         folder="C03-basement-guard/a-gemini-outline", name="Basement Guard Pro", serif=False,
         acc="#3d8bff", acc2="#ffb340", bg="background:url(assets/basement-stage-concept.jpg) center 70%/cover;filter:brightness(.42) blur(2px)",
@@ -295,13 +295,13 @@ P = {
         h1="One controller for the whole shelf.",
         sub="Heat, light and misting for up to three enclosures. From one controller. No subscription.",
         svg=terrarium_svg,
-        legend=[("4 temperature probes", "Hot side, cool side, basking spot and a second enclosure — a thermostat on any outlet. Too hot or a probe unplugged: heat turns off and you’re told."),
+        legend=[("Temperature probes (4 in Pro)", "Hot side, cool side, basking spot and a second enclosure — a thermostat on any outlet. Too hot or a probe unplugged: heat turns off and you’re told."),
                 ("Door switch", "Pauses misting and fans while you’re feeding. Concept."),
                 ("Power Hub", "8 on/off outlets: heat mat, ceramic emitter, basking lamp, UVB, day light, mister, fan and a spare."),
                 ("Day/night cycles", "Lights and temperatures follow a natural day, with seasonal ramps."),
                 ("Mister reservoir float", "Stops misting before the reservoir runs dry. Concept."),
                 ("Home Assistant, full control", "Setpoints and outlets from your dashboards. Add humidity with your own wireless sensor.")],
-        stats=[("8", "switched outlets"), ("4", "temperature probes"), ("2–3", "enclosures from one kit")]),
+        stats=[("8", "switched outlets"), ("4", "temperature probes in Pro"), ("2–3", "enclosures from one kit")]),
     "C01": dict(
         folder="C01-cold-plunge/concepts/A-living-demo-theater", name="Cold Plunge Control Pro", serif=True,
         acc="#5fb4ff", acc2="#ffb340",
@@ -404,7 +404,7 @@ def ha_angles(thing: str, own: str) -> list[tuple[str, str, str]]:
         ("plug", "Your brands finally work together",
          "Home Assistant works with over 1,000 brands through 1,500+ integrations. Lights, plugs, thermostats, locks, speakers and cameras you already own can finally talk to each other."),
         ("lock", "Works when the internet doesn’t",
-         "It runs on the controller on your home network, never cloud Home Assistant, so it answers right away and keeps working when the internet is down. Your data stays home."),
+         "It runs on the controller on your home network, not in someone else’s cloud, so it answers right away and keeps working when the internet doesn’t. Your data stays home."),
         ("voice", "Ask, don’t open",
          "Ask Alexa what the status is, tell Google to adjust the temperature, or use Siri through HomeKit, and get automated voice alerts when something is out of balance."),
         ("bolt", "Peace of mind, all over the house",
