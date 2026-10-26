@@ -21,6 +21,7 @@ import tempfile
 from pathlib import Path
 
 from PIL import Image
+from pypdf import PdfReader, PdfWriter
 
 HERE = Path(__file__).resolve().parent
 BRO = HERE.parent
@@ -517,15 +518,18 @@ def splice(folder: Path) -> None:
     """Rebuild brochure.pdf as front, light-mode, duo, ha-home, why-ha, infographic, back: the
     brochure's own five pages plus why-ha.pdf and infographic.pdf."""
     pdf = folder / "brochure.pdf"
-    with tempfile.TemporaryDirectory() as t:
-        subprocess.run(["pdfseparate", str(pdf), f"{t}/p%d.pdf"], check=True)
-        pages = sorted(Path(t).glob("p*.pdf"), key=lambda p: int(p.stem[1:]))
-        assert len(pages) in (5, 6, 7), f"{folder}: unexpected {len(pages)} pages"
-        base = pages[:4] + [pages[-1]]   # the brochure's own five pages (earlier inserts dropped)
-        parts = ([str(p) for p in base[:4]] + [str(folder / "why-ha.pdf"), str(folder / "infographic.pdf")]
-                 + [str(base[4])])
-        subprocess.run(["pdfunite", *parts, f"{t}/out.pdf"], check=True)
-        os.replace(f"{t}/out.pdf", pdf)
+    # pypdf, not pdfseparate/pdfunite: those copy every shared font and image once per page.
+    src = PdfReader(pdf)
+    n = len(src.pages)
+    assert n in (5, 6, 7), f"{folder}: unexpected {n} pages"
+    base = list(src.pages[:4]) + [src.pages[n - 1]]   # the brochure's own five pages (earlier inserts dropped)
+    w = PdfWriter()
+    for pg in base[:4] + list(PdfReader(folder / "why-ha.pdf").pages) + list(PdfReader(folder / "infographic.pdf").pages) + [base[4]]:
+        w.add_page(pg)
+    w.compress_identical_objects(remove_identicals=True, remove_orphans=True)
+    with open(f"{pdf}.tmp", "wb") as f:
+        w.write(f)
+    os.replace(f"{pdf}.tmp", pdf)
     # the brochure's own page PNGs stay; the infographic PNG comes from this build
     ims = [Image.open(folder / f"{n}.png").convert("RGB") for n in ORDER]
     h = max(i.height for i in ims)
