@@ -1,0 +1,14 @@
+.hapg{background:linear-gradient(160deg,#f5f2ea,#e7e2d6 50%,#d9d3c4);color:#17222c}
+.hah{position:absolute;top:.45in;left:.5in;right:.5in;display:flex;justify-content:space-between;align-items:flex-start}
+.hah .live{color:var(--blue2)}.hah h1{font:700 29px/1.08 'Fraunces';letter-spacing:-.02em}.hah p{font:400 10.5px/1.5 'Fraunces';color:#3c4a57;margin-top:8px;max-width:5.2in}
+.tab{position:absolute;top:2.35in;left:.4in;width:6.2in;aspect-ratio:4/2.75;border-radius:30px;padding:9px;background:linear-gradient(145deg,#4c5157,#1d2024 40%,#3a3e44);box-shadow:0 40px 70px #1f2e2844}
+.tab .s{height:100%;border-radius:22px;background:linear-gradient(#f6f8fa,#eaeef2);padding:12px 14px;display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:10px;font:500 8px Inter;color:#17222c}
+.col h6{font:600 7.5px Inter;opacity:.6;margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.gt{background:#fff;border-radius:12px;padding:8px 9px;margin-bottom:7px;box-shadow:0 2px 10px #1f2e2812}.gt b{display:block;font:600 9.5px Inter}.gt span{display:block;font:500 7px/1.35 Inter;opacity:.6}.gt.bl{background:linear-gradient(160deg,#ddf8f4,#fff)}.gt.am{background:linear-gradient(160deg,#fff4e0,#fff)}
+.gt .big{font:300 26px/1 Inter;letter-spacing:-.04em}
+.voice{background:#17222c;color:#fff;border-radius:12px;padding:9px}.voice b{font:600 9px Inter}.voice span{color:#8ff0e4;opacity:1}
+.hph{position:absolute;top:3.4in;right:.45in}
+.story{position:absolute;left:.5in;right:.5in;bottom:.95in}.story h3{font:700 14px 'Fraunces';margin-bottom:6px}
+.story .ch{display:inline-block;font:600 8px Inter;background:#2fd3c4;color:#fff;border-radius:20px;padding:3px 10px;margin-bottom:8px}
+.story .g{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;width:5.6in}.story .g div{background:#ffffffd9;border-radius:12px;padding:9px 10px;font:400 8.6px/1.4 Inter;color:#3c4a57;box-shadow:0 4px 14px #1f2e2814}.story .g b{display:block;font:700 10.5px 'Fraunces';color:#17222c;margin-bottom:2px}
+.hapg .bot{color:#4a5866}.hapg .cc{color:var(--blue2)}
