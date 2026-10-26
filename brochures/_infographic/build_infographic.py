@@ -74,6 +74,15 @@ P = {
 # bridge and Siri through HomeKit on HA, away alerts through the apps, no subscription.
 HA_SOURCE = "Home Assistant figures: home-assistant.io, October 2026."
 # Owner decision 2026-10-26 (DECISIONS db07edb): verbatim on every Wave 1 product.
+# Writer line, cleared by Engineering with conditions (controlfreak-platform PUBLIC_BRIEFs 0783797,
+# DECISIONS 5f2d9af). Verbatim per product; no claim beyond it (e.g. nothing about power loss).
+SAFETY_LEAD = "Safety rules don’t depend on Home Assistant"
+SAFETY = {
+    "O04": "Control Freak’s own safety rules — heater cutoff, top-off lockout and leak shutoff — keep running on the controller, even if Home Assistant stops.",
+    "C03": "Control Freak’s own safety rules — pump switching, high-water and leak alarms, and the freeze heat-tape switch — keep running on the controller, even if Home Assistant stops.",
+    "O15": "Control Freak’s own safety rules — over-temperature cutoff and the unplugged-probe check — keep running on the controller, even if Home Assistant stops.",
+    "C01": "Control Freak’s own safety rules — the no-flow chiller stop, temperature hold and freeze protection — keep running on the controller, even if Home Assistant stops.",
+}
 CF_GEAR = ("Works with the Control Freak gear you already own: every Control Freak product is a complete kit on "
            "its own. If a Control Freak controller you already have has a free port or relay, Home Assistant can "
            "put it to work for this product too.")
@@ -133,7 +142,7 @@ ICON = {
 }
 
 
-def ha_page(c: dict, h: dict) -> str:
+def ha_page(c: dict, h: dict, code: str) -> str:
     head_font = "'Fraunces'" if c["serif"] else "'Space Grotesk'"
     cards = "".join(f'<div class="hc"><span class="ic"><svg viewBox="0 0 24 24">{ICON[i]}</svg></span><b>{html.escape(t)}</b><p>{html.escape(d)}</p></div>'
                     for i, t, d in h["angles"])
@@ -155,21 +164,22 @@ h1{{font:700 28px/1.08 {head_font};letter-spacing:-.02em;max-width:5.4in}}
 .lock b{{font:700 17px/1 {head_font};letter-spacing:-.01em;display:block}}.lock b span{{color:var(--acc)}}
 .lock small{{display:block;font:600 6.5px 'IBM Plex Mono';letter-spacing:.2em;color:var(--acc2);margin-top:4px}}
 .cc{{font:600 8px Montserrat;letter-spacing:.2em;text-transform:uppercase;padding:4px 8px;border:1px solid currentColor;border-radius:2px;color:var(--acc2)}}
-.grid{{position:absolute;left:.5in;right:.5in;top:2.2in;display:grid;grid-template-columns:1fr 1fr;gap:16px;z-index:2}}
+.grid{{position:absolute;left:.5in;right:.5in;top:2.2in;display:grid;grid-template-columns:1fr 1fr;gap:12px;z-index:2}}
 .hc{{padding:14px 16px;border-radius:16px;background:#ffffff12;border:1px solid #ffffff26;min-height:1.28in}}
 .hc .ic,.gear .ic{{display:inline-flex;width:30px;height:30px;border-radius:9px;background:var(--acc);align-items:center;justify-content:center;margin-bottom:8px}}
 .hc svg,.gear svg{{width:18px;height:18px;fill:none;stroke:#0b141e;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}}
 .hc b{{font:600 14px/1.2 {head_font};display:block;margin-bottom:5px}}.hc p{{font:400 10.5px/1.45 Inter;color:#cfdce6}}
-.stats{{position:absolute;left:.5in;right:.5in;top:7.0in;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;z-index:2}}
+.stats{{position:absolute;left:.5in;right:.5in;top:6.86in;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;z-index:2}}
 .st{{padding:10px 14px;border-radius:14px;background:#ffffff14;border:1px solid #ffffff2a}}
 .st b{{font:700 26px/1 {head_font};color:var(--acc);white-space:nowrap;display:block}}.st span{{font:600 8px/1.35 'IBM Plex Mono';letter-spacing:.12em;text-transform:uppercase;color:#dbe7ef;display:block;margin-top:6px}}
-.ideas{{position:absolute;left:.5in;right:.5in;top:8.12in;z-index:2}}
+.ideas{{position:absolute;left:.5in;right:.5in;top:7.95in;z-index:2}}
 .ideas h2{{font:600 9px 'IBM Plex Mono';letter-spacing:.2em;color:var(--acc2);margin-bottom:8px}}
 .ideas .row{{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}}
 .id{{padding:12px 14px;border-radius:14px;background:#ffffff0f;border:1px dashed #ffffff40}}
 .id small{{font:600 7px 'IBM Plex Mono';letter-spacing:.18em;color:var(--acc2)}}.id b{{display:block;font:600 12.5px/1.25 {head_font};margin:5px 0 3px}}.id p{{font:400 10px/1.4 Inter;color:#cfdce6}}
-.gear{{position:absolute;left:.5in;right:.5in;bottom:1.0in;z-index:2;display:flex;gap:12px;align-items:center;padding:10px 14px;border-radius:14px;background:#ffffff12;border:1px solid #ffffff2e;border-left:3px solid var(--acc)}}
-.gear .ic{{flex:none;margin:0}}.gear p{{font:400 10.5px/1.45 Inter;color:#e3edf4}}.gear b{{font-weight:600;color:#fff}}
+.strip{{position:absolute;left:.5in;right:.5in;bottom:1.0in;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:10px}}
+.gear{{display:flex;gap:10px;align-items:center;padding:8px 12px;border-radius:14px;background:#ffffff12;border:1px solid #ffffff2e;border-left:3px solid var(--acc)}}
+.gear .ic{{flex:none;margin:0}}.gear p{{font:400 9.5px/1.4 Inter;color:#e3edf4}}.gear b{{font-weight:600;color:#fff}}
 .src{{position:absolute;left:.5in;right:.5in;bottom:.72in;font:400 8.5px Inter;color:#9fb1bf;z-index:2}}
 .bot{{position:absolute;bottom:.35in;left:.5in;right:.5in;display:flex;justify-content:space-between;align-items:center;font:600 8px 'IBM Plex Mono';letter-spacing:.2em;color:#c4ccd3;z-index:2;gap:12px}}
 .bot .l{{display:flex;align-items:center;gap:14px}}.cfw2{{display:flex;align-items:center;gap:8px}}.cfw2 img{{height:22px}}
@@ -179,7 +189,7 @@ h1{{font:700 28px/1.08 {head_font};letter-spacing:-.02em;max-width:5.4in}}
 <div class="grid">{cards}</div>
 <div class="stats">{stats}</div>
 <div class="ideas"><h2>IDEAS YOU CAN BUILD IN HOME ASSISTANT · EXAMPLES WITH YOUR OWN DEVICES</h2><div class="row">{ideas}</div></div>
-<div class="gear"><span class="ic"><svg viewBox="0 0 24 24">{ICON["plug"]}</svg></span><p><b>{html.escape(CF_GEAR.split(": ",1)[0])}:</b> {html.escape(CF_GEAR.split(": ",1)[1])}</p></div>
+<div class="strip"><div class="gear"><span class="ic"><svg viewBox="0 0 24 24">{ICON["shield"]}</svg></span><p><b>{html.escape(SAFETY_LEAD)}</b> — {html.escape(SAFETY[code])}</p></div><div class="gear"><span class="ic"><svg viewBox="0 0 24 24">{ICON["plug"]}</svg></span><p><b>{html.escape(CF_GEAR.split(": ",1)[0])}:</b> {html.escape(CF_GEAR.split(": ",1)[1])}</p></div></div>
 <p class="src">{HA_SOURCE} Home Assistant is a trademark of the Open Home Foundation. Your lights, speakers and thermostat aren’t in the box.</p>
 <div class="bot"><div class="l"><span>{html.escape(c['foot'])}</span>{cf}</div><span class="cc">Concept · example automations</span></div>
 </div></body></html>"""
@@ -240,7 +250,7 @@ def splice(folder: Path) -> None:
 def build(code: str) -> None:
     c = P[code]
     folder = BRO / c["folder"]
-    (folder / "why-ha.html").write_text(ha_page(c, HA[code]), encoding="utf-8")
+    (folder / "why-ha.html").write_text(ha_page(c, HA[code], code), encoding="utf-8")
     with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
         f.write(RENDER); js = f.name
     env = dict(os.environ, NODE_PATH=subprocess.run(["npm", "root", "-g"], capture_output=True, text=True).stdout.strip())
@@ -287,6 +297,7 @@ def site_ha(code: str, root: Path) -> None:
            f'  <div class="eyebrow">Why Home Assistant · pre-installed · on your home network</div><h2>{html.escape(h["h1"])}</h2>\n'
            f'  <p class="lead">{html.escape(c["name"])} comes with Home Assistant already installed and the Control Freak integration already connected. You get everything people love about it, without the setup. Just plug it in.</p>\n'
            f'  <div class="grid angles">{cards}</div>\n  <div class="hastats">{stats}</div>\n'
+           f'  <div class="card gear"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON["shield"]}</svg></span><p><b>{html.escape(SAFETY_LEAD)}</b> — {html.escape(SAFETY[code])}</p></div>\n'
            f'  <div class="card gear"><span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">{ICON["plug"]}</svg></span><p><b>{html.escape(CF_GEAR.split(": ",1)[0])}:</b> {html.escape(CF_GEAR.split(": ",1)[1])}</p></div>\n'
            f'  <h3 class="ideas">Ideas you can build in Home Assistant · examples with your own devices</h3>\n'
            f'  <div class="grid angles">{ideas}</div>\n'
