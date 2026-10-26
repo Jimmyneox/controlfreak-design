@@ -10,14 +10,15 @@
 @keyframes cfSway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2deg)}}
 .cf-demo-object .shimmer{animation:cfShimmer 4s ease-in-out infinite}
 .cf-demo-object.swim-off *{animation-play-state:paused!important}
-@keyframes cfSwimR{0%{transform:translateX(-160px)}100%{transform:translateX(1184px)}}
-@keyframes cfSwimL{0%{transform:translateX(1184px)}100%{transform:translateX(-160px)}}
-@keyframes cfBob{0%,100%{transform:translateY(-10px) rotate(-2deg)}50%{transform:translateY(12px) rotate(3deg)}}
-@keyframes cfTail{0%,100%{transform:scaleY(1) skewY(-8deg)}50%{transform:scaleY(.85) skewY(8deg)}}
+@keyframes cfSwimR{0%{transform:translateX(-200px)}100%{transform:translateX(1224px)}}
+@keyframes cfSwimL{0%{transform:translateX(1224px)}100%{transform:translateX(-200px)}}
+@keyframes cfBob{0%,100%{transform:translateY(-8px) rotate(-1.5deg)}50%{transform:translateY(10px) rotate(2deg)}}
+@keyframes cfUndulate{0%,100%{transform:skewY(-1.6deg) scaleX(1)}50%{transform:skewY(1.6deg) scaleX(.97)}}
 .cf-demo-object .fish{transform:translateX(-200px)}
 .cf-demo-object.swim-on .fish{animation-timing-function:linear;animation-iteration-count:infinite}
 .cf-demo-object.swim-on .fish .bob{animation:cfBob 3.2s ease-in-out infinite}
-.cf-demo-object.swim-on .fish .tail{transform-box:fill-box;transform-origin:100% 50%;animation:cfTail .45s ease-in-out infinite}
+.cf-demo-object .fish .body{transform-box:fill-box;transform-origin:65% 50%}
+.cf-demo-object.swim-on .fish .body{animation:cfUndulate .7s ease-in-out infinite}
 .cf-demo-object.swim-off .fish{animation-play-state:paused}
 .cf-demo-object.light-on #light-glow,.cf-demo-object.light-on #light-beam{opacity:1}
 .cf-demo-object.pump-on #flow{opacity:.35}
@@ -40,49 +41,23 @@
 <filter id="fBlur"><feGaussianBlur stdDeviation="6"/></filter>
 <filter id="fBlurBig"><feGaussianBlur stdDeviation="18"/></filter>
 <filter id="fSoft"><feGaussianBlur stdDeviation=".6"/></filter>
-<filter id="fDepth"><feGaussianBlur stdDeviation="1.6"/></filter></defs>
+<filter id="fCaus"><feGaussianBlur stdDeviation="2.2"/></filter>
+<filter id="fDepth"><feGaussianBlur stdDeviation="1.6"/></filter>
+<filter id="fFish" x="-20%" y="-30%" width="140%" height="170%"><feColorMatrix type="matrix" values=".9 0 0 0 0  0 .97 .03 0 .01  0 .05 1 0 .03  0 0 0 1 0" result="c"/><feGaussianBlur in="SourceAlpha" stdDeviation="6"/><feOffset dy="14" result="b"/><feFlood flood-color="#001a24" flood-opacity=".35"/><feComposite in2="b" operator="in" result="sh"/><feMerge><feMergeNode in="sh"/><feMergeNode in="c"/></feMerge></filter>
+<filter id="fFishFar"><feColorMatrix type="matrix" values=".6 .1 .1 0 0  .05 .75 .15 0 .06  .05 .15 .8 0 .1  0 0 0 1 0"/><feGaussianBlur stdDeviation="1.4"/></filter></defs>
 <image id="base" href="base.jpg" xlink:href="base.jpg" x="0" y="0" width="1024" height="768" preserveAspectRatio="xMidYMid slice"/>
 <g id="overlays">
 <g id="water"><rect x="0" y="0" width="1024" height="768" fill="#1ec8d8" opacity=".08" style="mix-blend-mode:screen"/></g>
-<g id="fish-school"><g id="fish-4" class="fish" style="animation-duration:30s;animation-delay:-12s;animation-name:cfSwimL">
-<g transform="translate(0 200)"><g class="bob" style="animation-delay:-4.0s"><g transform="scale(0.45) scale(-1,1)" filter="url(#fDepth)" opacity=".75"><g class="tail"><path d="M-46 0 L-78 -22 Q-70 0 -78 22 Z" fill="url(#gF4)" opacity=".92"/></g>
-<path d="M-50 0 Q-30 -30 10 -30 Q45 -26 52 0 Q45 22 10 26 Q-30 28 -50 0 Z" fill="url(#gF4)"/>
-<path d="M-20 -26 Q0 -48 30 -28 Z" fill="url(#gF4)" opacity=".85"/>
-<path d="M-10 22 Q5 40 22 22 Z" fill="url(#gF4)" opacity=".8"/>
-<path d="M-30 -20 L-26 20 M0 -28 L2 26" stroke="#5a6b78" stroke-width="5" opacity=".6"/>
-<path d="M-40 -6 Q0 -24 46 -6" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
-<circle cx="36" cy="-6" r="5.5" fill="#111"/><circle cx="37.5" cy="-7.5" r="1.8" fill="#fff"/></g></g></g></g><g id="fish-1" class="fish" style="animation-duration:16s;animation-delay:0s;animation-name:cfSwimR">
-<g transform="translate(0 330)"><g class="bob" style="animation-delay:0.0s"><g transform="scale(0.7)" filter="url(#fSoft)"><g class="tail"><path d="M-46 0 L-78 -22 Q-70 0 -78 22 Z" fill="url(#gF1)" opacity=".92"/></g>
-<path d="M-50 0 Q-30 -30 10 -30 Q45 -26 52 0 Q45 22 10 26 Q-30 28 -50 0 Z" fill="url(#gF1)"/>
-<path d="M-20 -26 Q0 -48 30 -28 Z" fill="url(#gF1)" opacity=".85"/>
-<path d="M-10 22 Q5 40 22 22 Z" fill="url(#gF1)" opacity=".8"/>
-<path d="M-14 -27 Q-6 0 -14 25 M14 -29 Q22 0 14 25" fill="none" stroke="#fff" stroke-width="7"/><path d="M-14 -27 Q-6 0 -14 25 M14 -29 Q22 0 14 25" fill="none" stroke="#111" stroke-width="1.5" opacity=".6"/>
-<path d="M-40 -6 Q0 -24 46 -6" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
-<circle cx="36" cy="-6" r="5.5" fill="#111"/><circle cx="37.5" cy="-7.5" r="1.8" fill="#fff"/></g></g></g></g><g id="fish-2" class="fish" style="animation-duration:22s;animation-delay:-9s;animation-name:cfSwimL">
-<g transform="translate(0 250)"><g class="bob" style="animation-delay:-3.0s"><g transform="scale(0.85) scale(-1,1)" filter="url(#fSoft)"><g class="tail"><path d="M-46 0 L-78 -22 Q-70 0 -78 22 Z" fill="url(#gF2)" opacity=".92"/></g>
-<path d="M-50 0 Q-30 -30 10 -30 Q45 -26 52 0 Q45 22 10 26 Q-30 28 -50 0 Z" fill="url(#gF2)"/>
-<path d="M-20 -26 Q0 -48 30 -28 Z" fill="url(#gF2)" opacity=".85"/>
-<path d="M-10 22 Q5 40 22 22 Z" fill="url(#gF2)" opacity=".8"/>
-<path d="M-40 4 Q0 -10 40 6" fill="none" stroke="#ffd23f" stroke-width="4"/>
-<path d="M-40 -6 Q0 -24 46 -6" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
-<circle cx="36" cy="-6" r="5.5" fill="#111"/><circle cx="37.5" cy="-7.5" r="1.8" fill="#fff"/></g></g></g></g><g id="fish-3" class="fish" style="animation-duration:19s;animation-delay:-5s;animation-name:cfSwimR">
-<g transform="translate(0 430)"><g class="bob" style="animation-delay:-1.7s"><g transform="scale(0.5)" filter="url(#fSoft)"><g class="tail"><path d="M-46 0 L-78 -22 Q-70 0 -78 22 Z" fill="url(#gF3)" opacity=".92"/></g>
-<path d="M-50 0 Q-30 -30 10 -30 Q45 -26 52 0 Q45 22 10 26 Q-30 28 -50 0 Z" fill="url(#gF3)"/>
-<path d="M-20 -26 Q0 -48 30 -28 Z" fill="url(#gF3)" opacity=".85"/>
-<path d="M-10 22 Q5 40 22 22 Z" fill="url(#gF3)" opacity=".8"/>
-
-<path d="M-40 -6 Q0 -24 46 -6" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
-<circle cx="36" cy="-6" r="5.5" fill="#111"/><circle cx="37.5" cy="-7.5" r="1.8" fill="#fff"/></g></g></g></g><g id="fish-5" class="fish" style="animation-duration:16s;animation-delay:-2.2s;animation-name:cfSwimR">
-<g transform="translate(0 370)"><g class="bob" style="animation-delay:-0.7s"><g transform="scale(0.55)" filter="url(#fSoft)"><g class="tail"><path d="M-46 0 L-78 -22 Q-70 0 -78 22 Z" fill="url(#gF1)" opacity=".92"/></g>
-<path d="M-50 0 Q-30 -30 10 -30 Q45 -26 52 0 Q45 22 10 26 Q-30 28 -50 0 Z" fill="url(#gF1)"/>
-<path d="M-20 -26 Q0 -48 30 -28 Z" fill="url(#gF1)" opacity=".85"/>
-<path d="M-10 22 Q5 40 22 22 Z" fill="url(#gF1)" opacity=".8"/>
-<path d="M-14 -27 Q-6 0 -14 25 M14 -29 Q22 0 14 25" fill="none" stroke="#fff" stroke-width="7"/>
-<path d="M-40 -6 Q0 -24 46 -6" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="3"/>
-<circle cx="36" cy="-6" r="5.5" fill="#111"/><circle cx="37.5" cy="-7.5" r="1.8" fill="#fff"/></g></g></g></g></g>
+<g id="fish-school"><g id="fish-4" class="fish" data-species="chromis" style="animation-duration:34s;animation-delay:-14s;animation-name:cfSwimL">
+<g transform="translate(0 190)"><g class="bob" style="animation-delay:-4.7s"><g transform="scale(-1,1)"><g class="body" style="animation-delay:-2.80s"><image href="fish/chromis.png" xlink:href="fish/chromis.png" x="-35" y="-16" width="70" height="32" filter="url(#fFishFar)" opacity=".8"/></g></g></g></g></g><g id="fish-6" class="fish" data-species="chromis" style="animation-duration:38s;animation-delay:-25s;animation-name:cfSwimR">
+<g transform="translate(0 230)"><g class="bob" style="animation-delay:-8.3s"><g transform="scale(1)"><g class="body" style="animation-delay:-5.00s"><image href="fish/chromis.png" xlink:href="fish/chromis.png" x="-29" y="-13" width="58" height="26" filter="url(#fFishFar)" opacity=".8"/></g></g></g></g></g><g id="fish-2" class="fish" data-species="blue-tang" style="animation-duration:24s;animation-delay:-9s;animation-name:cfSwimL">
+<g transform="translate(0 260)"><g class="bob" style="animation-delay:-3.0s"><g transform="scale(-1,1)"><g class="body" style="animation-delay:-1.80s"><image href="fish/blue-tang.png" xlink:href="fish/blue-tang.png" x="-95" y="-45" width="190" height="90" filter="url(#fFish)"/></g></g></g></g></g><g id="fish-1" class="fish" data-species="clownfish" style="animation-duration:18s;animation-delay:0s;animation-name:cfSwimR">
+<g transform="translate(0 340)"><g class="bob" style="animation-delay:0.0s"><g transform="scale(1)"><g class="body" style="animation-delay:0.00s"><image href="fish/clownfish.png" xlink:href="fish/clownfish.png" x="-60" y="-34" width="120" height="68" filter="url(#fFish)"/></g></g></g></g></g><g id="fish-3" class="fish" data-species="royal-gramma" style="animation-duration:21s;animation-delay:-6s;animation-name:cfSwimR">
+<g transform="translate(0 440)"><g class="bob" style="animation-delay:-2.0s"><g transform="scale(1)"><g class="body" style="animation-delay:-1.20s"><image href="fish/royal-gramma.png" xlink:href="fish/royal-gramma.png" x="-48" y="-22" width="95" height="45" filter="url(#fFish)"/></g></g></g></g></g><g id="fish-5" class="fish" data-species="yellow-tang" style="animation-duration:27s;animation-delay:-17s;animation-name:cfSwimL">
+<g transform="translate(0 300)"><g class="bob" style="animation-delay:-5.7s"><g transform="scale(-1,1)"><g class="body" style="animation-delay:-3.40s"><image href="fish/yellow-tang.png" xlink:href="fish/yellow-tang.png" x="-75" y="-48" width="150" height="95" filter="url(#fFish)"/></g></g></g></g></g></g>
 <g id="light-beam" class="ov" style="mix-blend-mode:screen"><path d="M120 0 L904 0 L1024 768 L0 768 Z" fill="url(#gBeam)"/></g>
 <g id="light-glow" class="ov" style="mix-blend-mode:screen"><ellipse cx="512" cy="40" rx="480" ry="60" fill="url(#gCyan)" filter="url(#fBlur)"/><ellipse cx="512" cy="300" rx="480" ry="240" fill="url(#gCyan)" opacity=".3" filter="url(#fBlurBig)"/></g>
-<g id="flow" class="ov" style="mix-blend-mode:screen"><clipPath id="cWater04"><rect x="0" y="0" width="1024" height="260"/></clipPath><g clip-path="url(#cWater04)"><rect class="shimmer" x="-30" y="0" width="1084" height="260" fill="url(#pCaustic)"/></g></g>
+<g id="flow" class="ov" style="mix-blend-mode:screen"><clipPath id="cWater04"><rect x="0" y="0" width="1024" height="260"/></clipPath><g clip-path="url(#cWater04)" filter="url(#fCaus)"><rect class="shimmer" x="-30" y="0" width="1084" height="260" fill="url(#pCaustic)"/></g></g>
 <g id="heater-glow" class="ov" style="mix-blend-mode:screen"><ellipse cx="985" cy="330" rx="26" ry="110" fill="url(#gWarm)" filter="url(#fBlur)"/></g>
 <g id="status"><circle id="status-light" class="ov" cx="40" cy="730" r="8" fill="url(#gGreen)"/><circle id="status-pump" class="ov" cx="64" cy="730" r="8" fill="url(#gGreen)"/><circle id="status-heater" class="ov" cx="88" cy="730" r="8" fill="url(#gWarm)"/></g>
 </g>
