@@ -46,3 +46,6 @@ Built Oct 26 2026 ~12:30 AM ET. **This is local only. Nothing has been committed
     - HA story heading "A cold night, handled."
     - phone "Coming up" row "Filtration cycle · scheduled"
     - mode segment "Plunge / Warm soak · Pro / Winter"
+
+## Page 5 · How it all connects (2026-10-26)
+Owner request: "Create an infographic page for every product brochure and webpage". The brochure is now six pages: front, light-mode, duo, ha-home, **infographic**, back. `infographic.html` → `infographic.pdf`/`infographic.png` comes from `brochures/_infographic/build_infographic.py`, which also splices it into `brochure.pdf` and rebuilds `spread.png` and `brochure-review.pdf`; this folder's build calls it at the end. Words come from the product's PUBLIC_BRIEF (no new claims); the diagram is labelled **Concept illustration · not to scale**, and the buyer's own equipment is drawn dashed and labelled "Your …".

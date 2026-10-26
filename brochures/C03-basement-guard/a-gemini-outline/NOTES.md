@@ -33,3 +33,6 @@ Light-mode equalized-wear body only (James rule: Gemini assumed good unless Eng 
 - Removed "monitors amp draw" (Wave 1 has no pump energy meters; P2 later).
 - Removed circuit-never-trips / dual-startup-surge guarantee; kept stagger benefit.
 - Eng wording: "It alternates duty weekly and staggers starts so both pumps never kick on at the same instant."
+
+## Page 5 · How it all connects (2026-10-26)
+Owner request: "Create an infographic page for every product brochure and webpage". The brochure is now six pages: front, light-mode, duo, ha-home, **infographic**, back. `infographic.html` → `infographic.pdf`/`infographic.png` comes from `brochures/_infographic/build_infographic.py`, which also splices it into `brochure.pdf` and rebuilds `spread.png` and `brochure-review.pdf`; this folder's build calls it at the end. Words come from the product's PUBLIC_BRIEF (no new claims); the diagram is labelled **Concept illustration · not to scale**, and the buyer's own equipment is drawn dashed and labelled "Your …".

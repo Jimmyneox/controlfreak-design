@@ -89,3 +89,6 @@ ims=[Image.open(f+'.png').convert('RGB') for f in names]
 c=Image.new('RGB',(ims[0].width*5+80,ims[0].height),'#888')
 for i,im in enumerate(ims): c.paste(im,(i*(im.width+20),0))
 c.save('spread.png');ims[0].save('brochure-review.pdf',save_all=True,append_images=ims[1:],resolution=110)
+# Page 5 "How it all connects" (owner 2026-10-26): render it and splice it in before the back page.
+import os as _os, subprocess as _sp
+_sp.run(['python3', _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '../../../_infographic/build_infographic.py'), 'C01'], check=True)

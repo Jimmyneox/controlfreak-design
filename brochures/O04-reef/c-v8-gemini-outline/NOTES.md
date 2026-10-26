@@ -57,3 +57,6 @@ Built Oct 25 2026 ~5:40 PM ET. Local only; nothing pushed or published.
 - No navy parent teardrop appears anywhere in this candidate (img srcs = reef-mark-drop-white, reef-mark-lockup(-white) only).
 - Attribution is text-only: "REEF CONTROL PRO · BROUGHT TO YOU BY CONTROL FREAK" (page-1 footer bar). Nothing to swap; no rebuild done.
 - Optional on the next rebuild: add `lockups/product/brought-to-you-by-control-freak-horizontal-dark.svg` (corporate PCB wordmark) to the back-page footer. Never use the PCB mark as the reef logo.
+
+## Page 5 · How it all connects (2026-10-26)
+Owner request: "Create an infographic page for every product brochure and webpage". The brochure is now six pages: front, light-mode, duo, ha-home, **infographic**, back. `infographic.html` → `infographic.pdf`/`infographic.png` comes from `brochures/_infographic/build_infographic.py`, which also splices it into `brochure.pdf` and rebuilds `spread.png` and `brochure-review.pdf`; this folder's build calls it at the end. Words come from the product's PUBLIC_BRIEF (no new claims); the diagram is labelled **Concept illustration · not to scale**, and the buyer's own equipment is drawn dashed and labelled "Your …".

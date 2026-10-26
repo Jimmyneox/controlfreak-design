@@ -34,3 +34,6 @@ front (dark phone + 6 callouts + badges Voice & Tap · Away Alerts · No Subscri
 - Marketing "1–3 enclosures / up to three" kit copy stays: a third enclosure works with fewer probes per box or extra probes added later.
 - Demo now: temps card "example readings · 2 of up to 3" (E1 92 °F, E2 88 °F); H2 "Two enclosures on schedule"; HA col shows "Shelf has room for a third · add a probe later" (no °F); story chip "2 enclosures → kept on schedule".
 - Voice: "via Home Assistant" — no "Alexa and Google built in" claims.
+
+## Page 5 · How it all connects (2026-10-26)
+Owner request: "Create an infographic page for every product brochure and webpage". The brochure is now six pages: front, light-mode, duo, ha-home, **infographic**, back. `infographic.html` → `infographic.pdf`/`infographic.png` comes from `brochures/_infographic/build_infographic.py`, which also splices it into `brochure.pdf` and rebuilds `spread.png` and `brochure-review.pdf`; this folder's build calls it at the end. Words come from the product's PUBLIC_BRIEF (no new claims); the diagram is labelled **Concept illustration · not to scale**, and the buyer's own equipment is drawn dashed and labelled "Your …".
