@@ -1,18 +1,17 @@
-# Product attribution lockups — “brought to you by Control Freak”
-**Mark:** PARENT COMPANY teardrop (navy droplet + white probe/cable motif) + CONTROL FREAK wordmark — vector-traced from
-`brand/parent-company/control-freak-parent-lockup-navy.jpg`. Do **not** substitute the pool-division line mark (`brand/masters/`, `lockups/pool/`) — that is for controlfreakpool.com only.
-
-Attribution text: “brought to you by” — Inter Medium, sentence case, outlined to paths (no font dependency).
-Construction per PARENT_BRAND §5: these files are the attribution group (text + company lockup); place the product mark above (stacked) or left (horizontal) with a gap or thin rule.
+# Product attribution lockups — "brought to you by Control Freak" (PARENT_BRAND v1.4)
+**Company mark:** corporate PCB circuit **wordmark** (no POOL AUTOMATION tagline) from `brand/corporate/control-freak-corporate-wordmark-*.svg`.
+Navy teardrop packs are retired → `_superseded-teardrop-2026-10/`. The product mark (e.g. Reef coral-teardrop) leads: place it above (stacked) or left (horizontal).
 
 | Variant | Company mark | Attribution | Ground |
 |---|---|---|---|
-| light | navy #03204D | slate #5b6670 | transparent, for light grounds |
-| dark | cream #efe9df | #c9c2b6 | transparent, for dark grounds |
-| light-on-plate | navy | slate | cream plate |
-| dark-on-plate | cream | #c9c2b6 | navy plate |
-| dark-gold-on-plate | gold #a8834f | #c9c2b6 | forest #0f2e2c plate |
-| currentColor | currentColor | currentColor @72% | inherit (SVG only) |
+| light | navy #0b1f3a | slate #5b6670 | transparent (light grounds) |
+| light-on-plate | navy | slate | cream #f4f1ea plate |
+| dark | white | mist #c3cddb | transparent (dark grounds) |
+| dark-on-plate | white | mist | navy #0b1f3a plate |
+| gold | gold #a8834f | #c9c2b6 | transparent (forest/dark grounds); -on-plate = forest #0f2e2c |
+| cream | cream #efe9df | #c9c2b6 | transparent (dark grounds); -on-plate = forest |
+| forest | forest #0f2e2c | slate | transparent (light grounds); -on-plate = cream #efe9df |
+| currentColor | currentColor | currentColor @72% | inherit |
 
-PNGs @1x/@2x in `png/` (cairosvg). `png/_contact-sheet.png` = preview of all.
-Min size: use the full company lockup when the teardrop is ≥ ~24 px tall; otherwise “by Control Freak” text-only.
+"brought to you by" = Inter Medium, outlined. PNG @1x/@2x + `png/_contact-sheet.png`. Rebuild: `python3 lockups/product/build_product_lockups.py` (from repo root).
+Theme colorways (gold/cream/forest) added 2026-10-25 per James: colors flow with the site theme. For anything else, use currentColor.

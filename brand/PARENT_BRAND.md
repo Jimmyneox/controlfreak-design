@@ -3,108 +3,105 @@
 **Owner (change control):** Control Freak Pool bot  
 **Production:** Control Freak Design (`Jimmyneox/controlfreak-design`)  
 **Audience:** Design, Platform, and anyone shipping company / pool / product surfaces  
-**Status:** v1.3 — 2026-10-25 (**parent company ≠ pool division**; product lockups = parent teardrop, confirmed)**  
+**Status:** **v1.4 — 2026-10-25** (corporate logo = PCB circuit wordmark lockup **everywhere**; navy teardrop **retired**)  
+**Supersedes:** v1.3 (parent = navy teardrop; pool = ladder/wave PCB line mark)
 
-**James (2026-10-25):** The navy **teardrop + horizontal CONTROL FREAK wordmark** is the **parent company** logo. The forest/cream/gold **PCB + ladder + wave** line mark (and metallic hero badge) is the **pool division** mark — not the parent company mark. Product apps/sites stay industry-specific and are not reskins of controlfreakpool.com.
+**James brand lock (via Chief, 2026-10-25 ~10:40 PM ET):** The PCB circuit **CONTROL FREAK** wordmark from James's new JPG (`brand/corporate-logo-2026-10-25/james-new-corporate-logo.jpg`) is the **corporate logo everywhere**, and **controlfreakpool.com uses it as the site corporate mark**. The navy teardrop is replaced.
+
+### What changed in v1.4
+- **Corporate / parent logo everywhere** = PCB circuit wordmark lockup (`brand/corporate/`).
+- **Navy teardrop = RETIRED** as parent/corporate. Do not use for corporate, press, or "brought to you by". Archived at `brand/_superseded/parent-teardrop-2026-10/`.
+- **"Brought to you by Control Freak"** lockups now use the corporate PCB wordmark (`lockups/product/`, rebuilt 2026-10-25).
+- **controlfreakpool.com** site chrome (nav/footer/favicon source) = corporate PCB mark.
+- Forest/cream/gold **ladder + wave** line marks are **superseded** for site chrome and company use → legacy/archive only (§3).
+- **Reef coral-in-teardrop stays the Reef Control Pro product mark** — unchanged. The PCB corporate mark is never the reef product logo.
 
 ---
 
-## 1. Brand architecture (three layers)
+## 1. Brand architecture
 
 | Layer | What it is | Marks | Who owns production |
 |---|---|---|---|
-| **Parent company** | Control Freak (the company) across all divisions | Navy teardrop + horizontal **CONTROL FREAK** wordmark (`brand/parent-company/`) | Design digitizes; Pool owns rules |
-| **Pool division** | Pool automation product line + **controlfreakpool.com** (Resort: ivory / lagoon / brass) | PCB frame + ladder + wave line mark (forest/cream/gold) + metallic hero for high-impact pool marketing | Design on `controlfreak-design`; Pool launch/ops |
-| **Product lines** | Reef, Basement, Reptile, Plunge, … — each with its **own** app, **website**, colors, look & feel for that industry | Product mark (Platform until James locks) + **“brought to you by Control Freak”** lockup | Platform (UX/content) + Design (public design as assigned) |
+| **Corporate (parent)** | Control Freak the company, across all divisions and on controlfreakpool.com | **PCB circuit CONTROL FREAK wordmark** — full lockup with **POOL AUTOMATION** tagline, or wordmark-only (`brand/corporate/`) | Design produces; Pool owns rules |
+| **Pool division** | Pool automation line + **controlfreakpool.com** (Resort: ivory / lagoon / brass) | Same corporate PCB mark (full lockup with POOL AUTOMATION is the natural pool-site lockup). Metallic hero badge: see §3 | Design; Pool launch/ops |
+| **Product lines** | Reef, Basement, Reptile, Plunge, … — own app, site, colors, industry look | **Product mark leads** (e.g. Reef coral-teardrop) + **"brought to you by Control Freak"** with corporate PCB wordmark | Platform (UX/content) + Design |
 
-**Do not conflate:** pool line marks are not the company logo. Company logo is not the pool site badge.
-
-Buyers should feel “a Control Freak company product for [hobby],” not “the pool website with a different logo,” and not “an unrelated brand.”
+**Do not conflate:** the corporate PCB mark is the company attribution, never a product's identity. Product marks are never the company logo.
 
 ---
 
-## 2. Parent company mark
+## 2. Corporate mark (PCB circuit wordmark)
+
+Source: James's JPG (white logo on navy pool photo). Digitized as clean vectors — no photo/raster embedded.
 
 | Asset | Path | Use |
 |---|---|---|
-| **Parent lockup (source JPG)** | `brand/parent-company/control-freak-parent-lockup-navy.jpg` | Owner-supplied: navy teardrop (drop + S-curve ending in a node) + horizontal CONTROL FREAK wordmark on white |
-| **SVG / reverse masters** | *Design to digitize into* `brand/parent-company/` (navy, reverse/cream, currentColor) | UI, print, corporate lockups, product “brought to you by” **if James confirms** |
+| Full lockup, white | `brand/corporate/control-freak-corporate-lockup-white.svg` | Light-on-dark: site hero/nav on dark, press, decks |
+| Full lockup, navy `#0b1f3a` | `brand/corporate/control-freak-corporate-lockup-navy.svg` | Dark-on-light |
+| Full lockup, currentColor | `brand/corporate/control-freak-corporate-lockup-currentColor.svg` | UI / CSS-colored |
+| Wordmark only (no tagline) — white / navy / currentColor | `brand/corporate/control-freak-corporate-wordmark-{white,navy,currentColor}.svg` | Non-pool corporate contexts, product attribution, tight chrome |
+| PNGs + preview sheets | `brand/corporate/png/` | Review / quick use |
+| Source JPG (provenance) | `brand/corporate-logo-2026-10-25/james-new-corporate-logo.jpg` (copy in `brand/corporate/`) | Reference only |
 
-**Wordmark:** horizontal **CONTROL FREAK** (single line), all caps, as in the parent JPG — not the stacked pool-division wordmark.
+**Which lockup:** use the **full lockup (POOL AUTOMATION)** on controlfreakpool.com and pool materials. Use the **wordmark-only** version for multi-division corporate use and all product "brought to you by" lockups (a reef/reptile product shouldn't say "pool automation").
 
-**Color (parent company):** navy ink matching the supplied art (approx. deep navy on white; exact hex from digitization). Do not recolor the teardrop to forest/gold/aqua/product accents.
+**Color (flexible, James 2026-10-25):** ink flows with the site theme. Published flats: **white**, **navy `#0b1f3a`**, **forest `#0f2e2c`**, **cream `#efe9df`**, **gold `#a8834f`**, plus **`currentColor`**. Themes may recolor with currentColor or use these flats (`control-freak-corporate-{lockup,wordmark}-{white,navy,forest,cream,gold,currentColor}.svg`). Geometry is locked; only the ink changes. Use one ink per lockup (don't tint traces/nodes separately), and keep contrast readable (e.g. gold on forest, cream on navy, forest on cream).
+
+**Construction notes:** horizontal bold-sans wordmark with stencil slots (top of first O, bottom of second O); bus traces above/below; left radiating burst ending in solid nodes; right traces with 45° bends ending in nodes. Don't redraw, rearrange nodes, stretch, or drop traces.
+
+**Min size:** full lockup ≥ 120 px wide (tagline legibility); wordmark-only ≥ 72 px wide; below that use text "Control Freak". Clear space ≥ height of the letter C on all sides.
 
 ---
 
-## 3. Pool division marks
+## 3. Legacy / superseded marks
 
-Motif: rounded PCB frame + vias, pool ladder into capsule, wave, stacked CONTROL / FREAK wordmark.
-
-| Asset | Path | When to use |
+| Mark | Status | Path |
 |---|---|---|
-| **Line master** | `brand/masters/control-freak-mark-currentColor.svg` (also `mark-core.svg`) | Pool site chrome, pool print, pool favicons |
-| **Forest / cream / gold flats** | `brand/masters/control-freak-mark-{forest,cream,gold}.svg` + PNG pairs | Pool division ink: forest `#0f2e2c`, cream `#efe9df`, gold `#a8834f` |
-| **Metallic hero** | `brand/hero/control-freak-hero-metallic.png` | **Pool** high-impact only: controlfreakpool.com heroes, pool press, pool trade-show — never on product co-brand lockups as the “company” mark |
+| **Navy teardrop + horizontal wordmark** (former parent, v1.1–v1.3) | **RETIRED 2026-10-25.** Not for corporate, press, attribution, or favicons. | `brand/_superseded/parent-teardrop-2026-10/` |
+| Teardrop "brought to you by" packs | **RETIRED** | `lockups/product/_superseded-teardrop-2026-10/` |
+| Forest/cream/gold **PCB frame + ladder + wave** line marks (`brand/masters/control-freak-mark-*.svg`) + `lockups/pool/` | **Superseded for site chrome and company use** by the corporate PCB mark. Legacy/archive only; don't use in new work unless James re-assigns them. | Left in place (not moved) so old references don't break |
+| Metallic hero badge (`brand/hero/…`) | Ladder/wave family — legacy. Don't use as the site corporate mark; any hero use needs a James OK. | — |
+| Legacy Platform PNGs `mark-core-navy.png` / `mark-core-white.png` | Don't use | — |
 
-**controlfreakpool.com** uses pool-division line marks in nav/footer; metallic hero only on high-impact pool heroes. That remains correct under this split.
-
-Legacy Platform PNGs `mark-core-navy.png` / `mark-core-white.png`: do not use for new work.
-
-Product PCB-family drafts (Platform until James locks): `PRODUCT_MARKS.md` and `masters/{reef,basement,reptile,plunge}-mark-*.svg` — these mirror **pool-division** grammar for product lines, not the parent teardrop.
+Product PCB-family drafts (`PRODUCT_MARKS.md`, `masters/{reef,basement,reptile,plunge}-mark-*.svg`) stay Platform drafts until James locks them; they aren't the corporate mark.
 
 ---
 
 ## 4. Color summary
 
-### Parent company
-| Role | Notes |
-|---|---|
-| Navy | As in parent JPG / digitized SVG |
-
-### Pool division mark ink
 | Role | Hex |
 |---|---|
+| Corporate navy (mark on light) | `#0b1f3a` |
+| Corporate white (mark on dark) | `#ffffff` |
 | Forest | `#0f2e2c` |
 | Cream | `#efe9df` |
-| Gold | `#a8834f` (accent only) |
+| Gold | `#a8834f` |
+| Any theme ink | `currentColor` variants |
+| Attribution text on light / dark | slate `#5b6670` / mist `#c3cddb` |
 
-### Pool site (Resort) — controlfreakpool.com only
-Ivory / lagoon / brass as on the live site. Do **not** default non-pool product sites to Resort.
-
-### Soft-UI (optional product kit)
-Navy `#12355B`, aqua `#19B3C9`, grey `#E9EEF4`, slate `#6F8BAB`, coral `#FF6B4A` warnings only — only where a product still uses that Platform kit. Not required for new industry sites.
-
-**Product visual systems:** full freedom for industry palettes. Mandatory shared element is the company attribution lockup (§5), not pool colors.
+**Pool site (Resort)** — ivory / lagoon / brass stays the controlfreakpool.com palette. The corporate mark sits on it in navy or white.  
+**Product visual systems:** full freedom for industry palettes. The required shared element is the attribution lockup (§5).
 
 ---
 
-## 5. “Brought to you by Control Freak” lockup
+## 5. "Brought to you by Control Freak" lockup
 
 ### Construction
-1. Product mark (largest)  
+1. Product mark (largest; e.g. Reef coral-teardrop)  
 2. Gap or thin rule  
-3. `brought to you by` (Inter; slate on light)  
-4. **Control Freak company identifier** — mark preferred when ≥ ~24 px tall  
+3. `brought to you by` (Inter Medium; slate on light, mist on dark)  
+4. **Corporate PCB wordmark** (wordmark-only, no tagline)
 
-Horizontal footer variant allowed; keep attribution + company mark as one group.
-
-### Which mark? (**confirmed James 2026-10-25 — A**)
-
-Product “brought to you by Control Freak” lockups use the **parent company teardrop + horizontal wordmark** — not the pool-division PCB line mark.
-
-Pool line marks stay on **controlfreakpool.com** chrome and pool-only materials. Do not ship the forest/cream/gold PCB lockup pack as the company / product attribution lockup.
-
-Design digitizes the parent JPG → SVG under `brand/parent-company/` and rebuilds product lockup packs from those masters.
+Packs: `lockups/product/brought-to-you-by-control-freak-{stacked,horizontal}-{light,dark}[-on-plate].svg` + `-currentColor`, PNGs in `lockups/product/png/`. Rebuild with `python3 lockups/product/build_product_lockups.py`.
 
 ### Copy
 - Exact: **brought to you by Control Freak**  
-- Tight chrome: **by Control Freak**  
-- Don’t use: “powered by,” “a Control Freak company” as a substitute slogan unless James adds it  
+- Tight chrome: **by Control Freak** (text-only when the mark would be < 72 px wide)  
+- Don't use "powered by" or "a Control Freak company" unless James adds them.
 
 ### Clear space & mins
 - Clear space around company mark ≥ 1/8 mark width  
-- Lockup unit clear space ≥ attribution line height  
-- Parent/company mark ≥ 28 px on heroes, ≥ 24 px in app, never < 20 px with the line present  
+- Corporate wordmark ≥ 72 px wide with the attribution line; otherwise text-only
 
 ---
 
@@ -112,22 +109,24 @@ Design digitizes the parent JPG → SVG under `brand/parent-company/` and rebuil
 
 | Surface | Mark |
 |---|---|
-| Corporate / multi-division / press about the company | Parent teardrop lockup |
-| controlfreakpool.com chrome & pool marketing | Pool line mark; metallic hero on pool heroes only |
-| Product apps, product websites, product brochures | Product identity + “brought to you by Control Freak” + **company mark per James A/B** |
-| OEM / private-label | Builder may lead; still include “brought to you by Control Freak” unless a written deal says otherwise |
+| Corporate / multi-division / press / decks | Corporate PCB lockup (wordmark-only, or full lockup for pool topics) |
+| **controlfreakpool.com** nav, footer, favicon source | **Corporate PCB mark** (full lockup with POOL AUTOMATION; wordmark-only in tight nav) |
+| Pool marketing / print | Corporate PCB full lockup |
+| Product apps, sites, brochures (e.g. O04 Reef) | **Product mark leads** + "brought to you by Control Freak" with corporate PCB wordmark |
+| OEM / private-label | Builder may lead; still include "brought to you by Control Freak" unless a written deal says otherwise |
 
 ---
 
-## 7. Don’ts
+## 7. Don'ts
 
-1. Don’t call the PCB+ladder mark the parent company logo.  
-2. Don’t call the teardrop the pool badge or put it in place of the pool metallic hero on pool heroes without a deliberate redesign.  
-3. Don’t clone controlfreakpool.com’s Resort look onto other industry sites.  
-4. Don’t put App Store–only internals in the public `controlfreak-design` repo (`PUBLIC.md`).  
-5. Don’t recolor, stretch, or crop either official mark family outside published flats.  
-6. Don’t claim water chemistry/balancing or general off-LAN remote control unless the manual supports it. Away-from-home **alerts** (push/text/email/alarm) are allowed per James Oct 25; HA integration stays local-only.  
-7. Don’t publish unfinished product marks until James locks them.
+1. Don't use the navy teardrop as the company/parent/attribution mark (retired).  
+2. Don't use the PCB corporate mark as a product logo (e.g. as the reef mark), and don't swap a product mark for it.  
+3. Don't use the ladder/wave line marks for site chrome or company use in new work.  
+4. Don't clone controlfreakpool.com's Resort look onto other industry sites.  
+5. Don't put App Store–only internals in the public `controlfreak-design` repo (`PUBLIC.md`).  
+6. Don't recolor, stretch, crop, or re-arrange the corporate mark outside the published flats.  
+7. Don't claim water chemistry/balancing or general off-LAN remote control unless the manual supports it. Away-from-home **alerts** (push/text/email/alarm) are allowed per James Oct 25; HA integration stays local-only.  
+8. Don't publish unfinished product marks until James locks them.
 
 ---
 
@@ -135,14 +134,14 @@ Design digitizes the parent JPG → SVG under `brand/parent-company/` and rebuil
 
 | Item | Owner |
 |---|---|
-| Digitize parent JPG → SVG / reverse | Design (in progress) |
-| Product lockups = parent teardrop (A) | **Confirmed** — Design rebuilding packs |
-| Pool site rebuild from `site/_mirror/` + pool line marks in chrome | Design (local commit held for push OK) |
-| Composed lockup packs (parent company for products; pool-only packs separate) | Design after parent SVG digitize |
-| Favicons | Pool site → pool line mark; corporate / product attribution → parent teardrop once digitized |
+| Corporate PCB SVG masters | **Locked by James 2026-10-25** ("They look great"); colorways white/navy/forest/cream/gold/currentColor |
+| Product attribution packs → corporate PCB | **Done 2026-10-25** (`lockups/product/`) |
+| controlfreakpool.com chrome → corporate PCB mark | Design — site source not in this local work tree; swap nav/footer/favicon when the site build is touched (no deploy without OK) |
+| Favicon / small-size mark (nodes + C, or simplified) | Design — proposal needed; the full wordmark doesn't read at 16–32 px |
+| O04 brochure attribution | Text-only "BROUGHT TO YOU BY CONTROL FREAK" in c-v8; no teardrop present. Optional: add corporate wordmark to the back-page footer on the next rebuild |
 
 ---
 
 ## 9. Change control
 
-Parent/company vs pool-division rules and this file change only via Control Freak Pool / James. Design produces assets; Platform owns product marks until James locks them.
+Corporate / pool / product mark rules and this file change only via Control Freak Pool / James. **Pool owns the rules; Design produces assets;** Platform owns product marks until James locks them. v1.4 was locked by James via Chief on 2026-10-25.
