@@ -79,7 +79,7 @@ hapg=f'''<div class="pg hapg"><div class="hah"><div><div class="live">UNIFIED EC
 <div class="col"><h6>✦ Home</h6><div class="gt"><b>Front door</b><span>Locked</span></div><div class="gt"><b>Thermostat</b><span>Away · 62 °F</span></div><div class="gt"><b>Dehumidifier</b><span>On schedule · 48% RH</span></div><div class="gt"><b>Lights</b><span>Away mode · off</span></div></div></div></div>
 <div class="hph">{haph}</div>
 <div class="story"><h3>When you’re away and the forecast turns…</h3><span class="ch">Storm mode · 1 storm → 4 things handled</span><div class="g"><div><b>Pumps take turns</b>The lead pump works the storm; the second waits its turn and only steps in if it’s needed.</div><div><b>You get a note</b>Push, text or email wherever you are — the siren at home sounds even if the internet is down.</div><div><b>Ask, don’t open</b>“Alexa, how’s the sump?” through Home Assistant — no extra vendor app.</div><div><b>Morning summary</b>“Pit at 6 in · Pump A ran 14 times · both pumps healthy.”</div></div></div>
-<div class="bot"><span>HA ON YOUR HOME NETWORK · NEVER CLOUD HA · VOICE VIA HA BRIDGES</span><span class="cc" style="position:static">Concept · example HA dashboard · device mock</span></div></div>'''
+<div class="bot"><span>HA ON YOUR HOME NETWORK · VOICE: ALEXA · GOOGLE · SIRI</span><span class="cc" style="position:static">Concept · example HA dashboard · device mock</span></div></div>'''
 bars=lambda v,c='#3d8bff':''.join(f'<i style="height:{x}%;background:{c}"></i>' for x in v)
 back=f'''<div class="pg pg2"><div class="live">BASEMENT GUARD PRO · WHAT IT DOES</div>
 <div class="open"><div><h1>Stop listening for the pump.</h1><p>Plug the two pumps you already own into the Power Hub, drop in the level sensor, scan the QR code. <b>No rewiring.</b> From then on the pumps take turns, the pit level is a number you can see, and leaks and cold pipes get noticed early — whether you’re upstairs or a state away.</p>
@@ -113,3 +113,6 @@ c=Image.new('RGB',(ims[0].width*5+80,ims[0].height),'#888')
 for i,im in enumerate(ims): c.paste(im,(i*(im.width+20),0))
 c.save('spread.png')
 ims[0].save('brochure-review.pdf',save_all=True,append_images=ims[1:],resolution=110)
+# Page 5 "How it all connects" (owner 2026-10-26): render it and splice it in before the back page.
+import os as _os, subprocess as _sp
+_sp.run(['python3', _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '../../_infographic/build_infographic.py'), 'C03'], check=True)

@@ -56,8 +56,8 @@ hapg=f'''<div class="pg hapg"><div class="hah"><div><div class="live">HOME ASSIS
 <div class="col"><h6>◆ Plunge</h6><div class="gt"><b>Chiller · running</b><span>Power switched by the Power Hub</span></div><div class="gt"><b>Flow · OK</b><span>Ozone / UV on with pump</span></div><div class="gt am"><b>Filter · Pro</b><span>Clean the filter soon</span></div><div class="gt"><b>Air · 30 °F</b><span>Winter mode · pump on</span></div></div>
 <div class="col"><h6>✦ Your home · via Home Assistant</h6><div class="gt"><b>Deck lights</b><span>Owner device · example</span></div><div class="gt"><b>Thermostat</b><span>Owner device · example</span></div><div class="gt"><b>Alerts</b><span>Push · text · email · alarm</span></div></div></div></div>
 <div class="hph">{phone('light','4.9in')}</div>
-<div class="story"><h3>A cold night, handled.</h3><span class="ch">Example · winter mode</span><div class="g"><div><b>Winter mode</b>The pump runs when the air nears freezing, protecting outdoor tubs and pipes.</div><div><b>Keeps working</b>Schedules run on the controller.</div><div><b>Alerts that reach you</b>Push, text, email and alarm, including away from home.</div><div><b>Local</b>Home Assistant stays on your home network — never cloud Home Assistant.</div></div></div>
-<div class="bot"><span>HA ON YOUR HOME NETWORK · NEVER CLOUD HA · OWNER DEVICES VIA HA</span><span class="cc" style="position:static">Concept · example HA dashboard</span></div></div>'''
+<div class="story"><h3>A cold night, handled.</h3><span class="ch">Example · winter mode</span><div class="g"><div><b>Winter mode</b>The pump runs when the air nears freezing, protecting outdoor tubs and pipes.</div><div><b>Keeps working</b>Schedules run on the controller.</div><div><b>Alerts that reach you</b>Push, text, email and alarm, including away from home.</div><div><b>Local</b>Home Assistant runs on the controller on your home network — not in someone else’s cloud.</div></div></div>
+<div class="bot"><span>HA ON YOUR HOME NETWORK · VOICE: ALEXA · GOOGLE · SIRI</span><span class="cc" style="position:static">Concept · example HA dashboard</span></div></div>'''
 bars=lambda v,c='#5fb4ff':''.join(f'<i style="height:{x}%;background:{c}"></i>' for x in v)
 back=f'''<div class="pg pg2"><div class="live">COLD PLUNGE CONTROL PRO · WHAT IT DOES</div>
 <div class="open"><div><h1>Your plunge, ready when you are.</h1><ul class="prob"><li>Most plunges run on the chiller’s own basic thermostat or a Wi-Fi plug. Schedules are unreliable — owners report water still a few degrees warm at the set time.</li><li>A clogged filter slows flow to a trickle and the chiller shuts off — or runs dry and wears out.</li><li>Closed apps go offline after a router change, and a chiller is stranded if its maker disappears.</li></ul>
@@ -89,3 +89,6 @@ ims=[Image.open(f+'.png').convert('RGB') for f in names]
 c=Image.new('RGB',(ims[0].width*5+80,ims[0].height),'#888')
 for i,im in enumerate(ims): c.paste(im,(i*(im.width+20),0))
 c.save('spread.png');ims[0].save('brochure-review.pdf',save_all=True,append_images=ims[1:],resolution=110)
+# Page 5 "How it all connects" (owner 2026-10-26): render it and splice it in before the back page.
+import os as _os, subprocess as _sp
+_sp.run(['python3', _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), '../../../_infographic/build_infographic.py'), 'C01'], check=True)
