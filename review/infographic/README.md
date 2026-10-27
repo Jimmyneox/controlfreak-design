@@ -20,3 +20,14 @@ Review-only branch for Jimmy and the PM (2026-10-27). Nothing here ships; delete
 - **v1-O15.png** is refreshed: node 06 is now "Your equipment" (dashed = gear you own) and keeps the natural-day fact.
 
 All versions carry the safety line and the "Works with the Control Freak gear you already own…" line word for word, three cited numbers, and Concept labels.
+
+## v4 (O04 first, for direction)
+
+Jimmy rejected v1 and v2: page 6 must look like the brochure pages around it, and like his references (3D, not flat).
+
+- **v4-O04.png**: a light reef page built from the pack's own fonts, CSS, lockup and light-mode phone.
+  - The hub is a concept 3D render (three.js) of the controller + Power Hub, sitting on a raised platform inside a dotted orbit.
+  - The three problem → fix pairs are raised capsules with bevelled icon wells and extruded numerals.
+  - A folded-ribbon flow, slab stat cards, and the safety and gear lines word for word.
+  - No orange, per Jimmy: the accent is violet, from the reef's actinic light and purple corals.
+- **v4-O04-in-context.png**: page 5, the new page 6 and page 7, side by side.
