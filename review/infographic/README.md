@@ -31,3 +31,18 @@ Jimmy rejected v1 and v2: page 6 must look like the brochure pages around it, an
   - A folded-ribbon flow, slab stat cards, and the safety and gear lines word for word.
   - No orange, per Jimmy: the accent is violet, from the reef's actinic light and purple corals.
 - **v4-O04-in-context.png**: page 5, the new page 6 and page 7, side by side.
+
+## v5: O04 as a two-page spread
+
+Jimmy said there was too much on each page, so the page 6 content now runs across two pages in the v4 style. The brochure becomes 8 pages.
+
+- **v5-O04-p6.png, "What goes wrong, and the fix":** an "Ask yourself" box reworded from the brief, then the 3 problem → fix pairs around the 3D hub.
+- **v5-O04-p7.png, "How it all connects":**
+  - the phone with the leak alert
+  - a 4-step "A day with the tank" strip (feed, top-off, heater cutoff, dosing (Pro)), every step checked against the PUBLIC_BRIEF
+  - the ribbon flow, then Home Assistant
+  - the 3 stats
+  - the safety line and the gear line word for word
+- **v5-O04-pages-5-8.png:** old page 5, new page 6, new page 7, old page 7 side by side.
+
+Body text is 13px or larger. No orange. Left out: the Starter/Pro tables, the outlet list, the keyed-sensor legend, refill reminders and dimming.
