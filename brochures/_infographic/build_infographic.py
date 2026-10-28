@@ -332,7 +332,9 @@ def site_gemini(code: str, root: Path) -> None:
     t = idx.read_text(encoding="utf-8")
     if '<section id="connects">' in t:
         a = t.index('<section id="connects">'); b = t.index("</section>", a)
-        t = t[:a] + t[a:b].replace("assets/how-it-connects.svg", "assets/how-it-connects.png") + t[b:]
+        sec = t[a:b].replace("assets/how-it-connects.svg", "assets/how-it-connects.png")
+        sec = sec.replace('<span class="tag">Concept</span>', "")   # the art carries its own Concept labels
+        t = t[:a] + sec + t[b:]
         idx.write_text(t, encoding="utf-8")
     print("site gemini art", d.relative_to(root))
 
