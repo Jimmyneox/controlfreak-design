@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Reef Control Pro · Live demo</title>
+<meta name="description" content="Reef Control Pro live demo: a simulated reef tank you can feed, light and test. Concept product in development; demo values are simulated.">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#020B1D">
+<link rel="icon" href="assets/mark/reef-mark-drop-white.svg" type="image/svg+xml">
+<link rel="stylesheet" href="reef-demo.css">
+<!-- Fish sprites are added by reef-demo.js; preload so they are not discovered late. -->
+<link rel="preload" as="image" type="image/webp" href="assets/fish/blue-tang.webp">
+<link rel="preload" as="image" type="image/webp" href="assets/fish/yellow-tang.webp">
+<link rel="preload" as="image" type="image/webp" href="assets/fish/clownfish.webp">
+<link rel="preload" as="image" type="image/webp" href="assets/fish/royal-gramma.webp">
+<link rel="preload" as="image" type="image/webp" href="assets/fish/chromis.webp">
+</head>
+<body>
+<!--
+  Reef Control Pro full-screen live demo. Marketing simulation only:
+  every value is generated in reef-demo.js, there are no network calls.
+  Capability rules: controlfreak-platform/products/O04-reef/CAPABILITIES.md
+-->
+
+<div class="tank" aria-hidden="true">
+  <!-- LCP image. Portrait gets the 9:16 plate, landscape the 16:9 plate. -->
+  <picture class="tank-bg">
+    <source media="(orientation: portrait)" type="image/webp"
+      srcset="assets/bg/reef-bg-mobile-720.webp 720w, assets/bg/reef-bg-mobile-1080.webp 1080w, assets/bg/reef-bg-mobile-1440.webp 1440w"
+      sizes="100vw">
+    <source media="(orientation: portrait)" type="image/jpeg"
+      srcset="assets/bg/reef-bg-mobile-720.jpg 720w, assets/bg/reef-bg-mobile-1080.jpg 1080w, assets/bg/reef-bg-mobile-1440.jpg 1440w"
+      sizes="100vw">
+    <source type="image/webp"
+      srcset="assets/bg/reef-bg-desktop-1600.webp 1600w, assets/bg/reef-bg-desktop-2560.webp 2560w, assets/bg/reef-bg-desktop-3840.webp 3840w"
+      sizes="100vw">
+    <img src="assets/bg/reef-bg-desktop-1600.jpg"
+      srcset="assets/bg/reef-bg-desktop-1600.jpg 1600w, assets/bg/reef-bg-desktop-2560.jpg 2560w, assets/bg/reef-bg-desktop-3840.jpg 3840w"
+      sizes="100vw" width="1600" height="900" alt="" fetchpriority="high">
+  </picture>
+  <div class="rays"></div>
+  <div class="caustics"></div>
+  <div class="particles"></div>
+  <div class="fish-layer"></div>
+  <div class="flakes"></div>
+  <div class="night"></div>
+</div>
+
+<div class="ui">
+  <header class="site-head">
+    <a class="brand" href="./">
+      <img src="assets/mark/reef-mark-lockup-white.svg" width="4344" height="1932" alt="Reef mark, Control Freak">
+    </a>
+    <p class="tagline">Put the Control Freak on it.</p>
+    <!-- TODO(owner): beta sign-up URL not decided yet; replace #beta. -->
+    <a class="beta" href="#beta">Join the beta</a>
+  </header>
+
+  <div class="spacer"></div>
+
+  <section class="panel" id="panel" aria-label="Reef Control Pro app (simulation)" data-expanded="false">
+    <div class="panel-head">
+      <h1 class="panel-title">Reef Control Pro</h1>
+      <div class="chips">
+        <span class="chip">Demo</span>
+        <span class="chip chip-local"><span class="dot" aria-hidden="true"></span>Local</span>
+        <span class="chip chip-sim">Simulation</span>
+      </div>
+    </div>
+
+    <div class="alerts" id="alerts" role="alert"></div>
+
+    <div class="readings">
+      <div class="tile tile-lg" id="t-tank">
+        <span class="t-label">Tank</span>
+        <span class="t-value" id="v-tank">78.4&nbsp;°F</span>
+        <span class="t-sub">Probe 1</span>
+      </div>
+      <div class="tile tile-lg" id="t-sump">
+        <span class="t-label">Sump</span>
+        <span class="t-value" id="v-sump">77.9&nbsp;°F</span>
+        <span class="t-sub">Probe 2</span>
+      </div>
+      <div class="tile" id="t-ph">
+        <span class="t-label">pH <span class="pro">(Pro)</span></span>
+        <span class="t-value">8.2</span>
+        <span class="t-sub">example reading</span>
+      </div>
+      <div class="tile" id="t-ato">
+        <span class="t-label">Top-off</span>
+        <span class="t-value" id="v-ato">Level OK</span>
+        <span class="t-sub" id="s-ato">&nbsp;</span>
+      </div>
+      <div class="tile" id="t-leak">
+        <span class="t-label">Leak</span>
+        <span class="t-value" id="v-leak">Dry</span>
+        <span class="t-sub">Under the stand</span>
+      </div>
+    </div>
+
+    <fieldset class="modes">
+      <legend>Mode</legend>
+      <div class="seg">
+        <label><input type="radio" name="mode" value="normal" checked><span>Normal</span></label>
+        <label><input type="radio" name="mode" value="feed"><span>Feed</span></label>
+        <label><input type="radio" name="mode" value="maint"><span>Maintenance</span></label>
+      </div>
+      <p class="mode-status" id="mode-status" aria-live="polite">Pumps running.</p>
+    </fieldset>
+
+    <button class="more-toggle" type="button" aria-expanded="false" aria-controls="more">
+      <span class="more-closed">Outlets, dosing and demo alerts</span>
+      <span class="more-open">Show less</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+
+    <div class="more" id="more">
+      <section class="block" aria-labelledby="h-outlets">
+        <h2 id="h-outlets">Power Hub <span class="h-note">8 outlets</span></h2>
+        <ul class="outlets" id="outlets"></ul>
+      </section>
+
+      <section class="block" aria-labelledby="h-dosing">
+        <h2 id="h-dosing">Dosing <span class="pro">(Pro)</span></h2>
+        <ul class="dosing" id="dosing"></ul>
+      </section>
+
+      <section class="block" aria-labelledby="h-scen">
+        <h2 id="h-scen">Try a demo alert</h2>
+        <div class="scen">
+          <button type="button" class="btn" data-scenario="low">Low temperature</button>
+          <button type="button" class="btn" data-scenario="leak">Water leak</button>
+          <button type="button" class="btn btn-quiet" data-reset>Reset</button>
+        </div>
+      </section>
+
+      <p class="panel-disclaimer">Marketing simulation. Demo values are simulated; this is not the real app.</p>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="attrib">Reef Control Pro · brought to you by Control Freak</p>
+    <p class="disclaimer">Concept: a product in development. Design, contents, and features may change. Demo values are simulated.</p>
+  </footer>
+</div>
+
+<div class="push" id="push" role="status" aria-live="polite" hidden>
+  <span class="push-tag">Simulated push notification</span>
+  <span class="push-app">Reef Control Pro</span>
+  <span class="push-body" id="push-body"></span>
+</div>
+
+<script src="reef-demo.js" defer></script>
+</body>
+</html>
