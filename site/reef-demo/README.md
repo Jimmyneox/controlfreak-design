@@ -25,7 +25,7 @@ Open http://localhost:8000/reef-demo/. Screenshot hooks: `?state=feed`, `?state=
 | `reef-demo.css` | Tank, fish motion, glass panel, bottom sheet (≤760 px), reduced motion |
 | `reef-demo.js` | Fish and particles, outlet/mode/scenario state, jitter, parallax, tab-hidden pause |
 | `assets/bg/` | ChatGPT backgrounds, unmodified. Portrait gets the 9:16 plate via `<picture>` |
-| `assets/fish/*.webp` | Demo-object sprites from `brand/demo-objects/o04-reef/fish/`, re-encoded **lossless** (pixel-identical to the PNGs, checked) |
+| `assets/fish/*.webp` | Demo-object sprites from `brand/demo-objects/o04-reef/fish/`, made by `brand/demo-objects/o04-reef/tools/resize_fish_web.py`: Lanczos downscale (premultiplied alpha) to 2× the largest displayed CSS width, capped at 260 px, then lossy WebP q80 with alpha_q 100. Edge check: `_review/fish-edge-check-clownfish-3x.png` (PNG left, WebP right) |
 | `assets/mark/` | Approved white Reef lockup and drop, from `brochures/O04-reef/approved-mark/` |
 | `assets/fonts/` | Space Grotesk and Inter woff2 (OFL, licenses included), from `controlfreak-platform/book/assets/fonts/` |
 | `_review/` | Review screenshots at 1440×900 and 390×844 |
@@ -36,7 +36,7 @@ Open http://localhost:8000/reef-demo/. Screenshot hooks: `?state=feed`, `?state=
 - **Maintenance**: the same pumps stay Off until Normal is tapped.
 - **Main light Off**: the scene switches to moonlight blue at once (on/off, no fade).
 - **Low temperature** demo: the tank reading falls to 74.2 °F, the Heater outlet turns On, then a red alert and a simulated push appear.
-- **Water leak** demo: Leak shows "Leak", top-off shows "Overfill lockout / Locked out", then a red alert and a simulated push appear.
+- **Water leak** demo: Leak shows "Leak", top-off shows "Locked out / Leak detected" ("Overfill lockout" is kept for a real overfill, which the demo doesn't simulate), then a red alert and a simulated push appear.
 - With the return and powerheads all Off, drifting particles and caustics slow to 30%.
 - When the tab is hidden, all animations pause, and so do the jitter, countdown and scenario timers.
 - `prefers-reduced-motion: reduce` gives a static scene: fish placed but still, no rays, caustics or particles, static flakes, no parallax.
@@ -44,4 +44,3 @@ Open http://localhost:8000/reef-demo/. Screenshot hooks: `?state=feed`, `?state=
 ## Open items
 
 - `#beta` is a placeholder; the sign-up URL is not decided (see the TODO in `index.html`).
-- Fish sprites are 480 px wide, but they show at about 60–260 CSS px. They are the page's LCP element; Chrome skips the full-viewport background. Smaller or lossy sprite exports from the art pipeline would lift the mobile Lighthouse performance score (78).

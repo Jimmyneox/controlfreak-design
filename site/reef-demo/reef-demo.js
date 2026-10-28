@@ -24,7 +24,7 @@
     { sp: "yellow-tang",  dir: "L", depth: "far",  s: 0.56, y: 44, ym: 31, x: 44, dur: 48, dl: -29, und: 0.8 },
     { sp: "blue-tang",    dir: "R", depth: "far",  s: 0.62, y: 33, ym: 27, x: 22, dur: 52, dl: -42, und: 0.85 }
   ];
-  var DIMS = { "blue-tang": [480, 227], "chromis": [480, 218], "clownfish": [480, 273], "royal-gramma": [480, 225], "yellow-tang": [480, 305] };
+  var DIMS = { "blue-tang": [260, 123], "chromis": [182, 83], "clownfish": [260, 148], "royal-gramma": [258, 121], "yellow-tang": [260, 165] };
   var layer = $(".fish-layer");
   FISH.forEach(function (f) {
     var el = document.createElement("div");
@@ -218,8 +218,8 @@
     scenarioButtons();
     $("#v-leak").textContent = "Leak";
     $("#t-leak").classList.add("is-warn");
-    $("#v-ato").textContent = "Overfill lockout";
-    $("#s-ato").textContent = "Locked out";
+    $("#v-ato").textContent = "Locked out";
+    $("#s-ato").textContent = "Leak detected";
     $("#t-ato").classList.add("is-warn");
     showAlert("Water leak detected", "Top-off locked out");
     push("Water leak detected under the stand. Top-off locked out.");
